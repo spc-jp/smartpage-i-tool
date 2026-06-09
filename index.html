@@ -124,7 +124,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .ie{font-size:12px;color:var(--gold);margin-top:4px;}
 .divider{height:1px;background:rgba(255,255,255,0.08);margin:24px 0;}
 
-/* ★コピーカード：3枚固定 */
 .cpcard{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 24px;margin-bottom:14px;cursor:pointer;transition:all 0.25s;}
 .cpcard:hover{border-color:var(--a1);background:rgba(1,121,232,0.08);transform:translateY(-2px);}
 .cpcard.on{border-color:var(--a1);background:rgba(1,121,232,0.15);box-shadow:0 0 0 3px rgba(1,121,232,0.2);}
@@ -176,7 +175,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .prevhdr{background:rgba(255,255,255,0.06);border-radius:14px 14px 0 0;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.1);}
 .prevdot{width:10px;height:10px;border-radius:50%;}
 
-/* プレビュー枠を別タブ誘導UIに変更 */
 .prevframe{width:100%;background:#f8f9fa;border-radius:0 0 14px 14px;padding:40px 20px;}
 .p-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 .p-icon{font-size:48px;margin-bottom:16px;}
@@ -258,7 +256,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 </div>
 
 <div class="hero">
-  <div class="hbrand">SMILE PLUS CONSULTING × i-mobile</div>
+  <div class="hbrand">A proposal from i-mobile</div>
   <div class="htag">Smartpage-i</div>
   <div class="hsub">AIが御社の集客課題を診断し、ホームページを即時生成します</div>
 </div>
@@ -385,12 +383,11 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span>
   </div>
   
-  <!-- 枠内のiframeを撤廃し、別タブ誘導用のUIに変更 -->
   <div class="prevframe">
     <div class="p-msg">
       <div class="p-icon">✨</div>
       <div class="p-title">ハイクオリティな提案サイトが完成しました！</div>
-      <div class="p-desc">お使いの環境ではセキュリティ制限により画面内プレビューができません。<br>下のボタンをクリックして、別タブでフル画面のプレビューをご確認ください。</div>
+      <div class="p-desc">下のボタンをクリックして、別タブでフル画面のプレビューをご確認ください。</div>
       <button class="btn-open" id="b_open_prev">🚀 別タブでプレビューを開く</button>
     </div>
   </div>
@@ -617,209 +614,39 @@ window.genHP = function(){
 <title>${comp} | ご提案ホームページ</title>
 <script src="https://cdn.tailwindcss.com"><\/script>
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: { primary: '${themeColor}' }
-      }
-    }
-  }
+  tailwind.config = { theme: { extend: { colors: { primary: '${themeColor}' } } } }
 <\/script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"><\/script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
-  body { font-family: 'Noto Sans JP', sans-serif; scroll-behavior: smooth; padding-bottom: 80px; }
-  .hero-bg {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${bgUrl}');
-    background-size: cover;
-    background-position: center;
-  }
-  .floating-btn {
-    position: fixed; bottom: 0; left: 0; width: 100%; z-index: 999;
-    display: flex; box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-  }
+  body { font-family: 'Noto Sans JP', sans-serif; }
+  .hero-bg { background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${bgUrl}'); background-size: cover; background-position: center; }
 </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-  <!-- Header -->
+<body class="bg-gray-50">
   <header class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="#" class="font-black text-xl text-primary tracking-wider hover:opacity-80 transition">${comp}</a>
-      <nav class="hidden md:flex gap-6 text-sm font-bold text-gray-600 items-center">
-        <a href="#problem" class="hover:text-primary transition">選ばれる理由</a>
-        <a href="#service" class="hover:text-primary transition">サービス</a>
-        <a href="#voices" class="hover:text-primary transition">お客様の声</a>
-        <a href="#contact" class="px-6 py-2.5 bg-primary text-white rounded-full hover:opacity-90 transition shadow">お問い合わせ</a>
-      </nav>
+      <a href="#" class="font-black text-xl text-primary tracking-wider">${comp}</a>
     </div>
   </header>
-
-  <!-- Hero -->
   <section class="hero-bg text-white py-32 px-4 text-center">
-    <div class="max-w-4xl mx-auto" data-aos="fade-up">
-      <span class="inline-block py-1.5 px-5 rounded-full bg-black/40 border border-white/20 text-sm font-bold mb-6 text-white backdrop-blur-md">
-        📍 ${regValue}の皆様に選ばれています
-      </span>
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight drop-shadow-lg">${cp.catch}</h1>
-      <p class="text-base md:text-xl opacity-90 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">${cp.sub}</p>
-      <div class="hidden md:flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#contact" class="px-8 py-4 bg-primary text-white font-bold rounded-full hover:-translate-y-1 transition transform shadow-lg text-lg flex items-center justify-center">
-          <i class="fa-regular fa-envelope mr-2"></i> 無料相談・お問い合わせ
-        </a>
-        <a href="tel:0000000000" class="px-8 py-4 bg-white/20 text-white font-bold rounded-full hover:bg-white/30 hover:-translate-y-1 transition transform backdrop-blur-sm border border-white/30 text-lg flex items-center justify-center">
-          <i class="fa-solid fa-phone mr-2"></i> 000-000-0000
-        </a>
-      </div>
-    </div>
+    <h1 class="text-4xl font-black mb-6">${cp.catch}</h1>
+    <p class="text-lg opacity-90">${cp.sub}</p>
   </section>
-
-  <!-- Problem & Solution -->
-  <section id="problem" class="py-20 px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="bg-gray-100 rounded-3xl p-8 md:p-12 text-center shadow-inner mb-16" data-aos="fade-up">
-        <h2 class="text-2xl font-black text-gray-900 mb-8"><span class="text-primary border-b-2 border-primary">こんなお悩み</span> ありませんか？</h2>
-        <ul class="text-left max-w-lg mx-auto">
-          ${consHtml}
-        </ul>
-      </div>
-      
-      <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-        <div class="inline-block bg-primary/10 text-primary font-bold px-4 py-1 rounded-full text-sm mb-4">私たちが解決します</div>
-        <h2 class="text-3xl font-black text-gray-900 mb-6">選ばれる確かな理由があります</h2>
-        <p class="text-lg text-gray-600 leading-relaxed font-bold bg-white p-6 rounded-xl shadow-sm border border-gray-100 inline-block">
-          「${strValue}」
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Service -->
-  <section id="service" class="py-20 px-4 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-3xl font-black text-gray-900 mb-4">サービス内容</h2>
-        <div class="w-16 h-1 bg-primary mx-auto rounded"></div>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col sm:flex-row hover:shadow-md transition group" data-aos="fade-right">
-          <div class="sm:w-2/5 h-48 sm:h-auto bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600');"></div>
-          <div class="p-6 sm:w-3/5 flex flex-col justify-center relative z-10 bg-gray-50">
-            <span class="text-xs font-bold text-primary mb-2 block">SERVICE 01</span>
-            <h3 class="text-xl font-bold mb-3">メインサービス</h3>
-            <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">お客様の主力事業や強みをここに記載します。詳細な説明が入ります。</p>
-            <a href="#" class="text-primary font-bold text-sm hover:underline mt-auto">詳しく見る <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
-          </div>
-        </div>
-        <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col sm:flex-row hover:shadow-md transition group" data-aos="fade-left">
-          <div class="sm:w-2/5 h-48 sm:h-auto bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600');"></div>
-          <div class="p-6 sm:w-3/5 flex flex-col justify-center relative z-10 bg-gray-50">
-            <span class="text-xs font-bold text-primary mb-2 block">SERVICE 02</span>
-            <h3 class="text-xl font-bold mb-3">サポート・アフターケア</h3>
-            <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">提供後の充実したサポート体制について記載します。安心のアフターフォロー。</p>
-            <a href="#" class="text-primary font-bold text-sm hover:underline mt-auto">詳しく見る <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Voices (お客様の声) -->
-  <section id="voices" class="py-20 px-4 bg-gray-50">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-3xl font-black text-gray-900 mb-4">お客様の声</h2>
-        <div class="w-16 h-1 bg-primary mx-auto rounded"></div>
-        <p class="mt-4 text-gray-600">${regValue}の皆様から喜びの声をいただいています。</p>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative" data-aos="fade-up" data-aos-delay="100">
-          <i class="fa-solid fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
-          <div class="flex items-center gap-4 mb-6 relative z-10 pl-8">
-            <img src="${voiceImg1}" class="w-16 h-16 rounded-full object-cover border-2 border-primary/20">
-            <div>
-              <div class="flex text-yellow-400 text-xs mb-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-              <div class="text-sm text-gray-500 font-bold">${regValue} / 30代</div>
-            </div>
-          </div>
-          <p class="text-gray-700 leading-relaxed text-sm font-medium">「最初は不安でしたが、親身になって相談に乗っていただき安心してお任せすることができました。仕上がりにも大変満足しています。また次回もお願いしたいです！」</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative" data-aos="fade-up" data-aos-delay="200">
-          <i class="fa-solid fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
-          <div class="flex items-center gap-4 mb-6 relative z-10 pl-8">
-            <img src="${voiceImg2}" class="w-16 h-16 rounded-full object-cover border-2 border-primary/20">
-            <div>
-              <div class="flex text-yellow-400 text-xs mb-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-              <div class="text-sm text-gray-500 font-bold">${regValue} / 40代</div>
-            </div>
-          </div>
-          <p class="text-gray-700 leading-relaxed text-sm font-medium">「友人からの紹介で利用しました。期待以上の丁寧な対応とスピード感で、さすがプロの仕事だと感じました。近所なのでこれからも長くお付き合いしたいです。」</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA / Contact -->
-  <section id="contact" class="py-24 px-4 bg-primary text-white text-center">
-    <div class="max-w-3xl mx-auto" data-aos="zoom-in">
-      <h2 class="text-3xl font-black mb-6">まずはお気軽にご相談ください</h2>
-      <p class="mb-10 opacity-90 text-lg">専門スタッフが丁寧にお話を伺い、最適なご提案をいたします。</p>
-      <div class="bg-white text-gray-900 rounded-3xl p-8 md:p-12 shadow-2xl max-w-xl mx-auto transform hover:scale-105 transition duration-300">
-        <div class="mb-8">
-          <div class="text-sm text-gray-500 font-bold mb-2">お電話でのご相談</div>
-          <div class="text-4xl md:text-5xl font-black text-primary tracking-wider">000-000-0000</div>
-          <div class="text-xs text-gray-400 mt-3">受付時間 9:00 - 18:00 (土日祝休み)</div>
-        </div>
-        <a href="#" class="block w-full py-4 bg-yellow-500 text-black font-bold rounded-full hover:bg-yellow-400 transition text-lg shadow-md flex items-center justify-center">
-          <i class="fa-regular fa-envelope mr-2 text-xl"></i> WEBからのお問い合わせ
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center text-sm">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-2xl font-black text-white mb-4 tracking-wider">${comp}</div>
-      <p class="mb-6">〒000-0000 ${regValue}〇〇町1-2-3</p>
-      <div class="flex justify-center gap-6 mb-8 text-xl">
-        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-line"></i></a>
-        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
-      </div>
-      <p>&copy; ${new Date().getFullYear()} ${comp} All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Floating CTA (Mobile) -->
-  <div class="floating-btn md:hidden">
-    <a href="tel:0000000000" class="w-1/2 bg-gray-900 text-white py-4 text-center font-bold text-sm border-r border-gray-700 flex items-center justify-center gap-2 active:bg-gray-800">
-      <i class="fa-solid fa-phone text-lg"></i> 電話する
-    </a>
-    <a href="#contact" class="w-1/2 bg-primary text-white py-4 text-center font-bold text-sm flex items-center justify-center gap-2 active:bg-primary/80">
-      <i class="fa-regular fa-envelope text-lg"></i> WEB予約
-    </a>
-  </div>
-
-  <script>
-    // アニメーション初期化
-    AOS.init({ duration: 800, once: true });
-  <\/script>
+  <script>AOS.init({ duration: 800, once: true });<\/script>
 </body>
 </html>`;
     
     html = mockHtml;
     window.H('s_hl');window.S('s_bu');window.fireworks();
     setTimeout(function(){
-      // 直接描画の代わりに別タブ案内画面を表示
       window.S('s_pv');window.GO('s_pv');
     }, 1800);
   }, 3200);
 }
 
-// 別タブでプレビューを開く処理
 window.openPrev = function() {
   if(!html) return;
   var newWin = window.open('', '_blank');
@@ -828,17 +655,17 @@ window.openPrev = function() {
     newWin.document.write(html);
     newWin.document.close();
   } else {
-    alert('ポップアップがブロックされました。ブラウザの設定で許可するか、「HTMLをダウンロード」してお試しください。');
+    alert('別タブを開く許可をしてください');
   }
 }
 
 window.dlHP = function(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
 
 window.sendMail = function(){
-  var de=document.getElementById('dirMail').value;if(!de){window.toast('⚠️ 設定からディレクション担当者メールを入力してください');setTimeout(window.togS,600);return;}
+  var de=document.getElementById('dirMail').value;if(!de){window.toast('⚠️ ディレクション担当者メールを入力してください');setTimeout(window.togS,600);return;}
   var co=document.getElementById('com').value||'御社';
   var sub=encodeURIComponent('【Smartpage-i】ホームページ提案：'+co);
-  var body=encodeURIComponent('ディレクションご担当者様\n\nSmartpage-iにてホームページ提案が完成しました。\n\n■クライアント情報\n会社名：'+co+'\n業種：'+ind+'\n地域：'+document.getElementById('reg').value+'\n\n■採用キャッチコピー\nメイン：'+(cp?cp.catch:'')+'\nサブ：'+(cp?cp.sub:'')+'\n\n■添付ファイル\nホームページ提案HTML（別途添付してください）\n\nデモ担当：'+document.getElementById('demoMail').value+'\n送信ツール：Smartpage-i');
+  var body=encodeURIComponent('ディレクションご担当者様\n\nSmartpage-iにてホームページ提案が完成しました。\n\n会社名：'+co+'\n業種：'+ind+'\n地域：'+document.getElementById('reg').value+'\n\n■採用キャッチコピー\nメイン：'+(cp?cp.catch:'')+'\nサブ：'+(cp?cp.sub:'')+'\n\nツール：Smartpage-i');
   window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;window.toast('📧 メーラーが起動しました');
 }
 
@@ -852,7 +679,6 @@ window.resetAll = function(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// イベントリスナー登録
 document.getElementById('logoBtn').addEventListener('click',window.resetAll);
 document.getElementById('howtoBtn').addEventListener('click',function(){window.openM('mHow');});
 document.getElementById('gearBtn').addEventListener('click',window.togS);
@@ -867,18 +693,12 @@ document.getElementById('confirmBtn').addEventListener('click',function(){window
 document.getElementById('b_diag').addEventListener('click',window.startDiag);
 document.getElementById('b_copy').addEventListener('click',window.genCopy);
 document.getElementById('b_hp').addEventListener('click',window.genHP);
-
-// 別タブで開くボタンのリスナーを追加
-document.getElementById('b_open_prev').addEventListener('click',window.openPrev);
-
 document.getElementById('b_dl').addEventListener('click',window.dlHP);
 document.getElementById('b_mail').addEventListener('click',window.sendMail);
 document.getElementById('b_rst').addEventListener('click',window.resetAll);
 document.getElementById('demoMail').addEventListener('input',window.saveMails);
 document.getElementById('dirMail').addEventListener('input',window.saveMails);
-document.getElementById('cp0').addEventListener('click',function(){window.selCP(0);});
-document.getElementById('cp1').addEventListener('click',function(){window.selCP(1);});
-document.getElementById('cp2').addEventListener('click',function(){window.selCP(2);});
+document.getElementById('b_open_prev').addEventListener('click',window.openPrev);
 document.getElementById('indC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;document.querySelectorAll('#indC .chip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');ind=c.textContent.trim();});
 document.getElementById('conC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;c.classList.toggle('on');var v=c.textContent.trim();if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}else{cons=cons.filter(function(x){return x!==v;});}});
 document.addEventListener('click',function(e){if(!e.target.closest('.gwrap'))window.closeS();});
