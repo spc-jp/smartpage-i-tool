@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smartpage-i | AI集客診断ツール</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #0a0a1a;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0d2060 100%);
+  padding: 40px 20px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(0,120,255,0.15) 0%, transparent 60%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+.logo {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: #D0A900;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff, #0179E8, #D0A900);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  position: relative;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.step-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 32px;
+  margin-top: 32px;
+  display: none;
+  animation: fadeInUp 0.5s ease;
+}
+
+.step-card.active { display: block; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #0179E8;
+  margin-bottom: 8px;
+}
+
+.step-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.field-group {
+  margin-bottom: 20px;
+}
+
+.field-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 8px;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.chip:hover { border-color: #0179E8; color: #fff; }
+.chip.selected {
+  background: linear-gradient(135deg, #0179E8, #225AD3);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.text-input:focus { border-color: #0179E8; }
+.text-input::placeholder { color: rgba(255,255,255,0.3); }
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #0179E8, #225AD3);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: all 0.3s;
+  letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(1,121,232,0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-gold {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #D0A900, #f0c800);
+  border: none;
+  border-radius: 14px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: all 0.3s;
+  letter-spacing: 1px;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(208,169,0,0.4);
+}
+
+.btn-ghost {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover { border-color: #fff; color: #fff; }
+
+.loading-screen {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-screen.active { display: block; }
+
+.radar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 32px;
+  position: relative;
+}
+
+.radar-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(1,121,232,0.3);
+  position: absolute;
+  animation: radarSpin 2s linear infinite;
+}
+
+.radar-sweep {
+  width: 50%;
+  height: 50%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(1,121,232,0.6) 60deg, transparent 60deg);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform-origin: bottom left;
+  animation: radarSpin 2s linear infinite;
+}
+
+.radar-dot {
+  width: 8px;
+  height: 8px;
+  background: #0179E8;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px #0179E8;
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0179E8;
+  margin-bottom: 8px;
+}
+
+.loading-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+
+.loading-steps {
+  margin-top: 32px;
+  text-align: left;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loading-step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  transition: color 0.5s;
+}
+
+.loading-step-item.done { color: rgba(255,255,255,0.8); }
+.loading-step-item.done .step-dot { background: #0179E8; box-shadow: 0 0 10px #0179E8; }
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+  transition: all 0.5s;
+}
+
+.result-card {
+  display: none;
+  animation: fadeInUp 0.5s ease;
+}
+
+.result-card.active { display: block; }
+
+.score-ring {
+  text-align: center;
+  padding: 40px 0 32px;
+}
+
+.score-number {
+  font-size: 72px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #0179E8, #D0A900);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.score-label { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+.summary-box {
+  background: rgba(1,121,232,0.1);
+  border: 1px solid rgba(1,121,232,0.3);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.9);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sitemap-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media(max-width: 600px) {
+  .sitemap-container { grid-template-columns: 1fr; }
+}
+
+.sitemap-box {
+  background: rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.sitemap-box.before { border-top: 3px solid #e05555; }
+.sitemap-box.after { border-top: 3px solid #0179E8; }
+
+.sitemap-header {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.sitemap-box.before .sitemap-header { color: #e05555; }
+.sitemap-box.after .sitemap-header { color: #0179E8; }
+
+.sitemap-item {
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.sitemap-item .page-name { font-weight: 600; margin-bottom: 2px; }
+.sitemap-item .page-note { color: rgba(255,255,255,0.4); font-size: 11px; }
+
+.sns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sns-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.sns-platform {
+  font-size: 12px;
+  font-weight: 700;
+  color: #D0A900;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.sns-content { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 8px; }
+.sns-freq { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+.idea-list { margin-bottom: 24px; }
+
+.idea-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.idea-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0179E8, #225AD3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.idea-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.idea-detail { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+.idea-effect { font-size: 12px; color: #D0A900; margin-top: 4px; }
+
+.hp-loading {
+  display: none;
+  text-align: center;
+  padding: 40px;
+}
+
+.hp-loading.active { display: block; }
+
+.hp-preview-container {
+  display: none;
+  margin-top: 24px;
+}
+
+.hp-preview-container.active { display: block; }
+
+.preview-header {
+  background: rgba(255,255,255,0.06);
+  border-radius: 14px 14px 0 0;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.preview-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.preview-iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+  border-radius: 0 0 14px 14px;
+  background: #fff;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 24px 0;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(1,121,232,0.2);
+  border: 1px solid rgba(1,121,232,0.4);
+  border-radius: 100px;
+  font-size: 11px;
+  color: #0179E8;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="logo">SMILE PLUS CONSULTING × i-mobile</div>
+  <h1>Smartpage-i</h1>
+  <p>AIが御社の集客課題を診断し、ホームページを即時生成します</p>
+</div>
+
+<div class="container">
+
+  <!-- STEP 1 -->
+  <div class="step-card active" id="step1">
+    <div class="step-label">STEP 01</div>
+    <div class="step-title">業種を選んでください 🏢</div>
+    <div class="field-group">
+      <div class="chip-group" id="industryChips">
+        <div class="chip" onclick="selectChip(this,'industry')">飲食業</div>
+        <div class="chip" onclick="selectChip(this,'industry')">美容・サロン</div>
+        <div class="chip" onclick="selectChip(this,'industry')">税理士・会計</div>
+        <div class="chip" onclick="selectChip(this,'industry')">製造業</div>
+        <div class="chip" onclick="selectChip(this,'industry')">不動産</div>
+        <div class="chip" onclick="selectChip(this,'industry')">医療・歯科</div>
+        <div class="chip" onclick="selectChip(this,'industry')">小売・販売</div>
+        <div class="chip" onclick="selectChip(this,'industry')">建設・工務店</div>
+        <div class="chip" onclick="selectChip(this,'industry')">士業・コンサル</div>
+        <div class="chip" onclick="selectChip(this,'industry')">その他</div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-label">地域（例：埼玉県越谷市）</div>
+      <input class="text-input" id="regionInput" type="text" placeholder="例：東京都渋谷区">
+    </div>
+
+    <div class="field-group">
+      <div class="field-label">会社名・店舗名（任意）</div>
+      <input class="text-input" id="companyInput" type="text" placeholder="例：株式会社〇〇">
+    </div>
+
+    <div class="field-group">
+      <div class="field-label">いまのWeb集客の悩みは？（複数選択OK）</div>
+      <div class="chip-group" id="concernChips">
+        <div class="chip multi" onclick="toggleChip(this)">ホームページが古い</div>
+        <div class="chip multi" onclick="toggleChip(this)">Googleで見つからない</div>
+        <div class="chip multi" onclick="toggleChip(this)">SNSを活用できていない</div>
+        <div class="chip multi" onclick="toggleChip(this)">問い合わせが少ない</div>
+        <div class="chip multi" onclick="toggleChip(this)">スマホ対応できていない</div>
+        <div class="chip multi" onclick="toggleChip(this)">競合に負けている</div>
+        <div class="chip multi" onclick="toggleChip(this)">口コミが広がらない</div>
+        <div class="chip multi" onclick="toggleChip(this)">何から始めればいいかわからない</div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="startDiagnosis()">🔍 AI診断スタート</button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="radar">
+      <div class="radar-circle"></div>
+      <div class="radar-sweep"></div>
+      <div class="radar-dot"></div>
+    </div>
+    <div class="loading-text">AIが分析しています…</div>
+    <div class="loading-sub">御社に最適な戦略を構築中</div>
+    <div class="loading-steps">
+      <div class="loading-step-item" id="ls1"><div class="step-dot"></div>業種・地域データを取得中</div>
+      <div class="loading-step-item" id="ls2"><div class="step-dot"></div>競合サイトを分析中</div>
+      <div class="loading-step-item" id="ls3"><div class="step-dot"></div>サイトマップを設計中</div>
+      <div class="loading-step-item" id="ls4"><div class="step-dot"></div>SNS戦略を策定中</div>
+      <div class="loading-step-item" id="ls5"><div class="step-dot"></div>診断レポートを生成中</div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card" id="resultCard">
+    <div class="step-card active" id="resultInner">
+
+      <div class="score-ring">
+        <div class="score-number" id="scoreNumber">--</div>
+        <div class="score-label">現状Web集客スコア / 100</div>
+      </div>
+
+      <div class="summary-box" id="summaryBox">診断結果を表示します</div>
+
+      <div class="divider"></div>
+
+      <div class="section-title">📊 サイトマップ Before / After</div>
+      <div class="sitemap-container">
+        <div class="sitemap-box before">
+          <div class="sitemap-header">BEFORE 現状の問題</div>
+          <div id="sitemapBefore"></div>
+        </div>
+        <div class="sitemap-box after">
+          <div class="sitemap-header">AFTER 改善提案</div>
+          <div id="sitemapAfter"></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-title">📱 SNS戦略提案</div>
+      <div class="sns-grid" id="snsGrid"></div>
+
+      <div class="divider"></div>
+
+      <div class="section-title">💡 集客アイデア</div>
+      <div class="idea-list" id="ideaList"></div>
+
+      <div class="divider"></div>
+
+      <div class="section-title">🌐 ホームページを今すぐ生成する</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;">診断結果をもとに、御社専用のホームページHTMLを自動生成します。そのままダウンロードして制作チームへ渡せます。</p>
+
+      <div class="field-group">
+        <div class="field-label">アピールポイント（任意・入力すると精度UP）</div>
+        <input class="text-input" id="appealInput" type="text" placeholder="例：創業30年の実績、地域No.1の口コミ数">
+      </div>
+
+      <button class="btn-gold" onclick="generateHP()">✨ ホームページを生成する</button>
+
+      <!-- HP Loading -->
+      <div class="hp-loading" id="hpLoading">
+        <div class="radar" style="width:80px;height:80px;margin:20px auto;">
+          <div class="radar-circle"></div>
+          <div class="radar-sweep"></div>
+          <div class="radar-dot"></div>
+        </div>
+        <div class="loading-text" style="font-size:15px;">ホームページを生成中…</div>
+        <div class="loading-sub">少々お待ちください（20〜30秒）</div>
+      </div>
+
+      <!-- HP Preview -->
+      <div class="hp-preview-container" id="hpPreview">
+        <div class="preview-header">
+          <div class="preview-dot" style="background:#e05555;"></div>
+          <div class="preview-dot" style="background:#D0A900;"></div>
+          <div class="preview-dot" style="background:#22c55e;"></div>
+          <span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span>
+        </div>
+        <iframe class="preview-iframe" id="previewFrame"></iframe>
+        <button class="btn-primary" onclick="downloadHP()" style="margin-top:16px;">💾 HTMLをダウンロード</button>
+        <button class="btn-ghost" onclick="resetAll()">🔄 最初からやり直す</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+const WORKER_URL = "https://smartpage-i-tool.yymmatsu.workers.dev";
+
+let selectedIndustry = "";
+let selectedConcerns = [];
+let generatedHTML = "";
+
+function selectChip(el, type) {
+  document.querySelectorAll(`#industryChips .chip`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedIndustry = el.textContent;
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+  const text = el.textContent;
+  if (el.classList.contains('selected')) {
+    if (!selectedConcerns.includes(text)) selectedConcerns.push(text);
+  } else {
+    selectedConcerns = selectedConcerns.filter(c => c !== text);
+  }
+}
+
+async function startDiagnosis() {
+  if (!selectedIndustry) { alert('業種を選んでください'); return; }
+  const region = document.getElementById('regionInput').value || "未入力";
+  const company = document.getElementById('companyInput').value || "";
+  const concerns = selectedConcerns.length > 0 ? selectedConcerns.join('、') : "全般的な集客強化";
+
+  document.getElementById('step1').classList.remove('active');
+  document.getElementById('loadingScreen').classList.add('active');
+
+  const steps = ['ls1','ls2','ls3','ls4','ls5'];
+  let i = 0;
+  const stepInterval = setInterval(() => {
+    if (i < steps.length) {
+      document.getElementById(steps[i]).classList.add('done');
+      i++;
+    } else {
+      clearInterval(stepInterval);
+    }
+  }, 800);
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mode: "diagnosis",
+        industry: selectedIndustry,
+        region,
+        concerns,
+        companyName: company
+      })
+    });
+    const data = await res.json();
+    clearInterval(stepInterval);
+    steps.forEach(s => document.getElementById(s).classList.add('done'));
+
+    setTimeout(() => {
+      document.getElementById('loadingScreen').classList.remove('active');
+      renderResult(data.result);
+    }, 500);
+
+  } catch(e) {
+    clearInterval(stepInterval);
+    alert('エラーが発生しました。Workerの設定を確認してください。');
+    resetAll();
+  }
+}
+
+function renderResult(jsonText) {
+  let data;
+  try {
+    const clean = jsonText.replace(/```json|```/g, '').trim();
+    data = JSON.parse(clean);
+  } catch(e) {
+    alert('レスポンスの解析に失敗しました');
+    return;
+  }
+
+  document.getElementById('scoreNumber').textContent = data.score;
+  document.getElementById('summaryBox').textContent = data.summary;
+
+  const before = document.getElementById('sitemapBefore');
+  before.innerHTML = '';
+  (data.sitemapBefore || []).forEach(item => {
+    before.innerHTML += `<div class="sitemap-item"><div class="page-name">📄 ${item.page}</div><div class="page-note">⚠️ ${item.issue}</div></div>`;
+  });
+
+  const after = document.getElementById('sitemapAfter');
+  after.innerHTML = '';
+  (data.sitemapAfter || []).forEach(item => {
+    after.innerHTML += `<div class="sitemap-item"><div class="page-name">✅ ${item.page}</div><div class="page-note">💡 ${item.point}</div></div>`;
+  });
+
+  const sns = document.getElementById('snsGrid');
+  sns.innerHTML = '';
+  (data.snsStrategy || []).forEach(item => {
+    sns.innerHTML += `<div class="sns-card"><div class="sns-platform">${item.platform}</div><div class="sns-content">${item.content}</div><div class="sns-freq">📅 ${item.frequency}</div></div>`;
+  });
+
+  const ideas = document.getElementById('ideaList');
+  ideas.innerHTML = '';
+  (data.collectIdeas || []).forEach((item, i) => {
+    ideas.innerHTML += `<div class="idea-item"><div class="idea-num">${i+1}</div><div><div class="idea-title">${item.title}</div><div class="idea-detail">${item.detail}</div><div class="idea-effect">期待効果：${item.effect}</div></div></div>`;
+  });
+
+  document.getElementById('resultCard').classList.add('active');
+  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function generateHP() {
+  const appeal = document.getElementById('appealInput').value || "";
+  const company = document.getElementById('companyInput').value || "御社";
+
+  document.getElementById('hpLoading').classList.add('active');
+  document.getElementById('hpPreview').classList.remove('active');
+  document.querySelector('.btn-gold').disabled = true;
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mode: "generate",
+        industry: selectedIndustry,
+        region: document.getElementById('regionInput').value || "",
+        companyName: company,
+        appeal
+      })
+    });
+    const data = await res.json();
+    generatedHTML = data.result;
+
+    const frame = document.getElementById('previewFrame');
+    const doc = frame.contentDocument || frame.contentWindow.document;
+    doc.open();
+    doc.write(generatedHTML);
+    doc.close();
+
+    document.getElementById('hpLoading').classList.remove('active');
+    document.getElementById('hpPreview').classList.add('active');
+    document.getElementById('hpPreview').scrollIntoView({ behavior: 'smooth' });
+
+  } catch(e) {
+    alert('ホームページ生成に失敗しました');
+    document.getElementById('hpLoading').classList.remove('active');
+  }
+
+  document.querySelector('.btn-gold').disabled = false;
+}
+
+function downloadHP() {
+  if (!generatedHTML) return;
+  const blob = new Blob([generatedHTML], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'smartpage-proposal.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetAll() {
+  selectedIndustry = "";
+  selectedConcerns = [];
+  generatedHTML = "";
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.getElementById('regionInput').value = '';
+  document.getElementById('companyInput').value = '';
+  document.getElementById('appealInput').value = '';
+  document.getElementById('step1').classList.add('active');
+  document.getElementById('loadingScreen').classList.remove('active');
+  document.getElementById('resultCard').classList.remove('active');
+  document.getElementById('hpLoading').classList.remove('active');
+  document.getElementById('hpPreview').classList.remove('active');
+  document.querySelectorAll('.loading-step-item').forEach(el => el.classList.remove('done'));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
