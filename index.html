@@ -9,6 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--a1:#0179E8;--a2:#225AD3;--gold:#D0A900;--bg:#0a0a1a;--hf:#0a0a1a;--hm:#1a1a3e;--ht:#0d2060;}
 body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:#fff;min-height:100vh;}
+.hidden{display:none !important;}
 .top-header{position:sticky;top:0;z-index:100;background:rgba(10,10,26,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
 .hlogo{font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--a1),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;}
 .hright{display:flex;align-items:center;gap:8px;}
@@ -186,6 +187,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 <body>
 <div class="fwc" id="fwc"></div>
 
+<!-- ヘッダー -->
 <div class="top-header">
   <span class="hlogo" id="logoBtn">Smartpage-i</span>
   <div class="hright">
@@ -194,8 +196,8 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
       <button class="hbtn" id="gearBtn" style="padding:7px 10px;font-size:16px;">⚙️</button>
       <div class="sdrop" id="sdrop">
         <div class="slb">配色テーマ</div>
-        <div class="sitem on" id="tBlue" data-theme="blue">🔵 スタンダード（ブルー）<div class="tdots"><div class="tdot" style="background:#0179E8;"></div><div class="tdot" style="background:#D0A900;"></div></div></div>
-        <div class="sitem" id="tPink" data-theme="pink">🌸 レディース（ピンク）<div class="tdots"><div class="tdot" style="background:#e91e8c;"></div><div class="tdot" style="background:#ff6eb4;"></div></div></div>
+        <div class="sitem on" id="tBlue">🔵 スタンダード（ブルー）<div class="tdots"><div class="tdot" style="background:#0179E8;"></div><div class="tdot" style="background:#D0A900;"></div></div></div>
+        <div class="sitem" id="tPink">🌸 レディース（ピンク）<div class="tdots"><div class="tdot" style="background:#e91e8c;"></div><div class="tdot" style="background:#ff6eb4;"></div></div></div>
         <div class="sdv"></div>
         <div class="slb">担当者設定</div>
         <div class="sig"><div class="sil">📧 デモ担当者メール</div><input class="sinp" id="demoMail" type="email" placeholder="demo@example.com"></div>
@@ -211,6 +213,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
+<!-- 使い方モーダル -->
 <div class="mo" id="mHow">
   <div class="mb">
     <button class="mc" id="closeHow">✕</button>
@@ -229,10 +232,11 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
         <li>HTMLダウンロード＋メール送信でクロージング完了</li>
       </ol>
     </div>
-    <div class="htip">💡 ヘッダーの「Smartpage-i」をクリックするといつでも最初に戻れます。女性オーナーには🌸ピンクテーマが効果的です 🤝</div>
+    <div class="htip">💡 ヘッダーの「Smartpage-i」をクリックするといつでも最初に戻れます 🤝</div>
   </div>
 </div>
 
+<!-- 確認モーダル -->
 <div class="mo" id="mConf">
   <div class="mb">
     <button class="mc" id="closeConf">✕</button>
@@ -244,13 +248,145 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
+<!-- ヒーロー -->
 <div class="hero">
   <div class="hbrand">SMILE PLUS CONSULTING × i-mobile</div>
   <div class="htag">Smartpage-i</div>
   <div class="hsub">AIが御社の集客課題を診断し、ホームページを即時生成します</div>
 </div>
 
-<div class="wrap" id="mainWrap"></div>
+<div class="wrap">
+
+<!-- ★全セクションを最初から静的に配置。表示切替はhiddenクラスのみ ★ -->
+
+<!-- STEP01 -->
+<div class="card" id="sec_step1">
+  <div class="clb2">STEP 01</div>
+  <div class="ctit">業種と基本情報を入力してください 🏢</div>
+  <div class="fg"><div class="fl">業種</div>
+    <div class="chips" id="indChips">
+      <div class="chip" id="ind_飲食業">飲食業</div>
+      <div class="chip" id="ind_美容サロン">美容・サロン</div>
+      <div class="chip" id="ind_税理士会計">税理士・会計</div>
+      <div class="chip" id="ind_製造業">製造業</div>
+      <div class="chip" id="ind_不動産">不動産</div>
+      <div class="chip" id="ind_医療歯科">医療・歯科</div>
+      <div class="chip" id="ind_小売販売">小売・販売</div>
+      <div class="chip" id="ind_建設工務店">建設・工務店</div>
+      <div class="chip" id="ind_士業コンサル">士業・コンサル</div>
+      <div class="chip" id="ind_その他">その他</div>
+    </div>
+  </div>
+  <div class="fg"><div class="fl">地域（例：東京都大田区）</div><input class="inp" id="reg" type="text" placeholder="例：東京都大田区"></div>
+  <div class="fg"><div class="fl">会社名・店舗名（任意）</div><input class="inp" id="com" type="text" placeholder="例：株式会社〇〇"></div>
+  <div class="fg"><div class="fl">いまのWeb集客の悩みは？（複数選択OK）</div>
+    <div class="chips" id="conChips">
+      <div class="chip" id="con_hp">ホームページが古い</div>
+      <div class="chip" id="con_google">Googleで見つからない</div>
+      <div class="chip" id="con_sns">SNSを活用できていない</div>
+      <div class="chip" id="con_inquiry">問い合わせが少ない</div>
+      <div class="chip" id="con_sp">スマホ対応できていない</div>
+      <div class="chip" id="con_comp">競合に負けている</div>
+      <div class="chip" id="con_kuchi">口コミが広がらない</div>
+      <div class="chip" id="con_start">何から始めればいいかわからない</div>
+    </div>
+  </div>
+  <button class="btn-blue" id="btn_startDiag">🔍 AI診断スタート</button>
+</div>
+
+<!-- 診断ローディング -->
+<div class="card loading-box hidden" id="sec_diagLoad">
+  <div class="radar"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
+  <div class="lt">AIが分析しています…</div><div class="ls">御社に最適な戦略を構築中</div>
+  <div class="lsteps">
+    <div class="lsi" id="ls1"><div class="sd"></div>業種・地域データを取得中</div>
+    <div class="lsi" id="ls2"><div class="sd"></div>競合サイトを分析中</div>
+    <div class="lsi" id="ls3"><div class="sd"></div>サイトマップを設計中</div>
+    <div class="lsi" id="ls4"><div class="sd"></div>SNS戦略を策定中</div>
+    <div class="lsi" id="ls5"><div class="sd"></div>診断レポートを生成中</div>
+  </div>
+</div>
+
+<!-- 診断結果 -->
+<div class="card hidden" id="sec_result">
+  <div class="sring"><div class="snum" id="r_score">--</div><div class="slbl">現状Web集客スコア / 100</div></div>
+  <div class="sbox" id="r_summary"></div>
+  <div class="divider"></div>
+  <div class="stitle">📊 サイトマップ Before / After</div>
+  <div class="smwrap">
+    <div class="smbox bf"><div class="smh">BEFORE 現状の問題</div><div id="r_smBf"></div></div>
+    <div class="smbox af"><div class="smh">AFTER 改善提案</div><div id="r_smAf"></div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="stitle">📱 SNS戦略提案</div><div class="snsgrid" id="r_sns"></div>
+  <div class="divider"></div>
+  <div class="stitle">💡 集客アイデア</div><div id="r_ideas"></div>
+</div>
+
+<!-- STEP02 -->
+<div class="card hidden" id="sec_step2">
+  <div class="clb2">STEP 02</div>
+  <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
+  <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で建ててから20年後もお客様と繋がっている。"></textarea></div>
+  <div class="fg"><div class="fl">一言アピール（任意）</div><input class="inp" id="app" type="text" placeholder="例：地域No.1の口コミ数、創業30年の実績"></div>
+  <button class="btn-blue" id="btn_genCopy">✨ キャッチコピーを3パターン生成する</button>
+</div>
+
+<!-- コピーローディング -->
+<div class="card loading-box hidden" id="sec_copyLoad">
+  <div class="radar sm"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
+  <div class="lt sm">キャッチコピーを考えています…</div>
+  <div class="ls">経営者の想いを言葉に変換中</div>
+</div>
+
+<!-- コピーパターン -->
+<div class="card hidden" id="sec_copyPats">
+  <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」</div>
+  <div id="patList"></div>
+</div>
+
+<!-- ★HP生成ボタン：最初から静的に配置 -->
+<div class="card-gold hidden" id="sec_genBtn">
+  <div style="font-size:16px;font-weight:700;color:#D0A900;margin-bottom:8px;">🎉 キャッチコピーが決まりました！</div>
+  <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:20px;">このコピーをホームページのヒーローにそのまま反映します。下のボタンで今すぐ生成しましょう 🚀</div>
+  <button class="btn-gold" id="btn_genHP">🌐 このコピーでホームページを生成する</button>
+</div>
+
+<!-- HP生成ローディング -->
+<div class="card hidden" id="sec_hpLoad">
+  <div class="hpload-inner">
+    <div class="banim"><div class="bscreen"><div class="bbar"></div><div class="blines"><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div></div><div class="bcur"></div></div></div>
+    <div class="ftags"><span class="ftag">キャッチコピー反映</span><span class="ftag">SVGアイコン</span><span class="ftag">SNS連携</span><span class="ftag">アニメーション</span><span class="ftag">お客様の声</span><span class="ftag">お問い合わせ</span></div>
+    <div class="hplt">ホームページを生成中…</div>
+    <div class="hpls">AIがデザインを構築しています（20〜30秒）</div>
+    <div class="pgwrap"><div class="pgbar" id="pgBar"></div></div>
+  </div>
+</div>
+
+<!-- 完成バースト -->
+<div class="card hidden" id="sec_burst">
+  <div class="burst-wrap">
+    <span class="burst-e">🎉</span>
+    <div class="burst-t">ホームページが完成しました！</div>
+    <div class="burst-s">プレビューを確認してダウンロードしてください</div>
+  </div>
+</div>
+
+<!-- プレビュー -->
+<div class="card hidden" id="sec_preview">
+  <div class="prevhdr">
+    <div class="prevdot" style="background:#e05555;"></div>
+    <div class="prevdot" style="background:#D0A900;"></div>
+    <div class="prevdot" style="background:#22c55e;"></div>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span>
+  </div>
+  <iframe class="prevframe" id="prevFrame"></iframe>
+  <button class="btn-blue" id="btn_download" style="margin-top:16px;">💾 HTMLをダウンロード</button>
+  <button class="btn-green" id="btn_sendMail">📧 ディレクション担当者にメールで送る</button>
+  <button class="btn-ghost" id="btn_reset">🔄 最初からやり直す</button>
+</div>
+
+</div><!-- /wrap -->
 
 <footer class="footer">
   <div class="fi">
@@ -261,98 +397,87 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 </footer>
 
 <script>
-// ══════════════════════════════════
-// 状態変数
-// ══════════════════════════════════
 const WK = "https://smartpage-i-tool.yymmatsu.workers.dev";
-let S = {
-  ind: "", cons: [], str: "", app: "",
-  reg: "", com: "", genHtml: "",
-  theme: "blue", cpData: null,
-  diagData: null, copyData: null
-};
+let ind="", cons=[], genHtml="", theme="blue", cpData=null;
 
 // ══════════════════════════════════
-// ★委任イベント（これが今回の核心）
-// ★onclickを一切使わず、documentで一元管理
+// show/hide ユーティリティ
 // ══════════════════════════════════
-document.addEventListener('click', function(e) {
-  const t = e.target;
+function show(id){ document.getElementById(id).classList.remove('hidden'); }
+function hide(id){ document.getElementById(id).classList.add('hidden'); }
+function scroll(id){ setTimeout(()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 100); }
 
-  // ロゴ → リセット
-  if (t.id === 'logoBtn' || t.closest('#logoBtn')) { resetAll(); return; }
+// ══════════════════════════════════
+// ★全ボタンをDOMContentLoadedで登録
+// ★onclickは一切使わない
+// ══════════════════════════════════
+document.addEventListener('DOMContentLoaded', function(){
 
-  // ヘッダーボタン
-  if (t.id === 'howtoBtn') { openM('mHow'); return; }
-  if (t.id === 'gearBtn') { togS(); return; }
-  if (t.id === 'closeHow') { closeM('mHow'); return; }
-  if (t.id === 'closeConf') { closeM('mConf'); return; }
-  if (t.id === 'closeConfBtn') { closeM('mConf'); return; }
+  // ロゴ
+  document.getElementById('logoBtn').addEventListener('click', resetAll);
 
-  // テーマ切替
-  if (t.dataset.theme) { setTheme(t.dataset.theme); return; }
+  // ヘッダー
+  document.getElementById('howtoBtn').addEventListener('click', ()=>openM('mHow'));
+  document.getElementById('gearBtn').addEventListener('click', togS);
+  document.getElementById('closeHow').addEventListener('click', ()=>closeM('mHow'));
+  document.getElementById('closeConf').addEventListener('click', ()=>closeM('mConf'));
+  document.getElementById('closeConfBtn').addEventListener('click', ()=>closeM('mConf'));
+
+  // テーマ
+  document.getElementById('tBlue').addEventListener('click', ()=>setTheme('blue'));
+  document.getElementById('tPink').addEventListener('click', ()=>setTheme('pink'));
 
   // 設定メニュー
-  if (t.id === 'loadDemoBtn') { loadDemo(); closeS(); return; }
-  if (t.id === 'clearDemoBtn') { clearDemo(); closeS(); return; }
-  if (t.id === 'confirmBtn') { openConfirm(); closeS(); return; }
+  document.getElementById('loadDemoBtn').addEventListener('click', ()=>{ loadDemo(); closeS(); });
+  document.getElementById('clearDemoBtn').addEventListener('click', ()=>{ clearDemo(); closeS(); });
+  document.getElementById('confirmBtn').addEventListener('click', ()=>{ openConfirm(); closeS(); });
+
+  // 設定外クリック
+  document.addEventListener('click', function(e){ if(!e.target.closest('.gwrap')) closeS(); });
 
   // 業種チップ
-  if (t.dataset.action === 'selind') {
-    document.querySelectorAll('[data-action="selind"]').forEach(c => c.classList.remove('on'));
-    t.classList.add('on');
-    S.ind = t.textContent.trim();
-    return;
-  }
+  document.querySelectorAll('#indChips .chip').forEach(function(c){
+    c.addEventListener('click', function(){
+      document.querySelectorAll('#indChips .chip').forEach(x=>x.classList.remove('on'));
+      c.classList.add('on');
+      ind = c.textContent.trim();
+    });
+  });
 
   // 悩みチップ
-  if (t.dataset.action === 'togcon') {
-    t.classList.toggle('on');
-    const v = t.textContent.trim();
-    if (t.classList.contains('on')) { if (!S.cons.includes(v)) S.cons.push(v); }
-    else { S.cons = S.cons.filter(c => c !== v); }
-    return;
-  }
+  document.querySelectorAll('#conChips .chip').forEach(function(c){
+    c.addEventListener('click', function(){
+      c.classList.toggle('on');
+      const v = c.textContent.trim();
+      if(c.classList.contains('on')){ if(!cons.includes(v)) cons.push(v); }
+      else { cons = cons.filter(x=>x!==v); }
+    });
+  });
 
   // 診断スタート
-  if (t.id === 'startDiagBtn') { startDiag(); return; }
+  document.getElementById('btn_startDiag').addEventListener('click', startDiag);
 
   // コピー生成
-  if (t.id === 'genCopyBtn') { genCopy(); return; }
+  document.getElementById('btn_genCopy').addEventListener('click', genCopy);
 
-  // ★コピーカード選択（data-action="selcopy"）
-  const cpCard = t.closest('[data-action="selcopy"]');
-  if (cpCard) {
-    const idx = parseInt(cpCard.dataset.idx);
-    selCopy(cpCard, idx);
-    return;
-  }
-
-  // ★HP生成ボタン（data-action="genhp"）
-  if (t.closest('[data-action="genhp"]')) {
-    genHP();
-    return;
-  }
+  // ★HP生成ボタン（静的に存在するので確実に登録できる）
+  document.getElementById('btn_genHP').addEventListener('click', genHP);
 
   // ダウンロード
-  if (t.closest('[data-action="download"]')) { dlHP(); return; }
+  document.getElementById('btn_download').addEventListener('click', dlHP);
 
-  // メール送信
-  if (t.closest('[data-action="sendmail"]')) { sendMail(); return; }
+  // メール
+  document.getElementById('btn_sendMail').addEventListener('click', sendMail);
 
   // リセット
-  if (t.closest('[data-action="reset"]')) { resetAll(); return; }
+  document.getElementById('btn_reset').addEventListener('click', resetAll);
 
-  // 設定外クリックで閉じる
-  if (!t.closest('.gwrap')) closeS();
-});
+  // メール保存
+  document.getElementById('demoMail').addEventListener('input', saveMails);
+  document.getElementById('dirMail').addEventListener('input', saveMails);
 
-// メール入力の保存
-document.addEventListener('input', function(e) {
-  if (e.target.id === 'demoMail' || e.target.id === 'dirMail') {
-    localStorage.setItem('dm', document.getElementById('demoMail').value);
-    localStorage.setItem('di', document.getElementById('dirMail').value);
-  }
+  // 初期化
+  loadMails();
 });
 
 // ══════════════════════════════════
@@ -362,453 +487,321 @@ const TH = {
   blue: {'--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900','--bg':'#0a0a1a','--hf':'#0a0a1a','--hm':'#1a1a3e','--ht':'#0d2060', hbg:'rgba(10,10,26,0.95)'},
   pink: {'--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4','--bg':'#1a0a12','--hf':'#1a0a12','--hm':'#3d0a24','--ht':'#600d38', hbg:'rgba(26,10,18,0.95)'}
 };
-function setTheme(t) {
-  S.theme = t;
-  Object.entries(TH[t]).forEach(([k,v]) => { if(k.startsWith('--')) document.documentElement.style.setProperty(k,v); });
+function setTheme(t){
+  theme=t;
+  Object.entries(TH[t]).forEach(([k,v])=>{ if(k.startsWith('--')) document.documentElement.style.setProperty(k,v); });
   document.querySelector('.top-header').style.background = TH[t].hbg;
   document.getElementById('tBlue').classList.toggle('on', t==='blue');
   document.getElementById('tPink').classList.toggle('on', t==='pink');
-  toast(t==='pink' ? '🌸 ピンクテーマ' : '🔵 ブルーテーマ');
+  toast(t==='pink'?'🌸 ピンクテーマ':'🔵 ブルーテーマ');
   closeS();
 }
 
 // ══════════════════════════════════
 // モーダル・設定
 // ══════════════════════════════════
-function openM(id) { document.getElementById(id).classList.add('open'); closeS(); }
-function closeM(id) { document.getElementById(id).classList.remove('open'); }
-function togS() { document.getElementById('sdrop').classList.toggle('open'); }
-function closeS() { document.getElementById('sdrop').classList.remove('open'); }
+function openM(id){ document.getElementById(id).classList.add('open'); closeS(); }
+function closeM(id){ document.getElementById(id).classList.remove('open'); }
+function togS(){ document.getElementById('sdrop').classList.toggle('open'); }
+function closeS(){ document.getElementById('sdrop').classList.remove('open'); }
+
+// ══════════════════════════════════
+// メール
+// ══════════════════════════════════
+function saveMails(){
+  localStorage.setItem('dm', document.getElementById('demoMail').value);
+  localStorage.setItem('di', document.getElementById('dirMail').value);
+}
+function loadMails(){
+  const dm=localStorage.getItem('dm'), di=localStorage.getItem('di');
+  if(dm) document.getElementById('demoMail').value=dm;
+  if(di) document.getElementById('dirMail').value=di;
+}
 
 // ══════════════════════════════════
 // デモ
 // ══════════════════════════════════
-const DEMO = {
+const DEMO={
   ind:'美容・サロン', reg:'埼玉県さいたま市', com:'ビューティーサロン Belle',
   cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],
   str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',
   app:'リピート率90%以上、地域密着15年'
 };
 
-function loadDemo() {
-  S.ind = DEMO.ind; S.cons = [...DEMO.cons]; S.str = DEMO.str; S.app = DEMO.app;
-  S.reg = DEMO.reg; S.com = DEMO.com;
-  drawStep1();
+function loadDemo(){
+  // 業種
+  document.querySelectorAll('#indChips .chip').forEach(c=>{
+    c.classList.remove('on');
+    if(c.textContent.trim()===DEMO.ind){ c.classList.add('on'); ind=DEMO.ind; }
+  });
+  // テキスト
+  document.getElementById('reg').value=DEMO.reg;
+  document.getElementById('com').value=DEMO.com;
+  document.getElementById('str').value=DEMO.str;
+  document.getElementById('app').value=DEMO.app;
+  // 悩み
+  cons=[];
+  document.querySelectorAll('#conChips .chip').forEach(c=>{
+    c.classList.remove('on');
+    if(DEMO.cons.includes(c.textContent.trim())){ c.classList.add('on'); cons.push(c.textContent.trim()); }
+  });
   toast('🎯 デモデータを入力しました');
 }
 
-function clearDemo() {
-  S.ind=""; S.cons=[]; S.str=""; S.app=""; S.reg=""; S.com="";
-  S.genHtml=""; S.cpData=null; S.diagData=null; S.copyData=null;
-  drawStep1();
+function clearDemo(){
+  ind=""; cons=[];
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  ['reg','com','str','app'].forEach(id=>document.getElementById(id).value='');
   toast('🗑️ クリアしました');
 }
 
 // ══════════════════════════════════
 // 確認
 // ══════════════════════════════════
-function openConfirm() {
-  syncInputs();
-  const rows = [
-    {l:'業種', v:S.ind}, {l:'地域', v:S.reg}, {l:'会社名', v:S.com},
-    {l:'悩み', v:S.cons.join('、')}, {l:'強み', v:S.str},
-    {l:'デモ担当者', v:document.getElementById('demoMail').value},
-    {l:'ディレクション', v:document.getElementById('dirMail').value}
+function openConfirm(){
+  const rows=[
+    {l:'業種',v:ind},{l:'地域',v:document.getElementById('reg').value},
+    {l:'会社名',v:document.getElementById('com').value},{l:'悩み',v:cons.join('、')},
+    {l:'強み',v:document.getElementById('str').value},
+    {l:'デモ担当者',v:document.getElementById('demoMail').value},
+    {l:'ディレクション担当者',v:document.getElementById('dirMail').value}
   ];
   let h='';
-  rows.forEach(r => {
-    const v = r.v ? `<span class="cv">${r.v}</span>` : `<span class="ce">未入力</span>`;
-    h += `<div class="cr"><span class="clb">${r.l}</span>${v}</div>`;
-  });
-  document.getElementById('confRows').innerHTML = h;
-  const ok = S.ind && S.reg;
-  const s = document.getElementById('confSt');
-  s.className = ok ? 'cst ok' : 'cst ng';
-  s.textContent = ok ? '✅ 診断に必要な情報が揃っています！' : '⚠️ 業種と地域は必須です。';
+  rows.forEach(r=>{ const v=r.v?`<span class="cv">${r.v}</span>`:`<span class="ce">未入力</span>`; h+=`<div class="cr"><span class="clb">${r.l}</span>${v}</div>`; });
+  document.getElementById('confRows').innerHTML=h;
+  const ok=ind&&document.getElementById('reg').value;
+  const s=document.getElementById('confSt');
+  s.className=ok?'cst ok':'cst ng';
+  s.textContent=ok?'✅ 診断に必要な情報が揃っています！':'⚠️ 業種と地域は必須です。';
   openM('mConf');
-}
-
-// ══════════════════════════════════
-// 入力値同期
-// ══════════════════════════════════
-function syncInputs() {
-  const reg = document.getElementById('reg');
-  const com = document.getElementById('com');
-  const str = document.getElementById('str');
-  const app = document.getElementById('app');
-  if (reg) S.reg = reg.value;
-  if (com) S.com = com.value;
-  if (str) S.str = str.value;
-  if (app) S.app = app.value;
 }
 
 // ══════════════════════════════════
 // トースト・花火
 // ══════════════════════════════════
-function toast(msg) {
-  const t = document.createElement('div');
-  t.textContent = msg;
-  t.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';
+function toast(msg){
+  const t=document.createElement('div');
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';
   document.body.appendChild(t);
-  setTimeout(() => t.remove(), 2500);
+  setTimeout(()=>t.remove(),2500);
 }
 
-function fireworks() {
-  const c = document.getElementById('fwc');
-  c.style.display = 'block';
-  const cols = S.theme==='pink'
-    ? ['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffd700']
-    : ['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
-  let n = 0;
-  const iv = setInterval(() => {
-    for (let i=0; i<14; i++) {
-      const p = document.createElement('div'); p.className='pt';
+function fireworks(){
+  const c=document.getElementById('fwc');
+  c.style.display='block';
+  const cols=theme==='pink'?['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffd700']:['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
+  let n=0;
+  const iv=setInterval(()=>{
+    for(let i=0;i<14;i++){
+      const p=document.createElement('div'); p.className='pt';
       const x=Math.random()*window.innerWidth, y=Math.random()*window.innerHeight*0.6;
       const col=cols[Math.floor(Math.random()*cols.length)], sz=Math.random()*8+4;
-      p.style.cssText = `left:${x}px;top:${y}px;background:${col};width:${sz}px;height:${sz}px;box-shadow:0 0 ${sz*2}px ${col};`;
+      p.style.cssText=`left:${x}px;top:${y}px;background:${col};width:${sz}px;height:${sz}px;box-shadow:0 0 ${sz*2}px ${col};`;
       c.appendChild(p);
       const a=Math.random()*Math.PI*2, sp=Math.random()*130+60;
       const vx=Math.cos(a)*sp, vy=Math.sin(a)*sp-90;
       let op=1, px=x, py=y;
-      const iv2 = setInterval(() => {
+      const iv2=setInterval(()=>{
         px+=vx*0.04; py+=vy*0.04+2.5; op-=0.025;
         p.style.left=px+'px'; p.style.top=py+'px'; p.style.opacity=op;
-        if (op<=0) { clearInterval(iv2); p.remove(); }
-      }, 16);
+        if(op<=0){ clearInterval(iv2); p.remove(); }
+      },16);
     }
-    if (++n > 10) { clearInterval(iv); setTimeout(()=>{ c.style.display='none'; }, 1000); }
-  }, 280);
+    if(++n>10){ clearInterval(iv); setTimeout(()=>{ c.style.display='none'; },1000); }
+  },280);
 }
 
 // ══════════════════════════════════
-// 描画関数群
+// 診断
 // ══════════════════════════════════
-function drawStep1() {
-  const indList = ['飲食業','美容・サロン','税理士・会計','製造業','不動産','医療・歯科','小売・販売','建設・工務店','士業・コンサル','その他'];
-  const conList = ['ホームページが古い','Googleで見つからない','SNSを活用できていない','問い合わせが少ない','スマホ対応できていない','競合に負けている','口コミが広がらない','何から始めればいいかわからない'];
-  document.getElementById('mainWrap').innerHTML = `
-    <div class="card">
-      <div class="clb2">STEP 01</div>
-      <div class="ctit">業種と基本情報を入力してください 🏢</div>
-      <div class="fg"><div class="fl">業種</div><div class="chips">
-        ${indList.map(v=>`<div class="chip${S.ind===v?' on':''}" data-action="selind">${v}</div>`).join('')}
-      </div></div>
-      <div class="fg"><div class="fl">地域（例：東京都大田区）</div><input class="inp" id="reg" type="text" placeholder="例：東京都大田区" value="${S.reg}"></div>
-      <div class="fg"><div class="fl">会社名・店舗名（任意）</div><input class="inp" id="com" type="text" placeholder="例：株式会社〇〇" value="${S.com}"></div>
-      <div class="fg"><div class="fl">いまのWeb集客の悩みは？（複数選択OK）</div><div class="chips">
-        ${conList.map(v=>`<div class="chip${S.cons.includes(v)?' on':''}" data-action="togcon">${v}</div>`).join('')}
-      </div></div>
-      <button class="btn-blue" id="startDiagBtn">🔍 AI診断スタート</button>
-    </div>`;
-}
+async function startDiag(){
+  if(!ind){ alert('業種を選んでください'); return; }
+  const reg=document.getElementById('reg').value;
+  if(!reg){ alert('地域を入力してください'); return; }
 
-function drawDiagLoading() {
-  document.getElementById('mainWrap').innerHTML = `
-    <div class="card loading-box">
-      <div class="radar"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
-      <div class="lt">AIが分析しています…</div><div class="ls">御社に最適な戦略を構築中</div>
-      <div class="lsteps">
-        <div class="lsi" id="ls1"><div class="sd"></div>業種・地域データを取得中</div>
-        <div class="lsi" id="ls2"><div class="sd"></div>競合サイトを分析中</div>
-        <div class="lsi" id="ls3"><div class="sd"></div>サイトマップを設計中</div>
-        <div class="lsi" id="ls4"><div class="sd"></div>SNS戦略を策定中</div>
-        <div class="lsi" id="ls5"><div class="sd"></div>診断レポートを生成中</div>
-      </div>
-    </div>`;
-  document.getElementById('mainWrap').scrollIntoView({behavior:'smooth'});
-}
+  hide('sec_step1');
+  show('sec_diagLoad');
+  scroll('sec_diagLoad');
 
-function drawResult() {
-  const d = S.diagData;
-  let bf='', af='', sns='', ideas='';
-  (d.sitemapBefore||[]).forEach(x => { bf+=`<div class="smitem"><div class="pn">📄 ${x.page}</div><div class="pno">⚠️ ${x.issue}</div></div>`; });
-  (d.sitemapAfter||[]).forEach(x => { af+=`<div class="smitem"><div class="pn">✅ ${x.page}</div><div class="pno">💡 ${x.point}</div></div>`; });
-  (d.snsStrategy||[]).forEach(x => { sns+=`<div class="snscard"><div class="snspl">${x.platform}</div><div class="snsco">${x.content}</div><div class="snsfq">📅 ${x.frequency}</div></div>`; });
-  (d.collectIdeas||[]).forEach((x,i) => { ideas+=`<div class="iitem"><div class="inum">${i+1}</div><div><div class="it">${x.title}</div><div class="id2">${x.detail}</div><div class="ie">期待効果：${x.effect}</div></div></div>`; });
+  const steps=['ls1','ls2','ls3','ls4','ls5'];
+  let i=0;
+  const si=setInterval(()=>{
+    if(i<steps.length){ document.getElementById(steps[i]).classList.add('done'); i++; }
+    else clearInterval(si);
+  },800);
 
-  document.getElementById('mainWrap').innerHTML = `
-    <div class="card">
-      <div class="sring"><div class="snum">${d.score}</div><div class="slbl">現状Web集客スコア / 100</div></div>
-      <div class="sbox">${d.summary}</div>
-      <div class="divider"></div>
-      <div class="stitle">📊 サイトマップ Before / After</div>
-      <div class="smwrap"><div class="smbox bf"><div class="smh">BEFORE 現状の問題</div>${bf}</div><div class="smbox af"><div class="smh">AFTER 改善提案</div>${af}</div></div>
-      <div class="divider"></div>
-      <div class="stitle">📱 SNS戦略提案</div><div class="snsgrid">${sns}</div>
-      <div class="divider"></div>
-      <div class="stitle">💡 集客アイデア</div>${ideas}
-    </div>
-    <div class="card">
-      <div class="clb2">STEP 02</div>
-      <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
-      <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で建ててから20年後もお客様と繋がっている。">${S.str}</textarea></div>
-      <div class="fg"><div class="fl">一言アピール（任意）</div><input class="inp" id="app" type="text" placeholder="例：地域No.1の口コミ数、創業30年の実績" value="${S.app}"></div>
-      <button class="btn-blue" id="genCopyBtn">✨ キャッチコピーを3パターン生成する</button>
-    </div>`;
-  document.getElementById('mainWrap').scrollIntoView({behavior:'smooth'});
-}
-
-function drawCopyLoading() {
-  // STEP02カードの下にローディングを追加
-  const d = S.diagData;
-  let bf='', af='', sns='', ideas='';
-  (d.sitemapBefore||[]).forEach(x => { bf+=`<div class="smitem"><div class="pn">📄 ${x.page}</div><div class="pno">⚠️ ${x.issue}</div></div>`; });
-  (d.sitemapAfter||[]).forEach(x => { af+=`<div class="smitem"><div class="pn">✅ ${x.page}</div><div class="pno">💡 ${x.point}</div></div>`; });
-  (d.snsStrategy||[]).forEach(x => { sns+=`<div class="snscard"><div class="snspl">${x.platform}</div><div class="snsco">${x.content}</div><div class="snsfq">📅 ${x.frequency}</div></div>`; });
-  (d.collectIdeas||[]).forEach((x,i) => { ideas+=`<div class="iitem"><div class="inum">${i+1}</div><div><div class="it">${x.title}</div><div class="id2">${x.detail}</div><div class="ie">期待効果：${x.effect}</div></div></div>`; });
-
-  document.getElementById('mainWrap').innerHTML = `
-    <div class="card">
-      <div class="sring"><div class="snum">${d.score}</div><div class="slbl">現状Web集客スコア / 100</div></div>
-      <div class="sbox">${d.summary}</div>
-      <div class="divider"></div>
-      <div class="stitle">📊 サイトマップ Before / After</div>
-      <div class="smwrap"><div class="smbox bf"><div class="smh">BEFORE 現状の問題</div>${bf}</div><div class="smbox af"><div class="smh">AFTER 改善提案</div>${af}</div></div>
-      <div class="divider"></div>
-      <div class="stitle">📱 SNS戦略提案</div><div class="snsgrid">${sns}</div>
-      <div class="divider"></div>
-      <div class="stitle">💡 集客アイデア</div>${ideas}
-    </div>
-    <div class="card">
-      <div class="clb2">STEP 02</div>
-      <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
-      <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。">${S.str}</textarea></div>
-      <div class="fg"><div class="fl">一言アピール（任意）</div><input class="inp" id="app" type="text" placeholder="例：地域No.1" value="${S.app}"></div>
-      <button class="btn-blue" id="genCopyBtn">✨ キャッチコピーを3パターン生成する</button>
-    </div>
-    <div class="card loading-box">
-      <div class="radar sm"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
-      <div class="lt sm">キャッチコピーを考えています…</div>
-      <div class="ls">経営者の想いを言葉に変換中</div>
-    </div>`;
-  // ローディングにスクロール
-  setTimeout(() => {
-    const cards = document.getElementById('mainWrap').querySelectorAll('.card');
-    cards[cards.length-1].scrollIntoView({behavior:'smooth'});
-  }, 100);
-}
-
-function drawCopyPats() {
-  const d = S.diagData;
-  let bf='', af='', sns='', ideas='';
-  (d.sitemapBefore||[]).forEach(x => { bf+=`<div class="smitem"><div class="pn">📄 ${x.page}</div><div class="pno">⚠️ ${x.issue}</div></div>`; });
-  (d.sitemapAfter||[]).forEach(x => { af+=`<div class="smitem"><div class="pn">✅ ${x.page}</div><div class="pno">💡 ${x.point}</div></div>`; });
-  (d.snsStrategy||[]).forEach(x => { sns+=`<div class="snscard"><div class="snspl">${x.platform}</div><div class="snsco">${x.content}</div><div class="snsfq">📅 ${x.frequency}</div></div>`; });
-  (d.collectIdeas||[]).forEach((x,i) => { ideas+=`<div class="iitem"><div class="inum">${i+1}</div><div><div class="it">${x.title}</div><div class="id2">${x.detail}</div><div class="ie">期待効果：${x.effect}</div></div></div>`; });
-
-  let pats = '';
-  (S.copyData.patterns||[]).forEach((p,i) => {
-    pats += `<div class="cpcard" data-action="selcopy" data-idx="${i}"><span class="cpbadge">✓ 選択中</span><div class="cpconcept">パターン${p.id}：${p.concept}</div><div class="cpcatch">${p.catch}</div><div class="cpsub">${p.sub}</div></div>`;
-  });
-
-  document.getElementById('mainWrap').innerHTML = `
-    <div class="card">
-      <div class="sring"><div class="snum">${d.score}</div><div class="slbl">現状Web集客スコア / 100</div></div>
-      <div class="sbox">${d.summary}</div>
-      <div class="divider"></div>
-      <div class="stitle">📊 サイトマップ Before / After</div>
-      <div class="smwrap"><div class="smbox bf"><div class="smh">BEFORE 現状の問題</div>${bf}</div><div class="smbox af"><div class="smh">AFTER 改善提案</div>${af}</div></div>
-      <div class="divider"></div>
-      <div class="stitle">📱 SNS戦略提案</div><div class="snsgrid">${sns}</div>
-      <div class="divider"></div>
-      <div class="stitle">💡 集客アイデア</div>${ideas}
-    </div>
-    <div class="card">
-      <div class="clb2">STEP 02</div>
-      <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
-      <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。">${S.str}</textarea></div>
-      <div class="fg"><div class="fl">一言アピール（任意）</div><input class="inp" id="app" type="text" placeholder="例：地域No.1" value="${S.app}"></div>
-      <button class="btn-blue" id="genCopyBtn">✨ もう一度生成する</button>
-    </div>
-    <div class="card">
-      <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」</div>
-      ${pats}
-    </div>`;
-  setTimeout(() => {
-    const cards = document.getElementById('mainWrap').querySelectorAll('.card');
-    cards[cards.length-1].scrollIntoView({behavior:'smooth'});
-  }, 100);
-}
-
-function drawGenBtn() {
-  // ★genBtnカードを末尾に追加するだけ（既存DOMは触らない）
-  const div = document.createElement('div');
-  div.className = 'card-gold';
-  div.id = 'genBtnCard';
-  div.innerHTML = `
-    <div style="font-size:16px;font-weight:700;color:#D0A900;margin-bottom:8px;">🎉 キャッチコピーが決まりました！</div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:20px;">このコピーをホームページのヒーローにそのまま反映します。下のボタンで今すぐ生成しましょう 🚀</div>
-    <button class="btn-gold" data-action="genhp">🌐 このコピーでホームページを生成する</button>`;
-  document.getElementById('mainWrap').appendChild(div);
-  setTimeout(() => div.scrollIntoView({behavior:'smooth', block:'nearest'}), 100);
-}
-
-function drawHPLoading() {
-  const div = document.createElement('div');
-  div.className = 'card';
-  div.id = 'hpLoadCard';
-  div.innerHTML = `
-    <div class="hpload-inner">
-      <div class="banim"><div class="bscreen"><div class="bbar"></div><div class="blines"><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div></div><div class="bcur"></div></div></div>
-      <div class="ftags"><span class="ftag">キャッチコピー反映</span><span class="ftag">SVGアイコン</span><span class="ftag">SNS連携</span><span class="ftag">アニメーション</span><span class="ftag">お客様の声</span><span class="ftag">お問い合わせ</span></div>
-      <div class="hplt">ホームページを生成中…</div>
-      <div class="hpls">AIがデザインを構築しています（20〜30秒）</div>
-      <div class="pgwrap"><div class="pgbar" id="pgBar"></div></div>
-    </div>`;
-  document.getElementById('mainWrap').appendChild(div);
-  setTimeout(() => {
-    div.scrollIntoView({behavior:'smooth'});
-    const pb = document.getElementById('pgBar');
-    if (pb) { pb.style.animation='none'; pb.offsetHeight; pb.style.animation='prog 25s linear forwards'; }
-  }, 100);
-}
-
-function drawHPDone() {
-  // hpLoadCardを削除してburst＋previewを追加
-  const old = document.getElementById('hpLoadCard');
-  if (old) old.remove();
-  const old2 = document.getElementById('genBtnCard');
-  if (old2) old2.remove();
-
-  const burst = document.createElement('div');
-  burst.className = 'card';
-  burst.innerHTML = `<div class="burst-wrap"><span class="burst-e">🎉</span><div class="burst-t">ホームページが完成しました！</div><div class="burst-s">プレビューを確認してダウンロードしてください</div></div>`;
-  document.getElementById('mainWrap').appendChild(burst);
-
-  const prev = document.createElement('div');
-  prev.className = 'card';
-  prev.id = 'prevCard';
-  prev.innerHTML = `
-    <div class="prevhdr"><div class="prevdot" style="background:#e05555;"></div><div class="prevdot" style="background:#D0A900;"></div><div class="prevdot" style="background:#22c55e;"></div><span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span></div>
-    <iframe class="prevframe" id="prevFrame"></iframe>
-    <button class="btn-blue" data-action="download" style="margin-top:16px;">💾 HTMLをダウンロード</button>
-    <button class="btn-green" data-action="sendmail">📧 ディレクション担当者にメールで送る</button>
-    <button class="btn-ghost" data-action="reset">🔄 最初からやり直す</button>`;
-  document.getElementById('mainWrap').appendChild(prev);
-
-  fireworks();
-
-  setTimeout(() => {
-    const fr = document.getElementById('prevFrame');
-    if (fr) {
-      const doc = fr.contentDocument || fr.contentWindow.document;
-      doc.open(); doc.write(S.genHtml); doc.close();
-    }
-    prev.scrollIntoView({behavior:'smooth'});
-  }, 1800);
-}
-
-// ══════════════════════════════════
-// 主要処理
-// ══════════════════════════════════
-async function startDiag() {
-  syncInputs();
-  if (!S.ind) { alert('業種を選んでください'); return; }
-  if (!S.reg) { alert('地域を入力してください'); return; }
-  drawDiagLoading();
-  const steps = ['ls1','ls2','ls3','ls4','ls5'];
-  let i = 0;
-  const si = setInterval(() => {
-    const el = document.getElementById(steps[i]);
-    if (el) el.classList.add('done');
-    if (++i >= steps.length) clearInterval(si);
-  }, 800);
-  try {
-    const r = await fetch(WK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({mode:'diagnosis', industry:S.ind, region:S.reg, concerns:S.cons.join('、')||'全般的な集客強化', companyName:S.com})});
-    const d = await r.json();
+  try{
+    const r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'diagnosis',industry:ind,region:reg,concerns:cons.join('、')||'全般的な集客強化',companyName:document.getElementById('com').value})});
+    const d=await r.json();
     clearInterval(si);
+    steps.forEach(s=>document.getElementById(s).classList.add('done'));
+
     let data;
-    try { data = JSON.parse(d.result.replace(/```json|```/g,'').trim()); } catch(e) { alert('解析エラー'); return; }
-    S.diagData = data;
-    drawResult();
-  } catch(e) { alert('エラーが発生しました'); drawStep1(); }
-}
+    try{ data=JSON.parse(d.result.replace(/```json|```/g,'').trim()); }
+    catch(e){ alert('解析エラー'); hide('sec_diagLoad'); show('sec_step1'); return; }
 
-async function genCopy() {
-  syncInputs();
-  drawCopyLoading();
-  try {
-    const r = await fetch(WK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({mode:'copywriting', industry:S.ind, region:S.reg, companyName:S.com, appeal:S.app, strengths:S.str})});
-    const d = await r.json();
-    let data;
-    try { data = JSON.parse(d.result.replace(/```json|```/g,'').trim()); } catch(e) { alert('解析エラー'); return; }
-    S.copyData = data;
-    S.cpData = null;
-    drawCopyPats();
-  } catch(e) { alert('コピー生成に失敗しました'); drawResult(); }
-}
+    // 結果を描画
+    document.getElementById('r_score').textContent=data.score;
+    document.getElementById('r_summary').textContent=data.summary;
 
-function selCopy(card, idx) {
-  // 既存のgenBtnCardを削除
-  const old = document.getElementById('genBtnCard');
-  if (old) old.remove();
-  // カードのonクラスを更新
-  document.querySelectorAll('[data-action="selcopy"]').forEach(c => c.classList.remove('on'));
-  card.classList.add('on');
-  // cpDataを設定
-  S.cpData = {
-    ...S.copyData.patterns[idx],
-    appealPoints: S.copyData.appealPoints,
-    serviceDescriptions: S.copyData.serviceDescriptions
-  };
-  toast('✅ パターン'+(idx+1)+'を選択！');
-  // genBtnを追加
-  drawGenBtn();
-}
+    let bf='';
+    (data.sitemapBefore||[]).forEach(x=>{ bf+=`<div class="smitem"><div class="pn">📄 ${x.page}</div><div class="pno">⚠️ ${x.issue}</div></div>`; });
+    document.getElementById('r_smBf').innerHTML=bf;
 
-async function genHP() {
-  if (!S.cpData) { alert('コピーを選んでください'); return; }
-  syncInputs();
-  // genBtnCardを削除してhpLoadingを追加
-  const old = document.getElementById('genBtnCard');
-  if (old) old.remove();
-  drawHPLoading();
-  try {
-    const r = await fetch(WK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({mode:'generate', industry:S.ind, region:S.reg, companyName:S.com||'御社', appeal:S.app, selectedCopy:S.cpData})});
-    const d = await r.json();
-    S.genHtml = d.result;
-    drawHPDone();
-  } catch(e) {
-    alert('HP生成に失敗しました：'+e.message);
-    const old2 = document.getElementById('hpLoadCard');
-    if (old2) old2.remove();
-    drawGenBtn();
+    let af='';
+    (data.sitemapAfter||[]).forEach(x=>{ af+=`<div class="smitem"><div class="pn">✅ ${x.page}</div><div class="pno">💡 ${x.point}</div></div>`; });
+    document.getElementById('r_smAf').innerHTML=af;
+
+    let sns='';
+    (data.snsStrategy||[]).forEach(x=>{ sns+=`<div class="snscard"><div class="snspl">${x.platform}</div><div class="snsco">${x.content}</div><div class="snsfq">📅 ${x.frequency}</div></div>`; });
+    document.getElementById('r_sns').innerHTML=sns;
+
+    let ideas='';
+    (data.collectIdeas||[]).forEach((x,i)=>{ ideas+=`<div class="iitem"><div class="inum">${i+1}</div><div><div class="it">${x.title}</div><div class="id2">${x.detail}</div><div class="ie">期待効果：${x.effect}</div></div></div>`; });
+    document.getElementById('r_ideas').innerHTML=ideas;
+
+    hide('sec_diagLoad');
+    show('sec_result');
+    show('sec_step2');
+    scroll('sec_result');
+
+  }catch(e){
+    clearInterval(si);
+    alert('エラーが発生しました');
+    hide('sec_diagLoad');
+    show('sec_step1');
   }
 }
 
-function dlHP() {
-  if (!S.genHtml) return;
-  const b = new Blob([S.genHtml], {type:'text/html'});
-  const u = URL.createObjectURL(b);
-  const a = document.createElement('a'); a.href=u; a.download='smartpage-proposal.html'; a.click();
+// ══════════════════════════════════
+// コピー生成
+// ══════════════════════════════════
+async function genCopy(){
+  hide('sec_copyPats');
+  hide('sec_genBtn');
+  cpData=null;
+  show('sec_copyLoad');
+  scroll('sec_copyLoad');
+
+  try{
+    const r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})});
+    const d=await r.json();
+
+    let data;
+    try{ data=JSON.parse(d.result.replace(/```json|```/g,'').trim()); }
+    catch(e){ alert('解析エラー'); hide('sec_copyLoad'); return; }
+
+    // ★コピーパターンを描画してaddEventListenerで登録
+    const pl=document.getElementById('patList');
+    pl.innerHTML='';
+    (data.patterns||[]).forEach(function(p,i){
+      const div=document.createElement('div');
+      div.className='cpcard';
+      div.innerHTML=`<span class="cpbadge">✓ 選択中</span><div class="cpconcept">パターン${p.id}：${p.concept}</div><div class="cpcatch">${p.catch}</div><div class="cpsub">${p.sub}</div>`;
+      // ★addEventListener で登録（onclickではない）
+      div.addEventListener('click', function(){
+        // 全カードのonを外す
+        document.querySelectorAll('#patList .cpcard').forEach(c=>c.classList.remove('on'));
+        // このカードをon
+        div.classList.add('on');
+        // cpDataを設定
+        cpData={
+          ...p,
+          appealPoints: data.appealPoints,
+          serviceDescriptions: data.serviceDescriptions
+        };
+        toast('✅ パターン'+(i+1)+'を選択！');
+        // ★sec_genBtnを表示（hiddenを外すだけ）
+        show('sec_genBtn');
+        scroll('sec_genBtn');
+      });
+      pl.appendChild(div);
+    });
+
+    hide('sec_copyLoad');
+    show('sec_copyPats');
+    scroll('sec_copyPats');
+
+  }catch(e){
+    alert('コピー生成に失敗しました');
+    hide('sec_copyLoad');
+  }
+}
+
+// ══════════════════════════════════
+// HP生成
+// ══════════════════════════════════
+async function genHP(){
+  if(!cpData){ alert('コピーを選んでください'); return; }
+
+  hide('sec_genBtn');
+  show('sec_hpLoad');
+  scroll('sec_hpLoad');
+
+  // プログレスバー
+  const pb=document.getElementById('pgBar');
+  pb.style.animation='none';
+  pb.offsetHeight;
+  pb.style.animation='prog 25s linear forwards';
+
+  try{
+    const r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'generate',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value||'御社',appeal:document.getElementById('app').value,selectedCopy:cpData})});
+    const d=await r.json();
+    genHtml=d.result;
+
+    hide('sec_hpLoad');
+    show('sec_burst');
+    fireworks();
+
+    setTimeout(function(){
+      const fr=document.getElementById('prevFrame');
+      const doc=fr.contentDocument||fr.contentWindow.document;
+      doc.open(); doc.write(genHtml); doc.close();
+      show('sec_preview');
+      scroll('sec_preview');
+    },1800);
+
+  }catch(e){
+    alert('HP生成に失敗しました：'+e.message);
+    hide('sec_hpLoad');
+    show('sec_genBtn');
+  }
+}
+
+// ══════════════════════════════════
+// ダウンロード・メール・リセット
+// ══════════════════════════════════
+function dlHP(){
+  if(!genHtml) return;
+  const b=new Blob([genHtml],{type:'text/html'});
+  const u=URL.createObjectURL(b);
+  const a=document.createElement('a'); a.href=u; a.download='smartpage-proposal.html'; a.click();
   URL.revokeObjectURL(u);
 }
 
-function sendMail() {
-  const de = document.getElementById('dirMail').value;
-  if (!de) { toast('⚠️ 設定からディレクション担当者メールを入力してください'); setTimeout(()=>togS(), 600); return; }
-  const sub = encodeURIComponent(`【Smartpage-i】ホームページ提案：${S.com||'御社'}`);
-  const body = encodeURIComponent(`ディレクションご担当者様\n\nSmartpage-i にてホームページ提案が完成しました。\n\n■ クライアント情報\n会社名：${S.com}\n業種：${S.ind}\n地域：${S.reg}\n\n■ 採用キャッチコピー\nメイン：${S.cpData?.catch||''}\nサブ：${S.cpData?.sub||''}\n\n■ 添付ファイル\nホームページ提案HTML（別途添付してください）\n\nデモ担当：${document.getElementById('demoMail').value||'未設定'}\n送信ツール：Smartpage-i`);
-  window.location.href = `mailto:${de}?subject=${sub}&body=${body}`;
+function sendMail(){
+  const de=document.getElementById('dirMail').value;
+  if(!de){ toast('⚠️ 設定からディレクション担当者メールを入力してください'); setTimeout(()=>togS(),600); return; }
+  const co=document.getElementById('com').value||'御社';
+  const sub=encodeURIComponent(`【Smartpage-i】ホームページ提案：${co}`);
+  const body=encodeURIComponent(`ディレクションご担当者様\n\nSmartpage-i にてホームページ提案が完成しました。\n\n■ クライアント情報\n会社名：${co}\n業種：${ind}\n地域：${document.getElementById('reg').value}\n\n■ 採用キャッチコピー\nメイン：${cpData?.catch||''}\nサブ：${cpData?.sub||''}\n\n■ 添付ファイル\nホームページ提案HTML（別途添付してください）\n\nデモ担当：${document.getElementById('demoMail').value||'未設定'}\n送信ツール：Smartpage-i`);
+  window.location.href=`mailto:${de}?subject=${sub}&body=${body}`;
   toast('📧 メーラーが起動しました');
 }
 
-function resetAll() {
-  S = { ind:"", cons:[], str:"", app:"", reg:"", com:"", genHtml:"", theme:S.theme, cpData:null, diagData:null, copyData:null };
-  drawStep1();
-  window.scrollTo({top:0, behavior:'smooth'});
-}
+function resetAll(){
+  ind=""; cons=[]; genHtml=""; cpData=null;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  ['reg','com','str','app'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('patList').innerHTML='';
+  document.getElementById('pgBar').style.animation='none';
 
-// ══════════════════════════════════
-// 初期化
-// ══════════════════════════════════
-(function init() {
-  const dm = localStorage.getItem('dm');
-  const di = localStorage.getItem('di');
-  if (dm) document.getElementById('demoMail').value = dm;
-  if (di) document.getElementById('dirMail').value = di;
-  drawStep1();
-})();
+  show('sec_step1');
+  ['sec_diagLoad','sec_result','sec_step2','sec_copyLoad','sec_copyPats','sec_genBtn','sec_hpLoad','sec_burst','sec_preview'].forEach(hide);
+  ['ls1','ls2','ls3','ls4','ls5'].forEach(id=>document.getElementById(id).classList.remove('done'));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 </script>
 </body>
 </html>
