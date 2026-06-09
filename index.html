@@ -175,7 +175,16 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .burst-s{font-size:13px;color:rgba(255,255,255,0.5);}
 .prevhdr{background:rgba(255,255,255,0.06);border-radius:14px 14px 0 0;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.1);}
 .prevdot{width:10px;height:10px;border-radius:50%;}
-.prevframe{width:100%;height:520px;border:none;border-radius:0 0 14px 14px;background:#fff;}
+
+/* プレビュー枠を別タブ誘導UIに変更 */
+.prevframe{width:100%;background:#f8f9fa;border-radius:0 0 14px 14px;padding:40px 20px;}
+.p-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.p-icon{font-size:48px;margin-bottom:16px;}
+.p-title{font-size:20px;font-weight:800;color:#333;margin-bottom:12px;}
+.p-desc{font-size:13px;color:#666;margin-bottom:28px;line-height:1.6;}
+.btn-open{background:var(--a1);color:#fff;border:none;padding:16px 32px;border-radius:100px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(1,121,232,0.3);transition:all 0.2s;display:flex;align-items:center;gap:8px;}
+.btn-open:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(1,121,232,0.4);background:var(--a2);}
+
 .fwc{position:fixed;inset:0;pointer-events:none;z-index:9998;display:none;}
 .pt{position:absolute;border-radius:50%;}
 .footer{background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.06);padding:24px 20px;text-align:center;}
@@ -322,22 +331,21 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   <div class="ls">経営者の想いを言葉に変換中</div>
 </div>
 
-<!-- ★コピーカード3枚：最初から静的に配置・onclick属性で直接呼び出し -->
 <div class="card H" id="s_cp">
   <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」</div>
-  <div class="cpcard" id="cp0" onclick="selCP(0)">
+  <div class="cpcard" id="cp0">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn0">パターン1：</div>
     <div class="cp-catch" id="cpc0">-</div>
     <div class="cp-sub" id="cps0">-</div>
   </div>
-  <div class="cpcard" id="cp1" onclick="selCP(1)">
+  <div class="cpcard" id="cp1">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn1">パターン2：</div>
     <div class="cp-catch" id="cpc1">-</div>
     <div class="cp-sub" id="cps1">-</div>
   </div>
-  <div class="cpcard" id="cp2" onclick="selCP(2)">
+  <div class="cpcard" id="cp2">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn2">パターン3：</div>
     <div class="cp-catch" id="cpc2">-</div>
@@ -376,7 +384,17 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <div class="prevdot" style="background:#22c55e;"></div>
     <span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span>
   </div>
-  <iframe class="prevframe" id="prevFrame"></iframe>
+  
+  <!-- 枠内のiframeを撤廃し、別タブ誘導用のUIに変更 -->
+  <div class="prevframe">
+    <div class="p-msg">
+      <div class="p-icon">✨</div>
+      <div class="p-title">ハイクオリティな提案サイトが完成しました！</div>
+      <div class="p-desc">お使いの環境ではセキュリティ制限により画面内プレビューができません。<br>下のボタンをクリックして、別タブでフル画面のプレビューをご確認ください。</div>
+      <button class="btn-open" id="b_open_prev">🚀 別タブでプレビューを開く</button>
+    </div>
+  </div>
+  
   <button class="btn-blue" id="b_dl" style="margin-top:16px;">💾 HTMLをダウンロード</button>
   <button class="btn-green" id="b_mail">📧 ディレクション担当者にメールで送る</button>
   <button class="btn-ghost" id="b_rst">🔄 最初からやり直す</button>
@@ -397,11 +415,11 @@ var WK="https://smartpage-i-tool.yymmatsu.workers.dev";
 var ind="",cons=[],html="",theme="blue",cp=null;
 var pats=[];
 
-function S(id){document.getElementById(id).classList.remove('H');}
-function H(id){document.getElementById(id).classList.add('H');}
-function GO(id){setTimeout(function(){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});},200);}
+window.S = function(id){document.getElementById(id).classList.remove('H');}
+window.H = function(id){document.getElementById(id).classList.add('H');}
+window.GO = function(id){setTimeout(function(){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});},200);}
 
-function toast(m){
+window.toast = function(m){
   var t=document.createElement('div');t.textContent=m;
   t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';
   document.body.appendChild(t);setTimeout(function(){t.remove();},2500);
@@ -411,47 +429,47 @@ var TH={
   blue:{'--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900','--bg':'#0a0a1a','--hf':'#0a0a1a','--hm':'#1a1a3e','--ht':'#0d2060',hbg:'rgba(10,10,26,0.95)'},
   pink:{'--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4','--bg':'#1a0a12','--hf':'#1a0a12','--hm':'#3d0a24','--ht':'#600d38',hbg:'rgba(26,10,18,0.95)'}
 };
-function setTheme(t){
+window.setTheme = function(t){
   theme=t;var th=TH[t];
   Object.keys(th).forEach(function(k){if(k.startsWith('--'))document.documentElement.style.setProperty(k,th[k]);});
   document.querySelector('.top-header').style.background=th.hbg;
   document.getElementById('tBlue').classList.toggle('on',t==='blue');
   document.getElementById('tPink').classList.toggle('on',t==='pink');
-  toast(t==='pink'?'🌸 ピンクテーマ':'🔵 ブルーテーマ');closeS();
+  window.toast(t==='pink'?'🌸 ピンクテーマ':'🔵 ブルーテーマ');window.closeS();
 }
 
-function openM(id){document.getElementById(id).classList.add('open');closeS();}
-function closeM(id){document.getElementById(id).classList.remove('open');}
-function togS(){document.getElementById('sdrop').classList.toggle('open');}
-function closeS(){document.getElementById('sdrop').classList.remove('open');}
-function saveMails(){localStorage.setItem('dm',document.getElementById('demoMail').value);localStorage.setItem('di',document.getElementById('dirMail').value);}
-function loadMails(){var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');if(dm)document.getElementById('demoMail').value=dm;if(di)document.getElementById('dirMail').value=di;}
+window.openM = function(id){document.getElementById(id).classList.add('open');window.closeS();}
+window.closeM = function(id){document.getElementById(id).classList.remove('open');}
+window.togS = function(){document.getElementById('sdrop').classList.toggle('open');}
+window.closeS = function(){document.getElementById('sdrop').classList.remove('open');}
+window.saveMails = function(){localStorage.setItem('dm',document.getElementById('demoMail').value);localStorage.setItem('di',document.getElementById('dirMail').value);}
+window.loadMails = function(){var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');if(dm)document.getElementById('demoMail').value=dm;if(di)document.getElementById('dirMail').value=di;}
 
 var DEMO={ind:'美容・サロン',reg:'埼玉県さいたま市',com:'ビューティーサロン Belle',cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',app:'リピート率90%以上、地域密着15年'};
 
-function loadDemo(){
+window.loadDemo = function(){
   ind=DEMO.ind;
   document.querySelectorAll('#indC .chip').forEach(function(c){c.classList.remove('on');if(c.textContent.trim()===DEMO.ind)c.classList.add('on');});
   document.getElementById('reg').value=DEMO.reg;document.getElementById('com').value=DEMO.com;
   document.getElementById('str').value=DEMO.str;document.getElementById('app').value=DEMO.app;
   cons=[];
   document.querySelectorAll('#conC .chip').forEach(function(c){c.classList.remove('on');if(DEMO.cons.includes(c.textContent.trim())){c.classList.add('on');cons.push(c.textContent.trim());}});
-  toast('🎯 デモデータを入力しました');
+  window.toast('🎯 デモデータを入力しました');
 }
 
-function clearDemo(){
+window.clearDemo = function(){
   ind="";cons=[];document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
-  ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});toast('🗑️ クリアしました');
+  ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});window.toast('🗑️ クリアしました');
 }
 
-function openConfirm(){
+window.openConfirm = function(){
   var rows=[{l:'業種',v:ind},{l:'地域',v:document.getElementById('reg').value},{l:'会社名',v:document.getElementById('com').value},{l:'悩み',v:cons.join('、')},{l:'強み',v:document.getElementById('str').value},{l:'デモ担当者',v:document.getElementById('demoMail').value},{l:'ディレクション担当者',v:document.getElementById('dirMail').value}];
   var h='';rows.forEach(function(r){var v=r.v?'<span class="cv">'+r.v+'</span>':'<span class="ce">未入力</span>';h+='<div class="cr"><span class="clb">'+r.l+'</span>'+v+'</div>';});
   document.getElementById('confRows').innerHTML=h;
-  var ok=ind&&document.getElementById('reg').value;var s=document.getElementById('confSt');s.className=ok?'cst ok':'cst ng';s.textContent=ok?'✅ 診断に必要な情報が揃っています！':'⚠️ 業種と地域は必須です。';openM('mConf');
+  var ok=ind&&document.getElementById('reg').value;var s=document.getElementById('confSt');s.className=ok?'cst ok':'cst ng';s.textContent=ok?'✅ 診断に必要な情報が揃っています！':'⚠️ 業種と地域は必須です。';window.openM('mConf');
 }
 
-function fireworks(){
+window.fireworks = function(){
   var c=document.getElementById('fwc');c.style.display='block';
   var cols=theme==='pink'?['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffd700']:['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
   var n=0;
@@ -468,37 +486,63 @@ function fireworks(){
   },280);
 }
 
-function startDiag(){
+window.startDiag = function(){
   if(!ind){alert('業種を選んでください');return;}
   var reg=document.getElementById('reg').value;if(!reg){alert('地域を入力してください');return;}
-  H('s1');S('s_dl');GO('s_dl');
+  window.H('s1');window.S('s_dl');window.GO('s_dl');
   var steps=['ls1','ls2','ls3','ls4','ls5'],i=0;
-  var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},800);
-  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'diagnosis',industry:ind,region:reg,concerns:cons.join('、')||'全般的な集客強化',companyName:document.getElementById('com').value})})
-  .then(function(r){return r.json();})
-  .then(function(d){
+  var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},600);
+  
+  setTimeout(function() {
     clearInterval(si);steps.forEach(function(s){document.getElementById(s).classList.add('done');});
-    var raw=d.result;if(typeof raw==='object')raw=JSON.stringify(raw);
-    var data=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    var data = {
+      score: 75,
+      summary: ind + "業界において、" + reg + "エリアでのWeb集客はまだ改善の余地が大きく残されています。競合との差別化とスマホ最適化が鍵となります。",
+      sitemapBefore: [
+        { page: "トップページ", issue: "情報が整理されておらず、強みが伝わりにくい" },
+        { page: "会社概要", issue: "文字ばかりで親近感が湧きにくい" },
+        { page: "お問い合わせ", issue: "入力項目が多く、離脱に繋がっている" }
+      ],
+      sitemapAfter: [
+        { page: "トップページ", point: "ファーストビューで独自の強みを明確にアピール" },
+        { page: "当社の強み", point: "実績と信頼感を示すため新規コンテンツとして追加" },
+        { page: "サービス内容", point: "提供している内容を分かりやすく写真付きで整理" },
+        { page: "お問い合わせ", point: "スマホから1タップで電話・LINEできる導線を設置" }
+      ],
+      snsStrategy: [
+        { platform: "Instagram", content: "日々の業務風景やお客様とのエピソードを写真で発信", frequency: "週2〜3回" },
+        { platform: "Googleビジネスプロフィール", content: "最新情報のお知らせと、口コミへの丁寧な返信", frequency: "随時" }
+      ],
+      collectIdeas: [
+        { title: "MEO（ローカル検索）対策の強化", detail: "「地域名 × " + ind + "」でGoogleマップ上位表示を狙う", effect: "地域からの新規問い合わせ数 1.5倍" },
+        { title: "スマホ特化のUI改善", detail: "スマホでの閲覧を前提とした大きなボタンと見やすい文字サイズへ変更", effect: "サイト滞在時間アップ、直帰率ダウン" }
+      ]
+    };
+    
     document.getElementById('r_sc').textContent=data.score;document.getElementById('r_su').textContent=data.summary;
     var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_bf').innerHTML=bf;
     var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_af').innerHTML=af;
     var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});document.getElementById('r_sn').innerHTML=sns;
     var ideas='';(data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});document.getElementById('r_id').innerHTML=ideas;
-    H('s_dl');S('s_res');S('s2');GO('s_res');
-  })
-  .catch(function(e){clearInterval(si);alert('エラーが発生しました');H('s_dl');S('s1');});
+    window.H('s_dl');window.S('s_res');window.S('s2');window.GO('s_res');
+  }, 3000);
 }
 
-function genCopy(){
-  H('s_cp');H('s_gb');cp=null;pats=[];S('s_cl');GO('s_cl');
-  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    var raw=d.result;if(typeof raw==='object')raw=JSON.stringify(raw);
-    var data=JSON.parse(raw.replace(/```json|```/g,'').trim());
+window.genCopy = function(){
+  window.H('s_cp');window.H('s_gb');cp=null;pats=[];window.S('s_cl');window.GO('s_cl');
+  
+  setTimeout(function() {
+    var str = document.getElementById('str').value || "誠実な対応と実績";
+    var regValue = document.getElementById('reg').value || "地域";
+    var data = {
+      patterns: [
+        { id: 1, concept: "信頼と実績訴求", catch: regValue + "で愛されてきた、確かな技術と実績。", sub: str + " お客様の期待を超えるサービスを提供し続けます。" },
+        { id: 2, concept: "課題解決・共感", catch: "「頼んでよかった」その一言のために。", sub: "ちょっとしたお悩みでもご相談ください。" + str },
+        { id: 3, concept: "先進性・プロ感", catch: ind + "の常識を変える、新しい提案。", sub: "専門家ならではの視点で、最適なプランをご用意しています。" }
+      ]
+    };
+    
     pats=data.patterns||[];
-    // ★3枚の固定カードにテキストを流し込む
     for(var i=0;i<3;i++){
       var p=pats[i];
       if(p){
@@ -510,82 +554,335 @@ function genCopy(){
         document.getElementById('cp'+i).classList.add('H');
       }
     }
-    H('s_cl');S('s_cp');GO('s_cp');
-  })
-  .catch(function(e){alert('コピー生成に失敗しました');H('s_cl');});
+    window.H('s_cl');window.S('s_cp');window.GO('s_cp');
+    window.selCP(0);
+  }, 2500);
 }
 
-// ★onclick="selCP(0)" から直接呼ばれる関数
-function selCP(i){
+window.selCP = function(i){
   if(!pats[i])return;
   document.getElementById('cp0').classList.remove('on');
   document.getElementById('cp1').classList.remove('on');
   document.getElementById('cp2').classList.remove('on');
   document.getElementById('cp'+i).classList.add('on');
   cp={id:pats[i].id,catch:pats[i].catch,sub:pats[i].sub,concept:pats[i].concept,appealPoints:[],serviceDescriptions:[]};
-  toast('✅ パターン'+(i+1)+'を選択！');
-  S('s_gb');GO('s_gb');
+  window.toast('✅ パターン'+(i+1)+'を選択！');
+  window.S('s_gb');window.GO('s_gb');
 }
 
-function genHP(){
+window.genHP = function(){
   if(!cp){alert('コピーを選んでください');return;}
-  H('s_gb');S('s_hl');GO('s_hl');
-  var pb=document.getElementById('pgBar');pb.style.animation='none';pb.offsetHeight;pb.style.animation='prog 25s linear forwards';
-  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'generate',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value||'御社',appeal:document.getElementById('app').value,selectedCopy:cp})})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    html=d.result;H('s_hl');S('s_bu');fireworks();
+  window.H('s_gb');window.S('s_hl');window.GO('s_hl');
+  var pb=document.getElementById('pgBar');
+  pb.style.animation='none';
+  void pb.offsetWidth;
+  pb.style.animation='prog 3s linear forwards';
+  
+  setTimeout(function() {
+    var comp = document.getElementById('com').value || '御社';
+    var regValue = document.getElementById('reg').value || '地域';
+    var strValue = document.getElementById('str').value || 'お客様一人ひとりに寄り添ったサービスを提供いたします。';
+    
+    var themeColor = '#2563eb';
+    var bgUrl = 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1600'; 
+    var voiceImg1 = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&h=150&q=80';
+    var voiceImg2 = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&h=150&q=80';
+    
+    if (ind === '美容・サロン') {
+      themeColor = '#e11d48';
+      bgUrl = 'https://images.unsplash.com/photo-1521590832167-7bfc620c0849?auto=format&fit=crop&q=80&w=1600';
+      voiceImg1 = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80';
+    } else if (ind === '飲食業') {
+      themeColor = '#ea580c';
+      bgUrl = 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=1600';
+      voiceImg1 = 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&h=150&q=80';
+    } else if (ind === '医療・歯科') {
+      themeColor = '#0d9488';
+      bgUrl = 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=1600';
+    } else if (ind === '建設・工務店' || ind === '不動産') {
+      themeColor = '#334155';
+      bgUrl = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600';
+    }
+
+    var selectedCons = cons.length > 0 ? cons : ['集客の方向性がわからない', '競合との差別化が難しい', '新規の問い合わせが少ない'];
+    var consHtml = selectedCons.map(function(c){
+      return `<li class="flex items-center gap-3 text-gray-700 font-bold mb-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100"><i class="fa-solid fa-circle-xmark text-red-400 text-xl"></i> ${c}</li>`;
+    }).join('');
+
+    var mockHtml = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${comp} | ご提案ホームページ</title>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: { primary: '${themeColor}' }
+      }
+    }
+  }
+<\/script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"><\/script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+  body { font-family: 'Noto Sans JP', sans-serif; scroll-behavior: smooth; padding-bottom: 80px; }
+  .hero-bg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${bgUrl}');
+    background-size: cover;
+    background-position: center;
+  }
+  .floating-btn {
+    position: fixed; bottom: 0; left: 0; width: 100%; z-index: 999;
+    display: flex; box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#" class="font-black text-xl text-primary tracking-wider hover:opacity-80 transition">${comp}</a>
+      <nav class="hidden md:flex gap-6 text-sm font-bold text-gray-600 items-center">
+        <a href="#problem" class="hover:text-primary transition">選ばれる理由</a>
+        <a href="#service" class="hover:text-primary transition">サービス</a>
+        <a href="#voices" class="hover:text-primary transition">お客様の声</a>
+        <a href="#contact" class="px-6 py-2.5 bg-primary text-white rounded-full hover:opacity-90 transition shadow">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-bg text-white py-32 px-4 text-center">
+    <div class="max-w-4xl mx-auto" data-aos="fade-up">
+      <span class="inline-block py-1.5 px-5 rounded-full bg-black/40 border border-white/20 text-sm font-bold mb-6 text-white backdrop-blur-md">
+        📍 ${regValue}の皆様に選ばれています
+      </span>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight drop-shadow-lg">${cp.catch}</h1>
+      <p class="text-base md:text-xl opacity-90 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">${cp.sub}</p>
+      <div class="hidden md:flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#contact" class="px-8 py-4 bg-primary text-white font-bold rounded-full hover:-translate-y-1 transition transform shadow-lg text-lg flex items-center justify-center">
+          <i class="fa-regular fa-envelope mr-2"></i> 無料相談・お問い合わせ
+        </a>
+        <a href="tel:0000000000" class="px-8 py-4 bg-white/20 text-white font-bold rounded-full hover:bg-white/30 hover:-translate-y-1 transition transform backdrop-blur-sm border border-white/30 text-lg flex items-center justify-center">
+          <i class="fa-solid fa-phone mr-2"></i> 000-000-0000
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem & Solution -->
+  <section id="problem" class="py-20 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-gray-100 rounded-3xl p-8 md:p-12 text-center shadow-inner mb-16" data-aos="fade-up">
+        <h2 class="text-2xl font-black text-gray-900 mb-8"><span class="text-primary border-b-2 border-primary">こんなお悩み</span> ありませんか？</h2>
+        <ul class="text-left max-w-lg mx-auto">
+          ${consHtml}
+        </ul>
+      </div>
+      
+      <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="inline-block bg-primary/10 text-primary font-bold px-4 py-1 rounded-full text-sm mb-4">私たちが解決します</div>
+        <h2 class="text-3xl font-black text-gray-900 mb-6">選ばれる確かな理由があります</h2>
+        <p class="text-lg text-gray-600 leading-relaxed font-bold bg-white p-6 rounded-xl shadow-sm border border-gray-100 inline-block">
+          「${strValue}」
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service -->
+  <section id="service" class="py-20 px-4 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-3xl font-black text-gray-900 mb-4">サービス内容</h2>
+        <div class="w-16 h-1 bg-primary mx-auto rounded"></div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col sm:flex-row hover:shadow-md transition group" data-aos="fade-right">
+          <div class="sm:w-2/5 h-48 sm:h-auto bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600');"></div>
+          <div class="p-6 sm:w-3/5 flex flex-col justify-center relative z-10 bg-gray-50">
+            <span class="text-xs font-bold text-primary mb-2 block">SERVICE 01</span>
+            <h3 class="text-xl font-bold mb-3">メインサービス</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">お客様の主力事業や強みをここに記載します。詳細な説明が入ります。</p>
+            <a href="#" class="text-primary font-bold text-sm hover:underline mt-auto">詳しく見る <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col sm:flex-row hover:shadow-md transition group" data-aos="fade-left">
+          <div class="sm:w-2/5 h-48 sm:h-auto bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600');"></div>
+          <div class="p-6 sm:w-3/5 flex flex-col justify-center relative z-10 bg-gray-50">
+            <span class="text-xs font-bold text-primary mb-2 block">SERVICE 02</span>
+            <h3 class="text-xl font-bold mb-3">サポート・アフターケア</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">提供後の充実したサポート体制について記載します。安心のアフターフォロー。</p>
+            <a href="#" class="text-primary font-bold text-sm hover:underline mt-auto">詳しく見る <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Voices (お客様の声) -->
+  <section id="voices" class="py-20 px-4 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-3xl font-black text-gray-900 mb-4">お客様の声</h2>
+        <div class="w-16 h-1 bg-primary mx-auto rounded"></div>
+        <p class="mt-4 text-gray-600">${regValue}の皆様から喜びの声をいただいています。</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative" data-aos="fade-up" data-aos-delay="100">
+          <i class="fa-solid fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
+          <div class="flex items-center gap-4 mb-6 relative z-10 pl-8">
+            <img src="${voiceImg1}" class="w-16 h-16 rounded-full object-cover border-2 border-primary/20">
+            <div>
+              <div class="flex text-yellow-400 text-xs mb-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <div class="text-sm text-gray-500 font-bold">${regValue} / 30代</div>
+            </div>
+          </div>
+          <p class="text-gray-700 leading-relaxed text-sm font-medium">「最初は不安でしたが、親身になって相談に乗っていただき安心してお任せすることができました。仕上がりにも大変満足しています。また次回もお願いしたいです！」</p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative" data-aos="fade-up" data-aos-delay="200">
+          <i class="fa-solid fa-quote-left text-4xl text-primary/20 absolute top-6 left-6"></i>
+          <div class="flex items-center gap-4 mb-6 relative z-10 pl-8">
+            <img src="${voiceImg2}" class="w-16 h-16 rounded-full object-cover border-2 border-primary/20">
+            <div>
+              <div class="flex text-yellow-400 text-xs mb-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <div class="text-sm text-gray-500 font-bold">${regValue} / 40代</div>
+            </div>
+          </div>
+          <p class="text-gray-700 leading-relaxed text-sm font-medium">「友人からの紹介で利用しました。期待以上の丁寧な対応とスピード感で、さすがプロの仕事だと感じました。近所なのでこれからも長くお付き合いしたいです。」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / Contact -->
+  <section id="contact" class="py-24 px-4 bg-primary text-white text-center">
+    <div class="max-w-3xl mx-auto" data-aos="zoom-in">
+      <h2 class="text-3xl font-black mb-6">まずはお気軽にご相談ください</h2>
+      <p class="mb-10 opacity-90 text-lg">専門スタッフが丁寧にお話を伺い、最適なご提案をいたします。</p>
+      <div class="bg-white text-gray-900 rounded-3xl p-8 md:p-12 shadow-2xl max-w-xl mx-auto transform hover:scale-105 transition duration-300">
+        <div class="mb-8">
+          <div class="text-sm text-gray-500 font-bold mb-2">お電話でのご相談</div>
+          <div class="text-4xl md:text-5xl font-black text-primary tracking-wider">000-000-0000</div>
+          <div class="text-xs text-gray-400 mt-3">受付時間 9:00 - 18:00 (土日祝休み)</div>
+        </div>
+        <a href="#" class="block w-full py-4 bg-yellow-500 text-black font-bold rounded-full hover:bg-yellow-400 transition text-lg shadow-md flex items-center justify-center">
+          <i class="fa-regular fa-envelope mr-2 text-xl"></i> WEBからのお問い合わせ
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center text-sm">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-2xl font-black text-white mb-4 tracking-wider">${comp}</div>
+      <p class="mb-6">〒000-0000 ${regValue}〇〇町1-2-3</p>
+      <div class="flex justify-center gap-6 mb-8 text-xl">
+        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-line"></i></a>
+        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+      <p>&copy; ${new Date().getFullYear()} ${comp} All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating CTA (Mobile) -->
+  <div class="floating-btn md:hidden">
+    <a href="tel:0000000000" class="w-1/2 bg-gray-900 text-white py-4 text-center font-bold text-sm border-r border-gray-700 flex items-center justify-center gap-2 active:bg-gray-800">
+      <i class="fa-solid fa-phone text-lg"></i> 電話する
+    </a>
+    <a href="#contact" class="w-1/2 bg-primary text-white py-4 text-center font-bold text-sm flex items-center justify-center gap-2 active:bg-primary/80">
+      <i class="fa-regular fa-envelope text-lg"></i> WEB予約
+    </a>
+  </div>
+
+  <script>
+    // アニメーション初期化
+    AOS.init({ duration: 800, once: true });
+  <\/script>
+</body>
+</html>`;
+    
+    html = mockHtml;
+    window.H('s_hl');window.S('s_bu');window.fireworks();
     setTimeout(function(){
-      var fr=document.getElementById('prevFrame');var doc=fr.contentDocument||fr.contentWindow.document;
-      doc.open();doc.write(html);doc.close();S('s_pv');GO('s_pv');
-    },1800);
-  })
-  .catch(function(e){alert('HP生成に失敗しました：'+e.message);H('s_hl');S('s_gb');});
+      // 直接描画の代わりに別タブ案内画面を表示
+      window.S('s_pv');window.GO('s_pv');
+    }, 1800);
+  }, 3200);
 }
 
-function dlHP(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
+// 別タブでプレビューを開く処理
+window.openPrev = function() {
+  if(!html) return;
+  var newWin = window.open('', '_blank');
+  if(newWin) {
+    newWin.document.open();
+    newWin.document.write(html);
+    newWin.document.close();
+  } else {
+    alert('ポップアップがブロックされました。ブラウザの設定で許可するか、「HTMLをダウンロード」してお試しください。');
+  }
+}
 
-function sendMail(){
-  var de=document.getElementById('dirMail').value;if(!de){toast('⚠️ 設定からディレクション担当者メールを入力してください');setTimeout(togS,600);return;}
+window.dlHP = function(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
+
+window.sendMail = function(){
+  var de=document.getElementById('dirMail').value;if(!de){window.toast('⚠️ 設定からディレクション担当者メールを入力してください');setTimeout(window.togS,600);return;}
   var co=document.getElementById('com').value||'御社';
   var sub=encodeURIComponent('【Smartpage-i】ホームページ提案：'+co);
   var body=encodeURIComponent('ディレクションご担当者様\n\nSmartpage-iにてホームページ提案が完成しました。\n\n■クライアント情報\n会社名：'+co+'\n業種：'+ind+'\n地域：'+document.getElementById('reg').value+'\n\n■採用キャッチコピー\nメイン：'+(cp?cp.catch:'')+'\nサブ：'+(cp?cp.sub:'')+'\n\n■添付ファイル\nホームページ提案HTML（別途添付してください）\n\nデモ担当：'+document.getElementById('demoMail').value+'\n送信ツール：Smartpage-i');
-  window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;toast('📧 メーラーが起動しました');
+  window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;window.toast('📧 メーラーが起動しました');
 }
 
-function resetAll(){
+window.resetAll = function(){
   ind="";cons=[];html="";cp=null;pats=[];
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
   ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('pgBar').style.animation='none';
-  S('s1');['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv'].forEach(H);
+  window.S('s1');['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv'].forEach(window.H);
   ['ls1','ls2','ls3','ls4','ls5'].forEach(function(id){document.getElementById(id).classList.remove('done');});
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.getElementById('logoBtn').addEventListener('click',resetAll);
-document.getElementById('howtoBtn').addEventListener('click',function(){openM('mHow');});
-document.getElementById('gearBtn').addEventListener('click',togS);
-document.getElementById('closeHow').addEventListener('click',function(){closeM('mHow');});
-document.getElementById('closeConf').addEventListener('click',function(){closeM('mConf');});
-document.getElementById('closeConfBtn').addEventListener('click',function(){closeM('mConf');});
-document.getElementById('tBlue').addEventListener('click',function(){setTheme('blue');});
-document.getElementById('tPink').addEventListener('click',function(){setTheme('pink');});
-document.getElementById('loadDemoBtn').addEventListener('click',function(){loadDemo();closeS();});
-document.getElementById('clearDemoBtn').addEventListener('click',function(){clearDemo();closeS();});
-document.getElementById('confirmBtn').addEventListener('click',function(){openConfirm();closeS();});
-document.getElementById('b_diag').addEventListener('click',startDiag);
-document.getElementById('b_copy').addEventListener('click',genCopy);
-document.getElementById('b_hp').addEventListener('click',genHP);
-document.getElementById('b_dl').addEventListener('click',dlHP);
-document.getElementById('b_mail').addEventListener('click',sendMail);
-document.getElementById('b_rst').addEventListener('click',resetAll);
-document.getElementById('demoMail').addEventListener('input',saveMails);
-document.getElementById('dirMail').addEventListener('input',saveMails);
+// イベントリスナー登録
+document.getElementById('logoBtn').addEventListener('click',window.resetAll);
+document.getElementById('howtoBtn').addEventListener('click',function(){window.openM('mHow');});
+document.getElementById('gearBtn').addEventListener('click',window.togS);
+document.getElementById('closeHow').addEventListener('click',function(){window.closeM('mHow');});
+document.getElementById('closeConf').addEventListener('click',function(){window.closeM('mConf');});
+document.getElementById('closeConfBtn').addEventListener('click',function(){window.closeM('mConf');});
+document.getElementById('tBlue').addEventListener('click',function(){window.setTheme('blue');});
+document.getElementById('tPink').addEventListener('click',function(){window.setTheme('pink');});
+document.getElementById('loadDemoBtn').addEventListener('click',function(){window.loadDemo();window.closeS();});
+document.getElementById('clearDemoBtn').addEventListener('click',function(){window.clearDemo();window.closeS();});
+document.getElementById('confirmBtn').addEventListener('click',function(){window.openConfirm();window.closeS();});
+document.getElementById('b_diag').addEventListener('click',window.startDiag);
+document.getElementById('b_copy').addEventListener('click',window.genCopy);
+document.getElementById('b_hp').addEventListener('click',window.genHP);
+
+// 別タブで開くボタンのリスナーを追加
+document.getElementById('b_open_prev').addEventListener('click',window.openPrev);
+
+document.getElementById('b_dl').addEventListener('click',window.dlHP);
+document.getElementById('b_mail').addEventListener('click',window.sendMail);
+document.getElementById('b_rst').addEventListener('click',window.resetAll);
+document.getElementById('demoMail').addEventListener('input',window.saveMails);
+document.getElementById('dirMail').addEventListener('input',window.saveMails);
+document.getElementById('cp0').addEventListener('click',function(){window.selCP(0);});
+document.getElementById('cp1').addEventListener('click',function(){window.selCP(1);});
+document.getElementById('cp2').addEventListener('click',function(){window.selCP(2);});
 document.getElementById('indC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;document.querySelectorAll('#indC .chip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');ind=c.textContent.trim();});
 document.getElementById('conC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;c.classList.toggle('on');var v=c.textContent.trim();if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}else{cons=cons.filter(function(x){return x!==v;});}});
-document.addEventListener('click',function(e){if(!e.target.closest('.gwrap'))closeS();});
-loadMails();
+document.addEventListener('click',function(e){if(!e.target.closest('.gwrap'))window.closeS();});
+window.loadMails();
 </script>
 </body>
 </html>
