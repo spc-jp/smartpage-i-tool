@@ -9,11 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--a1:#0179E8;--a2:#225AD3;--gold:#D0A900;--bg:#0a0a1a;--hf:#0a0a1a;--hm:#1a1a3e;--ht:#0d2060;}
 body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:#fff;min-height:100vh;}
-
-/* ===== ユーティリティ ===== */
 .H{display:none !important;}
-
-/* ===== ヘッダー ===== */
 .top-header{position:sticky;top:0;z-index:100;background:rgba(10,10,26,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
 .hlogo{font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--a1),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;}
 .hright{display:flex;align-items:center;gap:8px;}
@@ -33,8 +29,6 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--b
 .sinp::placeholder{color:rgba(255,255,255,0.3);}
 .tdots{display:flex;gap:3px;margin-left:auto;}
 .tdot{width:10px;height:10px;border-radius:50%;}
-
-/* ===== モーダル ===== */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;}
 .mo.open{display:flex;}
 .mb{background:#12122a;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:32px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative;}
@@ -58,16 +52,12 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--b
 .cst{margin-top:20px;padding:14px 16px;border-radius:12px;font-size:13px;font-weight:600;}
 .cst.ok{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#22c55e;}
 .cst.ng{background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.3);color:#e05555;}
-
-/* ===== ヒーロー ===== */
 .hero{background:linear-gradient(135deg,var(--hf) 0%,var(--hm) 50%,var(--ht) 100%);padding:40px 20px 60px;text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(0,120,255,0.15) 0%,transparent 60%);animation:pulse 4s ease-in-out infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.1);opacity:1;}}
 .hbrand{font-size:12px;letter-spacing:4px;color:var(--gold);margin-bottom:14px;position:relative;}
 .htag{font-size:clamp(28px,5vw,48px);font-weight:900;background:linear-gradient(135deg,#fff,var(--a1),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;position:relative;}
 .hsub{font-size:14px;color:rgba(255,255,255,0.6);position:relative;}
-
-/* ===== レイアウト ===== */
 .wrap{max-width:800px;margin:0 auto;padding:0 20px 80px;}
 .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;margin-top:32px;}
 .card-gold{background:rgba(208,169,0,0.08);border:2px solid rgba(208,169,0,0.5);border-radius:20px;padding:32px;margin-top:32px;}
@@ -83,8 +73,6 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--b
 .inp:focus{border-color:var(--a1);}
 .inp::placeholder{color:rgba(255,255,255,0.3);}
 textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
-
-/* ===== ボタン ===== */
 .btn-blue{width:100%;padding:16px;background:linear-gradient(135deg,var(--a1),var(--a2));border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-top:24px;transition:all 0.3s;}
 .btn-blue:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(1,121,232,0.4);}
 .btn-gold{width:100%;padding:18px;background:linear-gradient(135deg,#D0A900,#f0c800);border:none;border-radius:14px;color:#000;font-size:17px;font-weight:800;cursor:pointer;transition:all 0.3s;letter-spacing:1px;}
@@ -93,8 +81,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .btn-green:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,197,94,0.4);}
 .btn-ghost{width:100%;padding:14px;background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:14px;color:rgba(255,255,255,0.6);font-size:14px;cursor:pointer;margin-top:12px;transition:all 0.2s;}
 .btn-ghost:hover{border-color:#fff;color:#fff;}
-
-/* ===== ローディング ===== */
 .loading-box{text-align:center;padding:40px 20px;}
 .radar{width:120px;height:120px;margin:0 auto 32px;position:relative;}
 .radar.sm{width:80px;height:80px;margin:20px auto 16px;}
@@ -110,8 +96,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .lsi.done{color:rgba(255,255,255,0.8);}
 .lsi.done .sd{background:var(--a1);box-shadow:0 0 10px var(--a1);}
 .sd{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);flex-shrink:0;transition:all 0.5s;}
-
-/* ===== 診断結果 ===== */
 .sring{text-align:center;padding:40px 0 32px;}
 .snum{font-size:72px;font-weight:900;background:linear-gradient(135deg,var(--a1),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
 .slbl{font-size:14px;color:rgba(255,255,255,0.5);margin-top:4px;}
@@ -140,18 +124,16 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .ie{font-size:12px;color:var(--gold);margin-top:4px;}
 .divider{height:1px;background:rgba(255,255,255,0.08);margin:24px 0;}
 
-/* ===== コピーカード ===== */
-.cpcard{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 24px;margin-bottom:14px;cursor:pointer;transition:all 0.25s;user-select:none;}
+/* ★コピーカード：3枚固定 */
+.cpcard{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 24px;margin-bottom:14px;cursor:pointer;transition:all 0.25s;}
 .cpcard:hover{border-color:var(--a1);background:rgba(1,121,232,0.08);transform:translateY(-2px);}
 .cpcard.on{border-color:var(--a1);background:rgba(1,121,232,0.15);box-shadow:0 0 0 3px rgba(1,121,232,0.2);}
-.cpcard *{pointer-events:none;}
-.cpconcept{font-size:11px;letter-spacing:2px;color:var(--a1);margin-bottom:8px;}
-.cpcatch{font-size:24px;font-weight:800;margin-bottom:8px;color:#fff;line-height:1.3;}
-.cpsub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;}
-.cpbadge{float:right;background:var(--a1);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;display:none;}
-.cpcard.on .cpbadge{display:inline-block;}
+.cp-num{font-size:11px;letter-spacing:2px;color:var(--a1);margin-bottom:8px;}
+.cp-catch{font-size:24px;font-weight:800;margin-bottom:8px;color:#fff;line-height:1.3;}
+.cp-sub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;}
+.cp-badge{float:right;background:var(--a1);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;display:none;}
+.cpcard.on .cp-badge{display:inline-block;}
 
-/* ===== HP生成アニメ ===== */
 .hpload-inner{background:linear-gradient(135deg,rgba(10,10,26,0.9),rgba(26,26,62,0.9));border:1px solid rgba(1,121,232,0.3);border-radius:20px;padding:40px 24px;text-align:center;position:relative;overflow:hidden;}
 .hpload-inner::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--a1),var(--gold),transparent);animation:scan 1.5s linear infinite;}
 @keyframes scan{0%{left:-100%;}100%{left:100%;}}
@@ -186,8 +168,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .pgwrap{background:rgba(255,255,255,0.08);border-radius:100px;height:4px;overflow:hidden;max-width:300px;margin:0 auto;}
 .pgbar{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--a1),var(--gold));width:0%;}
 @keyframes prog{0%{width:0%;}80%{width:85%;}100%{width:95%;}}
-
-/* ===== 完成・プレビュー ===== */
 .burst-wrap{text-align:center;padding:30px;}
 .burst-e{font-size:60px;display:block;margin-bottom:12px;animation:bi 0.6s cubic-bezier(0.175,0.885,0.32,1.275);}
 @keyframes bi{0%{transform:scale(0);}60%{transform:scale(1.2);}100%{transform:scale(1);}}
@@ -198,8 +178,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .prevframe{width:100%;height:520px;border:none;border-radius:0 0 14px 14px;background:#fff;}
 .fwc{position:fixed;inset:0;pointer-events:none;z-index:9998;display:none;}
 .pt{position:absolute;border-radius:50%;}
-
-/* ===== フッター ===== */
 .footer{background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.06);padding:24px 20px;text-align:center;}
 .fi{max-width:800px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:8px;}
 .fb{font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--a1),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -242,7 +220,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <button class="mc" id="closeHow">✕</button>
     <div class="mt">📖 使い方ガイド</div>
     <div class="msb">Smartpage-i の目的と操作手順</div>
-    <div class="hw"><div class="ht2">🎯 このアプリの目的</div><div class="hpur">代理店営業・新人スタッフが中小企業オーナーへの初回提案をその場で完結させるAIツールです。診断→キャッチコピー→ホームページ生成まで一気通貫で行えます。</div></div>
+    <div class="hw"><div class="ht2">🎯 このアプリの目的</div><div class="hpur">代理店営業・新人スタッフが中小企業オーナーへの初回提案をその場で完結させるAIツールです。</div></div>
     <div class="hw"><div class="ht2">🚀 使い方ステップ</div>
       <ol class="hsl">
         <li>⚙️設定で担当者メールを登録する</li>
@@ -333,7 +311,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 <div class="card H" id="s2">
   <div class="clb2">STEP 02</div>
   <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
-  <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で建ててから20年後もお客様と繋がっている。"></textarea></div>
+  <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で20年後もお客様と繋がっている。"></textarea></div>
   <div class="fg"><div class="fl">一言アピール（任意）</div><input class="inp" id="app" type="text" placeholder="例：地域No.1の口コミ数、創業30年の実績"></div>
   <button class="btn-blue" id="b_copy">✨ キャッチコピーを3パターン生成する</button>
 </div>
@@ -344,9 +322,27 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   <div class="ls">経営者の想いを言葉に変換中</div>
 </div>
 
+<!-- ★コピーカード3枚：最初から静的に配置・onclick属性で直接呼び出し -->
 <div class="card H" id="s_cp">
   <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」</div>
-  <div id="patList"></div>
+  <div class="cpcard" id="cp0" onclick="selCP(0)">
+    <span class="cp-badge">✓ 選択中</span>
+    <div class="cp-num" id="cpn0">パターン1：</div>
+    <div class="cp-catch" id="cpc0">-</div>
+    <div class="cp-sub" id="cps0">-</div>
+  </div>
+  <div class="cpcard" id="cp1" onclick="selCP(1)">
+    <span class="cp-badge">✓ 選択中</span>
+    <div class="cp-num" id="cpn1">パターン2：</div>
+    <div class="cp-catch" id="cpc1">-</div>
+    <div class="cp-sub" id="cps1">-</div>
+  </div>
+  <div class="cpcard" id="cp2" onclick="selCP(2)">
+    <span class="cp-badge">✓ 選択中</span>
+    <div class="cp-num" id="cpn2">パターン3：</div>
+    <div class="cp-catch" id="cpc2">-</div>
+    <div class="cp-sub" id="cps2">-</div>
+  </div>
 </div>
 
 <div class="card-gold H" id="s_gb">
@@ -398,84 +394,63 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 
 <script>
 var WK="https://smartpage-i-tool.yymmatsu.workers.dev";
-var ind="",cons=[],html="",theme="blue",cp=null,pats=[];
+var ind="",cons=[],html="",theme="blue",cp=null;
+var pats=[];
 
-// ===== 表示制御 =====
 function S(id){document.getElementById(id).classList.remove('H');}
 function H(id){document.getElementById(id).classList.add('H');}
 function GO(id){setTimeout(function(){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});},200);}
 
 function toast(m){
-  var t=document.createElement('div');
-  t.textContent=m;
+  var t=document.createElement('div');t.textContent=m;
   t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';
-  document.body.appendChild(t);
-  setTimeout(function(){t.remove();},2500);
+  document.body.appendChild(t);setTimeout(function(){t.remove();},2500);
 }
 
-// ===== テーマ =====
 var TH={
   blue:{'--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900','--bg':'#0a0a1a','--hf':'#0a0a1a','--hm':'#1a1a3e','--ht':'#0d2060',hbg:'rgba(10,10,26,0.95)'},
   pink:{'--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4','--bg':'#1a0a12','--hf':'#1a0a12','--hm':'#3d0a24','--ht':'#600d38',hbg:'rgba(26,10,18,0.95)'}
 };
 function setTheme(t){
-  theme=t;
-  var th=TH[t];
+  theme=t;var th=TH[t];
   Object.keys(th).forEach(function(k){if(k.startsWith('--'))document.documentElement.style.setProperty(k,th[k]);});
   document.querySelector('.top-header').style.background=th.hbg;
   document.getElementById('tBlue').classList.toggle('on',t==='blue');
   document.getElementById('tPink').classList.toggle('on',t==='pink');
-  toast(t==='pink'?'🌸 ピンクテーマ':'🔵 ブルーテーマ');
-  closeS();
+  toast(t==='pink'?'🌸 ピンクテーマ':'🔵 ブルーテーマ');closeS();
 }
 
 function openM(id){document.getElementById(id).classList.add('open');closeS();}
 function closeM(id){document.getElementById(id).classList.remove('open');}
 function togS(){document.getElementById('sdrop').classList.toggle('open');}
 function closeS(){document.getElementById('sdrop').classList.remove('open');}
+function saveMails(){localStorage.setItem('dm',document.getElementById('demoMail').value);localStorage.setItem('di',document.getElementById('dirMail').value);}
+function loadMails(){var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');if(dm)document.getElementById('demoMail').value=dm;if(di)document.getElementById('dirMail').value=di;}
 
-function saveMails(){
-  localStorage.setItem('dm',document.getElementById('demoMail').value);
-  localStorage.setItem('di',document.getElementById('dirMail').value);
-}
-function loadMails(){
-  var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');
-  if(dm)document.getElementById('demoMail').value=dm;
-  if(di)document.getElementById('dirMail').value=di;
-}
-
-// ===== デモ =====
 var DEMO={ind:'美容・サロン',reg:'埼玉県さいたま市',com:'ビューティーサロン Belle',cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',app:'リピート率90%以上、地域密着15年'};
 
 function loadDemo(){
   ind=DEMO.ind;
   document.querySelectorAll('#indC .chip').forEach(function(c){c.classList.remove('on');if(c.textContent.trim()===DEMO.ind)c.classList.add('on');});
-  document.getElementById('reg').value=DEMO.reg;
-  document.getElementById('com').value=DEMO.com;
-  document.getElementById('str').value=DEMO.str;
-  document.getElementById('app').value=DEMO.app;
+  document.getElementById('reg').value=DEMO.reg;document.getElementById('com').value=DEMO.com;
+  document.getElementById('str').value=DEMO.str;document.getElementById('app').value=DEMO.app;
   cons=[];
   document.querySelectorAll('#conC .chip').forEach(function(c){c.classList.remove('on');if(DEMO.cons.includes(c.textContent.trim())){c.classList.add('on');cons.push(c.textContent.trim());}});
   toast('🎯 デモデータを入力しました');
 }
 
 function clearDemo(){
-  ind="";cons=[];
-  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
-  ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
-  toast('🗑️ クリアしました');
+  ind="";cons=[];document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});toast('🗑️ クリアしました');
 }
 
 function openConfirm(){
   var rows=[{l:'業種',v:ind},{l:'地域',v:document.getElementById('reg').value},{l:'会社名',v:document.getElementById('com').value},{l:'悩み',v:cons.join('、')},{l:'強み',v:document.getElementById('str').value},{l:'デモ担当者',v:document.getElementById('demoMail').value},{l:'ディレクション担当者',v:document.getElementById('dirMail').value}];
   var h='';rows.forEach(function(r){var v=r.v?'<span class="cv">'+r.v+'</span>':'<span class="ce">未入力</span>';h+='<div class="cr"><span class="clb">'+r.l+'</span>'+v+'</div>';});
   document.getElementById('confRows').innerHTML=h;
-  var ok=ind&&document.getElementById('reg').value;
-  var s=document.getElementById('confSt');s.className=ok?'cst ok':'cst ng';s.textContent=ok?'✅ 診断に必要な情報が揃っています！':'⚠️ 業種と地域は必須です。';
-  openM('mConf');
+  var ok=ind&&document.getElementById('reg').value;var s=document.getElementById('confSt');s.className=ok?'cst ok':'cst ng';s.textContent=ok?'✅ 診断に必要な情報が揃っています！':'⚠️ 業種と地域は必須です。';openM('mConf');
 }
 
-// ===== 花火 =====
 function fireworks(){
   var c=document.getElementById('fwc');c.style.display='block';
   var cols=theme==='pink'?['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffd700']:['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
@@ -487,25 +462,15 @@ function fireworks(){
       var col=cols[Math.floor(Math.random()*cols.length)],sz=Math.random()*8+4;
       p.style.cssText='left:'+x+'px;top:'+y+'px;background:'+col+';width:'+sz+'px;height:'+sz+'px;box-shadow:0 0 '+(sz*2)+'px '+col+';';
       c.appendChild(p);
-      (function(p,x,y){
-        var a=Math.random()*Math.PI*2,sp=Math.random()*130+60;
-        var vx=Math.cos(a)*sp,vy=Math.sin(a)*sp-90,op=1,px=x,py=y;
-        var iv2=setInterval(function(){
-          px+=vx*0.04;py+=vy*0.04+2.5;op-=0.025;
-          p.style.left=px+'px';p.style.top=py+'px';p.style.opacity=op;
-          if(op<=0){clearInterval(iv2);p.remove();}
-        },16);
-      })(p,x,y);
+      (function(p,x,y){var a=Math.random()*Math.PI*2,sp=Math.random()*130+60,vx=Math.cos(a)*sp,vy=Math.sin(a)*sp-90,op=1,px=x,py=y;var iv2=setInterval(function(){px+=vx*0.04;py+=vy*0.04+2.5;op-=0.025;p.style.left=px+'px';p.style.top=py+'px';p.style.opacity=op;if(op<=0){clearInterval(iv2);p.remove();}},16);})(p,x,y);
     }
     if(++n>10){clearInterval(iv);setTimeout(function(){c.style.display='none';},1000);}
   },280);
 }
 
-// ===== 診断 =====
 function startDiag(){
   if(!ind){alert('業種を選んでください');return;}
-  var reg=document.getElementById('reg').value;
-  if(!reg){alert('地域を入力してください');return;}
+  var reg=document.getElementById('reg').value;if(!reg){alert('地域を入力してください');return;}
   H('s1');S('s_dl');GO('s_dl');
   var steps=['ls1','ls2','ls3','ls4','ls5'],i=0;
   var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},800);
@@ -515,8 +480,7 @@ function startDiag(){
     clearInterval(si);steps.forEach(function(s){document.getElementById(s).classList.add('done');});
     var raw=d.result;if(typeof raw==='object')raw=JSON.stringify(raw);
     var data=JSON.parse(raw.replace(/```json|```/g,'').trim());
-    document.getElementById('r_sc').textContent=data.score;
-    document.getElementById('r_su').textContent=data.summary;
+    document.getElementById('r_sc').textContent=data.score;document.getElementById('r_su').textContent=data.summary;
     var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_bf').innerHTML=bf;
     var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_af').innerHTML=af;
     var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});document.getElementById('r_sn').innerHTML=sns;
@@ -526,45 +490,43 @@ function startDiag(){
   .catch(function(e){clearInterval(si);alert('エラーが発生しました');H('s_dl');S('s1');});
 }
 
-// ===== コピー生成 =====
 function genCopy(){
-  H('s_cp');H('s_gb');cp=null;pats=[];
-  S('s_cl');GO('s_cl');
+  H('s_cp');H('s_gb');cp=null;pats=[];S('s_cl');GO('s_cl');
   fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})})
   .then(function(r){return r.json();})
   .then(function(d){
     var raw=d.result;if(typeof raw==='object')raw=JSON.stringify(raw);
     var data=JSON.parse(raw.replace(/```json|```/g,'').trim());
     pats=data.patterns||[];
-    var pl=document.getElementById('patList');
-    pl.innerHTML='';
-    pats.forEach(function(p,i){
-      var div=document.createElement('div');
-      div.className='cpcard';
-      div.setAttribute('data-i',i);
-      div.innerHTML='<span class="cpbadge">✓ 選択中</span><div class="cpconcept">パターン'+p.id+'：'+p.concept+'</div><div class="cpcatch">'+p.catch+'</div><div class="cpsub">'+p.sub+'</div>';
-      pl.appendChild(div);
-    });
+    // ★3枚の固定カードにテキストを流し込む
+    for(var i=0;i<3;i++){
+      var p=pats[i];
+      if(p){
+        document.getElementById('cpn'+i).textContent='パターン'+p.id+'：'+p.concept;
+        document.getElementById('cpc'+i).textContent=p.catch;
+        document.getElementById('cps'+i).textContent=p.sub;
+        document.getElementById('cp'+i).classList.remove('H');
+      } else {
+        document.getElementById('cp'+i).classList.add('H');
+      }
+    }
     H('s_cl');S('s_cp');GO('s_cp');
   })
   .catch(function(e){alert('コピー生成に失敗しました');H('s_cl');});
 }
 
-// ===== ★コピー選択（patListへの委任） =====
-document.getElementById('patList').addEventListener('click',function(e){
-  var card=e.target;
-  while(card&&!card.classList.contains('cpcard'))card=card.parentElement;
-  if(!card)return;
-  var i=parseInt(card.getAttribute('data-i'),10);
-  if(isNaN(i)||!pats[i])return;
-  document.querySelectorAll('#patList .cpcard').forEach(function(c){c.classList.remove('on');});
-  card.classList.add('on');
+// ★onclick="selCP(0)" から直接呼ばれる関数
+function selCP(i){
+  if(!pats[i])return;
+  document.getElementById('cp0').classList.remove('on');
+  document.getElementById('cp1').classList.remove('on');
+  document.getElementById('cp2').classList.remove('on');
+  document.getElementById('cp'+i).classList.add('on');
   cp={id:pats[i].id,catch:pats[i].catch,sub:pats[i].sub,concept:pats[i].concept,appealPoints:[],serviceDescriptions:[]};
   toast('✅ パターン'+(i+1)+'を選択！');
   S('s_gb');GO('s_gb');
-});
+}
 
-// ===== HP生成 =====
 function genHP(){
   if(!cp){alert('コピーを選んでください');return;}
   H('s_gb');S('s_hl');GO('s_hl');
@@ -574,44 +536,33 @@ function genHP(){
   .then(function(d){
     html=d.result;H('s_hl');S('s_bu');fireworks();
     setTimeout(function(){
-      var fr=document.getElementById('prevFrame');
-      var doc=fr.contentDocument||fr.contentWindow.document;
-      doc.open();doc.write(html);doc.close();
-      S('s_pv');GO('s_pv');
+      var fr=document.getElementById('prevFrame');var doc=fr.contentDocument||fr.contentWindow.document;
+      doc.open();doc.write(html);doc.close();S('s_pv');GO('s_pv');
     },1800);
   })
   .catch(function(e){alert('HP生成に失敗しました：'+e.message);H('s_hl');S('s_gb');});
 }
 
-function dlHP(){
-  if(!html)return;
-  var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);
-  var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);
-}
+function dlHP(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
 
 function sendMail(){
-  var de=document.getElementById('dirMail').value;
-  if(!de){toast('⚠️ 設定からディレクション担当者メールを入力してください');setTimeout(togS,600);return;}
+  var de=document.getElementById('dirMail').value;if(!de){toast('⚠️ 設定からディレクション担当者メールを入力してください');setTimeout(togS,600);return;}
   var co=document.getElementById('com').value||'御社';
   var sub=encodeURIComponent('【Smartpage-i】ホームページ提案：'+co);
   var body=encodeURIComponent('ディレクションご担当者様\n\nSmartpage-iにてホームページ提案が完成しました。\n\n■クライアント情報\n会社名：'+co+'\n業種：'+ind+'\n地域：'+document.getElementById('reg').value+'\n\n■採用キャッチコピー\nメイン：'+(cp?cp.catch:'')+'\nサブ：'+(cp?cp.sub:'')+'\n\n■添付ファイル\nホームページ提案HTML（別途添付してください）\n\nデモ担当：'+document.getElementById('demoMail').value+'\n送信ツール：Smartpage-i');
-  window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;
-  toast('📧 メーラーが起動しました');
+  window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;toast('📧 メーラーが起動しました');
 }
 
 function resetAll(){
   ind="";cons=[];html="";cp=null;pats=[];
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
   ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('patList').innerHTML='';
   document.getElementById('pgBar').style.animation='none';
-  S('s1');
-  ['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv'].forEach(H);
+  S('s1');['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv'].forEach(H);
   ['ls1','ls2','ls3','ls4','ls5'].forEach(function(id){document.getElementById(id).classList.remove('done');});
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ===== イベント登録 =====
 document.getElementById('logoBtn').addEventListener('click',resetAll);
 document.getElementById('howtoBtn').addEventListener('click',function(){openM('mHow');});
 document.getElementById('gearBtn').addEventListener('click',togS);
@@ -631,22 +582,9 @@ document.getElementById('b_mail').addEventListener('click',sendMail);
 document.getElementById('b_rst').addEventListener('click',resetAll);
 document.getElementById('demoMail').addEventListener('input',saveMails);
 document.getElementById('dirMail').addEventListener('input',saveMails);
-
-document.getElementById('indC').addEventListener('click',function(e){
-  var c=e.target.closest('.chip');if(!c)return;
-  document.querySelectorAll('#indC .chip').forEach(function(x){x.classList.remove('on');});
-  c.classList.add('on');ind=c.textContent.trim();
-});
-
-document.getElementById('conC').addEventListener('click',function(e){
-  var c=e.target.closest('.chip');if(!c)return;
-  c.classList.toggle('on');var v=c.textContent.trim();
-  if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}
-  else{cons=cons.filter(function(x){return x!==v;});}
-});
-
+document.getElementById('indC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;document.querySelectorAll('#indC .chip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');ind=c.textContent.trim();});
+document.getElementById('conC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;c.classList.toggle('on');var v=c.textContent.trim();if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}else{cons=cons.filter(function(x){return x!==v;});}});
 document.addEventListener('click',function(e){if(!e.target.closest('.gwrap'))closeS();});
-
 loadMails();
 </script>
 </body>
