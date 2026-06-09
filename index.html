@@ -126,10 +126,10 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .cpcard{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 24px;margin-bottom:14px;cursor:pointer;transition:all 0.25s;}
 .cpcard:hover{border-color:var(--a1);background:rgba(1,121,232,0.08);transform:translateY(-2px);}
 .cpcard.on{border-color:var(--a1);background:rgba(1,121,232,0.15);box-shadow:0 0 0 3px rgba(1,121,232,0.2);}
-.cpconcept{font-size:11px;letter-spacing:2px;color:var(--a1);margin-bottom:8px;}
-.cpcatch{font-size:24px;font-weight:800;margin-bottom:8px;color:#fff;line-height:1.3;}
-.cpsub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;}
-.cpbadge{float:right;background:var(--a1);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;display:none;}
+.cpconcept{font-size:11px;letter-spacing:2px;color:var(--a1);margin-bottom:8px;pointer-events:none;}
+.cpcatch{font-size:24px;font-weight:800;margin-bottom:8px;color:#fff;line-height:1.3;pointer-events:none;}
+.cpsub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;pointer-events:none;}
+.cpbadge{float:right;background:var(--a1);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;display:none;pointer-events:none;}
 .cpcard.on .cpbadge{display:inline-block;}
 .hpload-inner{background:linear-gradient(135deg,rgba(10,10,26,0.9),rgba(26,26,62,0.9));border:1px solid rgba(1,121,232,0.3);border-radius:20px;padding:40px 24px;text-align:center;position:relative;overflow:hidden;}
 .hpload-inner::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--a1),var(--gold),transparent);animation:scan 1.5s linear infinite;}
@@ -324,6 +324,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   <div id="patList"></div>
 </div>
 
+<!-- ★最初から静的に存在するHP生成ボタン -->
 <div class="card-gold hidden" id="sec_genBtn">
   <div style="font-size:16px;font-weight:700;color:#D0A900;margin-bottom:8px;">🎉 キャッチコピーが決まりました！</div>
   <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:20px;">このコピーをホームページのヒーローにそのまま反映します。下のボタンで今すぐ生成しましょう 🚀</div>
@@ -374,6 +375,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 <script>
 var WK="https://smartpage-i-tool.yymmatsu.workers.dev";
 var ind="",cons=[],genHtml="",theme="blue",cpData=null;
+var copyPatternsData=null;
 
 function show(id){document.getElementById(id).classList.remove('hidden');}
 function hide(id){document.getElementById(id).classList.add('hidden');}
@@ -387,7 +389,6 @@ function toast(msg){
   setTimeout(function(){t.remove();},2500);
 }
 
-// テーマ
 var TH={
   blue:{'--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900','--bg':'#0a0a1a','--hf':'#0a0a1a','--hm':'#1a1a3e','--ht':'#0d2060',hbg:'rgba(10,10,26,0.95)'},
   pink:{'--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4','--bg':'#1a0a12','--hf':'#1a0a12','--hm':'#3d0a24','--ht':'#600d38',hbg:'rgba(26,10,18,0.95)'}
@@ -496,14 +497,11 @@ function fireworks(){
   },280);
 }
 
-// ★診断
 function startDiag(){
   if(!ind){alert('業種を選んでください');return;}
   var reg=document.getElementById('reg').value;
   if(!reg){alert('地域を入力してください');return;}
-  hide('sec_step1');
-  show('sec_diagLoad');
-  sc('sec_diagLoad');
+  hide('sec_step1');show('sec_diagLoad');sc('sec_diagLoad');
   var steps=['ls1','ls2','ls3','ls4','ls5'],i=0;
   var si=setInterval(function(){
     if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}
@@ -516,89 +514,91 @@ function startDiag(){
     steps.forEach(function(s){document.getElementById(s).classList.add('done');});
     var raw=d.result;
     if(typeof raw==='object')raw=JSON.stringify(raw);
-    raw=raw.replace(/```json|```/g,'').trim();
-    var data=JSON.parse(raw);
+    var data=JSON.parse(raw.replace(/```json|```/g,'').trim());
     document.getElementById('r_score').textContent=data.score;
     document.getElementById('r_summary').textContent=data.summary;
-    var bf='';
-    (data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});
+    var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});
     document.getElementById('r_smBf').innerHTML=bf;
-    var af='';
-    (data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});
+    var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});
     document.getElementById('r_smAf').innerHTML=af;
-    var sns='';
-    (data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});
+    var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});
     document.getElementById('r_sns').innerHTML=sns;
-    var ideas='';
-    (data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});
+    var ideas='';(data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});
     document.getElementById('r_ideas').innerHTML=ideas;
-    hide('sec_diagLoad');
-    show('sec_result');
-    show('sec_step2');
-    sc('sec_result');
+    hide('sec_diagLoad');show('sec_result');show('sec_step2');sc('sec_result');
   })
   .catch(function(e){
-    clearInterval(si);
-    alert('エラーが発生しました');
-    hide('sec_diagLoad');
-    show('sec_step1');
+    clearInterval(si);alert('エラーが発生しました');hide('sec_diagLoad');show('sec_step1');
   });
 }
 
-// ★コピー生成
 function genCopy(){
   hide('sec_copyPats');
   hide('sec_genBtn');
   cpData=null;
+  copyPatternsData=null;
   show('sec_copyLoad');
   sc('sec_copyLoad');
-  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})})
+
+  fetch(WK,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      mode:'copywriting',
+      industry:ind,
+      region:document.getElementById('reg').value,
+      companyName:document.getElementById('com').value,
+      appeal:document.getElementById('app').value,
+      strengths:document.getElementById('str').value
+    })
+  })
   .then(function(r){return r.json();})
   .then(function(d){
-    // ★JSONパース（二重パースに対応）
     var raw=d.result;
     if(typeof raw==='object')raw=JSON.stringify(raw);
     raw=raw.replace(/```json|```/g,'').trim();
-    var data=JSON.parse(raw);
+    copyPatternsData=JSON.parse(raw);
 
-    // ★コピーカードを生成してaddEventListenerで登録
     var pl=document.getElementById('patList');
     pl.innerHTML='';
 
-    var patterns=data.patterns||[];
+    var patterns=copyPatternsData.patterns||[];
     patterns.forEach(function(p,idx){
       var div=document.createElement('div');
       div.className='cpcard';
-      div.innerHTML='<span class="cpbadge">✓ 選択中</span>'
-        +'<div class="cpconcept">パターン'+p.id+'：'+p.concept+'</div>'
-        +'<div class="cpcatch">'+p.catch+'</div>'
-        +'<div class="cpsub">'+p.sub+'</div>';
-
-      // ★クロージャで p を保持
-      (function(pattern,index){
-        div.addEventListener('click',function(){
-          // 全カードのonを外す
-          var cards=document.querySelectorAll('#patList .cpcard');
-          for(var i=0;i<cards.length;i++)cards[i].classList.remove('on');
-          // このカードをon
-          div.classList.add('on');
-          // cpDataを設定
-          cpData={
-            id:pattern.id,
-            catch:pattern.catch,
-            sub:pattern.sub,
-            concept:pattern.concept,
-            appealPoints:data.appealPoints||[],
-            serviceDescriptions:data.serviceDescriptions||[]
-          };
-          toast('✅ パターン'+(index+1)+'を選択！');
-          // ★sec_genBtnを表示
-          show('sec_genBtn');
-          sc('sec_genBtn');
-        });
-      })(p,idx);
-
+      div.setAttribute('data-idx',String(idx));
+      div.innerHTML=
+        '<span class="cpbadge">✓ 選択中</span>'+
+        '<div class="cpconcept">パターン'+p.id+'：'+p.concept+'</div>'+
+        '<div class="cpcatch">'+p.catch+'</div>'+
+        '<div class="cpsub">'+p.sub+'</div>';
       pl.appendChild(div);
+    });
+
+    // ★patListに委任イベント1つだけ登録
+    pl.addEventListener('click',function(e){
+      var card=e.target.closest('.cpcard');
+      if(!card)return;
+      var idx=parseInt(card.getAttribute('data-idx'),10);
+      if(isNaN(idx))return;
+      var p=copyPatternsData.patterns[idx];
+      if(!p)return;
+
+      document.querySelectorAll('#patList .cpcard').forEach(function(c){c.classList.remove('on');});
+      card.classList.add('on');
+
+      cpData={
+        id:p.id,
+        catch:p.catch,
+        sub:p.sub,
+        concept:p.concept,
+        appealPoints:copyPatternsData.appealPoints||[],
+        serviceDescriptions:copyPatternsData.serviceDescriptions||[]
+      };
+
+      toast('✅ パターン'+(idx+1)+'を選択！');
+      show('sec_genBtn');
+      sc('sec_genBtn');
     });
 
     hide('sec_copyLoad');
@@ -611,7 +611,6 @@ function genCopy(){
   });
 }
 
-// ★HP生成
 function genHP(){
   if(!cpData){alert('コピーを選んでください');return;}
   hide('sec_genBtn');
@@ -619,7 +618,18 @@ function genHP(){
   sc('sec_hpLoad');
   var pb=document.getElementById('pgBar');
   pb.style.animation='none';pb.offsetHeight;pb.style.animation='prog 25s linear forwards';
-  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'generate',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value||'御社',appeal:document.getElementById('app').value,selectedCopy:cpData})})
+  fetch(WK,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      mode:'generate',
+      industry:ind,
+      region:document.getElementById('reg').value,
+      companyName:document.getElementById('com').value||'御社',
+      appeal:document.getElementById('app').value,
+      selectedCopy:cpData
+    })
+  })
   .then(function(r){return r.json();})
   .then(function(d){
     genHtml=d.result;
@@ -660,7 +670,7 @@ function sendMail(){
 }
 
 function resetAll(){
-  ind="";cons=[];genHtml="";cpData=null;
+  ind="";cons=[];genHtml="";cpData=null;copyPatternsData=null;
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
   ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('patList').innerHTML='';
@@ -671,7 +681,7 @@ function resetAll(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ★全イベント登録（DOMContentLoaded不要・即時実行）
+// ★イベント登録
 document.getElementById('logoBtn').addEventListener('click',resetAll);
 document.getElementById('howtoBtn').addEventListener('click',function(){openM('mHow');});
 document.getElementById('gearBtn').addEventListener('click',togS);
@@ -693,16 +703,13 @@ document.getElementById('demoMail').addEventListener('input',saveMails);
 document.getElementById('dirMail').addEventListener('input',saveMails);
 
 document.getElementById('indChips').addEventListener('click',function(e){
-  var c=e.target.closest('.chip');
-  if(!c)return;
+  var c=e.target.closest('.chip');if(!c)return;
   document.querySelectorAll('#indChips .chip').forEach(function(x){x.classList.remove('on');});
-  c.classList.add('on');
-  ind=c.textContent.trim();
+  c.classList.add('on');ind=c.textContent.trim();
 });
 
 document.getElementById('conChips').addEventListener('click',function(e){
-  var c=e.target.closest('.chip');
-  if(!c)return;
+  var c=e.target.closest('.chip');if(!c)return;
   c.classList.toggle('on');
   var v=c.textContent.trim();
   if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}
