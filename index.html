@@ -50,7 +50,6 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.08);
   padding: 12px 20px;
   display: flex; align-items: center; justify-content: space-between;
-  transition: background 0.4s ease;
 }
 
 .header-logo {
@@ -79,10 +78,7 @@ body {
 }
 .settings-dropdown.open { display: block; animation: fadeInUp 0.2s ease; }
 
-.settings-label {
-  font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.3);
-  padding: 6px 14px 4px;
-}
+.settings-label { font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.3); padding: 6px 14px 4px; }
 
 .settings-item {
   padding: 10px 14px; border-radius: 10px; font-size: 13px;
@@ -96,13 +92,11 @@ body {
 .settings-input-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
 .settings-input {
   width: 100%; padding: 8px 10px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
   border-radius: 8px; color: #fff; font-size: 12px; outline: none;
 }
 .settings-input:focus { border-color: var(--accent1); }
 .settings-input::placeholder { color: rgba(255,255,255,0.3); }
-
 .settings-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 6px 0; }
 .theme-dots { display: flex; gap: 3px; margin-left: auto; }
 .theme-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -119,7 +113,6 @@ body {
   border-radius: 20px; padding: 32px; max-width: 560px; width: 100%;
   max-height: 85vh; overflow-y: auto; animation: fadeInUp 0.3s ease; position: relative;
 }
-
 .modal-close {
   position: absolute; top: 16px; right: 16px;
   width: 32px; height: 32px; border-radius: 50%;
@@ -139,15 +132,13 @@ body {
 }
 .howto-steps { list-style: none; counter-reset: step-counter; }
 .howto-steps li {
-  counter-increment: step-counter;
-  display: flex; gap: 12px; align-items: flex-start;
+  counter-increment: step-counter; display: flex; gap: 12px; align-items: flex-start;
   padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
   font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.8);
 }
 .howto-steps li:last-child { border-bottom: none; }
 .howto-steps li::before {
-  content: counter(step-counter);
-  width: 24px; height: 24px; border-radius: 50%;
+  content: counter(step-counter); width: 24px; height: 24px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent1), var(--accent2));
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
@@ -157,7 +148,6 @@ body {
   border-radius: 12px; padding: 14px 16px; font-size: 13px;
   color: rgba(255,255,255,0.75); line-height: 1.7; margin-top: 16px;
 }
-
 .confirm-row {
   display: flex; justify-content: space-between; align-items: center;
   padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 13px;
@@ -173,7 +163,6 @@ body {
 .hero {
   background: linear-gradient(135deg, var(--bg-hero-from) 0%, var(--bg-hero-mid) 50%, var(--bg-hero-to) 100%);
   padding: 40px 20px 60px; text-align: center; position: relative; overflow: hidden;
-  transition: background 0.4s ease;
 }
 .hero::before {
   content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -194,8 +183,8 @@ body {
 
 .step-card {
   background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px; padding: 32px; margin-top: 32px; display: none;
-  animation: fadeInUp 0.5s ease;
+  border-radius: 20px; padding: 32px; margin-top: 32px;
+  display: none; animation: fadeInUp 0.5s ease;
 }
 .step-card.active { display: block; }
 
@@ -209,8 +198,7 @@ body {
 
 .chip {
   padding: 8px 16px; border-radius: 100px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05);
   color: rgba(255,255,255,0.8); cursor: pointer; font-size: 13px; transition: all 0.2s;
 }
 .chip:hover { border-color: var(--accent1); color: #fff; }
@@ -241,7 +229,7 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
   width: 100%; padding: 16px;
   background: linear-gradient(135deg, #D0A900, #f0c800);
   border: none; border-radius: 14px; color: #000; font-size: 16px; font-weight: 700;
-  cursor: pointer; margin-top: 16px; transition: all 0.3s; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.3s; letter-spacing: 1px;
 }
 .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(208,169,0,0.4); }
 
@@ -295,9 +283,9 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 .loading-step-item.done .step-dot { background: var(--accent1); box-shadow: 0 0 10px var(--accent1); }
 .step-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); flex-shrink: 0; transition: all 0.5s; }
 
-/* 結果カード */
-.result-card { display: none; animation: fadeInUp 0.5s ease; }
-.result-card.active { display: block; }
+/* 結果 */
+.result-card { display: none; }
+.result-card.active { display: block; animation: fadeInUp 0.5s ease; }
 
 .score-ring { text-align: center; padding: 40px 0 32px; }
 .score-number {
@@ -306,18 +294,14 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
 }
 .score-label { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 4px; }
-
 .summary-box {
   background: var(--summary-bg); border: 1px solid var(--summary-border);
   border-radius: 14px; padding: 20px; margin-bottom: 24px;
   font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.9);
 }
-
 .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-
 .sitemap-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
 @media(max-width:600px) { .sitemap-container { grid-template-columns: 1fr; } }
-
 .sitemap-box { background: rgba(255,255,255,0.04); border-radius: 14px; padding: 16px; border: 1px solid rgba(255,255,255,0.08); }
 .sitemap-box.before { border-top: 3px solid #e05555; }
 .sitemap-box.after { border-top: 3px solid var(--sitemap-after); }
@@ -327,13 +311,11 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 .sitemap-item { background: rgba(255,255,255,0.06); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px; font-size: 12px; }
 .sitemap-item .page-name { font-weight: 600; margin-bottom: 2px; }
 .sitemap-item .page-note { color: rgba(255,255,255,0.4); font-size: 11px; }
-
 .sns-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 12px; margin-bottom: 24px; }
 .sns-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px; }
 .sns-platform { font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px; }
 .sns-content { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 8px; }
 .sns-freq { font-size: 11px; color: rgba(255,255,255,0.4); }
-
 .idea-list { margin-bottom: 24px; }
 .idea-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px 20px; margin-bottom: 10px; display: flex; gap: 16px; align-items: flex-start; }
 .idea-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent1), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
@@ -344,6 +326,7 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 /* コピーライティング */
 .copy-loading { display: none; text-align: center; padding: 32px 20px; }
 .copy-loading.active { display: block; }
+
 .copy-patterns { display: none; }
 .copy-patterns.active { display: block; animation: fadeInUp 0.5s ease; }
 
@@ -352,35 +335,28 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
   border-radius: 16px; padding: 20px 24px; margin-bottom: 14px; cursor: pointer; transition: all 0.25s;
 }
 .copy-pattern-card:hover { border-color: var(--accent1); background: rgba(1,121,232,0.08); transform: translateY(-2px); }
-.copy-pattern-card.selected {
-  border-color: var(--accent1); background: rgba(1,121,232,0.12);
-  box-shadow: 0 0 0 3px rgba(1,121,232,0.2);
-}
+.copy-pattern-card.selected { border-color: var(--accent1); background: rgba(1,121,232,0.15); box-shadow: 0 0 0 3px rgba(1,121,232,0.2); }
 .copy-concept { font-size: 11px; letter-spacing: 2px; color: var(--accent1); margin-bottom: 8px; }
 .copy-catch { font-size: 24px; font-weight: 800; margin-bottom: 8px; color: #fff; line-height: 1.3; }
 .copy-sub { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; }
-.copy-badge {
-  display: inline-block; float: right;
-  background: var(--accent1); color: #fff;
-  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px;
-  opacity: 0; transition: opacity 0.2s;
-}
-.copy-pattern-card.selected .copy-badge { opacity: 1; }
+.copy-badge { float: right; background: var(--accent1); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; display: none; }
+.copy-pattern-card.selected .copy-badge { display: inline-block; }
 
-.generate-hp-wrap {
-  display: none; margin-top: 20px;
-  animation: fadeInUp 0.4s ease;
+/* ★重要：HP生成ボタンエリア */
+.hp-gen-area {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(208,169,0,0.08);
+  border: 2px solid rgba(208,169,0,0.4);
+  border-radius: 16px;
+  display: none;
 }
-.generate-hp-wrap.active { display: block; }
-
-.generate-hp-hint {
-  background: rgba(208,169,0,0.1); border: 1px solid rgba(208,169,0,0.3);
-  border-radius: 12px; padding: 14px 16px; margin-bottom: 12px;
-  font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.7;
-}
+.hp-gen-area.show { display: block !important; animation: fadeInUp 0.4s ease; }
+.hp-gen-title { font-size: 15px; font-weight: 700; color: #D0A900; margin-bottom: 8px; }
+.hp-gen-sub { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 16px; }
 
 /* HP生成アニメーション */
-.hp-loading { display: none; margin-top: 24px; }
+.hp-loading { display: none; margin-top: 0; }
 .hp-loading.active { display: block; }
 
 .hp-loading-inner {
@@ -425,12 +401,10 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 
 .hp-loading-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
 .hp-loading-sub { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
-
 .progress-wrap { background: rgba(255,255,255,0.08); border-radius: 100px; height: 4px; overflow: hidden; max-width: 300px; margin: 0 auto; }
 .progress-bar { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--progress-from), var(--progress-to)); }
 @keyframes progressAnim { 0%{width:0%;}80%{width:85%;}100%{width:95%;} }
 
-/* 完成バースト */
 .complete-burst { display: none; text-align: center; padding: 30px; }
 .complete-burst.active { display: block; animation: fadeInUp 0.5s ease; }
 .burst-emoji { font-size: 60px; animation: bounceIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275); display: block; margin-bottom: 12px; }
@@ -438,7 +412,6 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 .burst-title { font-size: 22px; font-weight: 800; background: linear-gradient(135deg, var(--accent1), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
 .burst-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
 
-/* プレビュー */
 .hp-preview-container { display: none; margin-top: 16px; }
 .hp-preview-container.active { display: block; animation: fadeInUp 0.5s ease; }
 .preview-header { background: rgba(255,255,255,0.06); border-radius: 14px 14px 0 0; padding: 12px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -447,12 +420,10 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 
 .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 24px 0; }
 .gear-wrap { position: relative; }
-
 .firework-container { position: fixed; inset: 0; pointer-events: none; z-index: 9998; display: none; }
 .firework-container.active { display: block; }
 .particle { position: absolute; border-radius: 50%; }
 
-/* フッター */
 .site-footer { background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.06); padding: 24px 20px; text-align: center; }
 .footer-inner { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .footer-supervised { font-size: 12px; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 8px; }
@@ -466,7 +437,6 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 
 <div class="firework-container" id="fireworkContainer"></div>
 
-<!-- ヘッダー -->
 <div class="top-header">
   <div class="header-left"><span class="header-logo">Smartpage-i</span></div>
   <div class="header-right">
@@ -504,7 +474,6 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
   </div>
 </div>
 
-<!-- 使い方モーダル -->
 <div class="modal-overlay" id="howtoModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('howtoModal')">✕</button>
@@ -512,9 +481,7 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
     <div class="modal-subtitle">Smartpage-i の目的と操作手順</div>
     <div class="howto-section">
       <div class="howto-section-title">🎯 このアプリの目的</div>
-      <div class="howto-purpose">
-        Smartpage-i は、代理店営業・新人スタッフが中小企業オーナーへの初回提案をスムーズに行うためのAI診断ツールです。業種・地域・強みを入力するだけで、Web集客診断・キャッチコピー生成・ホームページ自動生成まで、その場で完結します。
-      </div>
+      <div class="howto-purpose">Smartpage-i は代理店営業・新人スタッフが中小企業オーナーへの初回提案をその場で完結させるAIツールです。診断→キャッチコピー→ホームページ生成まで一気通貫で行えます。</div>
     </div>
     <div class="howto-section">
       <div class="howto-section-title">🚀 使い方ステップ</div>
@@ -523,19 +490,16 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
         <li>業種・地域・会社名・悩みを入力してAI診断スタート</li>
         <li>診断結果のBefore/Afterサイトマップで現状を共有する</li>
         <li>経営者の強み・想いを入力してキャッチコピーを3パターン生成する</li>
-        <li>オーナーと一緒に好きなキャッチコピーを選ぶ（ここが盛り上がる！）</li>
+        <li>オーナーと一緒にキャッチコピーを選ぶ（ここが盛り上がる！）</li>
         <li>「このコピーでHP生成」ボタンでホームページを自動生成する</li>
         <li>花火演出でWow体験を届ける 🎉</li>
         <li>HTMLダウンロード＋ディレクション担当者へメール送信でクロージング完了</li>
       </ol>
     </div>
-    <div class="howto-tip">
-      💡 女性オーナー・美容系には🌸ピンクテーマが効果的です。キャッチコピー選択で「これにします！」と言った瞬間がクロージングのチャンスです 🤝
-    </div>
+    <div class="howto-tip">💡 女性オーナー・美容系には🌸ピンクテーマが効果的。「これにします！」が出たらクロージングのチャンスです 🤝</div>
   </div>
 </div>
 
-<!-- 確認モーダル -->
 <div class="modal-overlay" id="confirmModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('confirmModal')">✕</button>
@@ -547,7 +511,6 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
   </div>
 </div>
 
-<!-- ヒーロー -->
 <div class="hero">
   <div class="hero-brand">SMILE PLUS CONSULTING × i-mobile</div>
   <h1>Smartpage-i</h1>
@@ -556,7 +519,7 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 
 <div class="container">
 
-  <!-- STEP 01：ヒアリング＆診断 -->
+  <!-- STEP01 -->
   <div class="step-card active" id="step1">
     <div class="step-label">STEP 01</div>
     <div class="step-title">業種と基本情報を入力してください 🏢</div>
@@ -636,13 +599,13 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
     </div>
   </div>
 
-  <!-- STEP 02：ライティング＆キャッチコピー -->
+  <!-- STEP02：ライティング -->
   <div class="step-card" id="step2">
     <div class="step-label">STEP 02</div>
     <div class="step-title">強み・想いからキャッチコピーを作ります ✍️</div>
     <div class="field-group">
       <div class="field-label">経営者の強み・こだわり・想い（自由に入力してください）</div>
-      <textarea class="text-input" id="strengthsInput" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で建ててから20年後もお客様と繋がっている。価格より品質にこだわり手抜き工事は一切しない。"></textarea>
+      <textarea class="text-input" id="strengthsInput" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で建ててから20年後もお客様と繋がっている。"></textarea>
     </div>
     <div class="field-group">
       <div class="field-label">一言アピール（任意）</div>
@@ -650,7 +613,6 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
     </div>
     <button class="btn-primary" onclick="generateCopy()">✨ キャッチコピーを3パターン生成する</button>
 
-    <!-- コピーローディング -->
     <div class="copy-loading" id="copyLoading">
       <div class="radar" style="width:80px;height:80px;margin:24px auto 16px;">
         <div class="radar-circle"></div><div class="radar-sweep"></div><div class="radar-dot"></div>
@@ -659,29 +621,26 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
       <div class="loading-sub">経営者の想いを言葉に変換中</div>
     </div>
 
-    <!-- コピーパターン -->
     <div class="copy-patterns" id="copyPatterns">
       <div style="font-size:14px;color:rgba(255,255,255,0.6);margin:20px 0 12px;">
         💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」
       </div>
       <div id="patternList"></div>
 
-      <!-- HP生成ボタン（コピー選択後に出現） -->
-      <div class="generate-hp-wrap" id="generateHPWrap">
-        <div class="generate-hp-hint">
-          ✅ キャッチコピーが決まりました！このコピーがホームページのヒーローにそのまま反映されます。下のボタンで生成しましょう 🚀
-        </div>
+      <!-- ★ここが肝心：HP生成エリア -->
+      <div class="hp-gen-area" id="hpGenArea">
+        <div class="hp-gen-title">🎉 キャッチコピーが決まりました！</div>
+        <div class="hp-gen-sub">このコピーをそのままホームページのヒーローに反映します。下のボタンで生成してください 🚀</div>
         <button class="btn-gold" onclick="generateHP()">🌐 このコピーでホームページを生成する</button>
       </div>
     </div>
   </div>
 
-  <!-- STEP 03：HP生成＆プレビュー -->
+  <!-- STEP03：HP生成＆プレビュー -->
   <div class="step-card" id="step3">
     <div class="step-label">STEP 03</div>
     <div class="step-title">ホームページを生成しています 🌐</div>
 
-    <!-- 生成アニメーション -->
     <div class="hp-loading" id="hpLoading">
       <div class="hp-loading-inner">
         <div class="build-animation">
@@ -712,14 +671,12 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
       </div>
     </div>
 
-    <!-- 完成バースト -->
     <div class="complete-burst" id="completeBurst">
       <span class="burst-emoji">🎉</span>
       <div class="burst-title">ホームページが完成しました！</div>
       <div class="burst-sub">プレビューを確認してダウンロードしてください</div>
     </div>
 
-    <!-- プレビュー＋ダウンロード -->
     <div class="hp-preview-container" id="hpPreview">
       <div class="preview-header">
         <div class="preview-dot" style="background:#e05555;"></div>
@@ -736,7 +693,6 @@ textarea.text-input { resize: vertical; min-height: 110px; line-height: 1.7; }
 
 </div>
 
-<!-- フッター -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">Smartpage-i</div>
@@ -754,7 +710,6 @@ let generatedHTML = "";
 let currentTheme = "blue";
 let selectedCopyData = null;
 
-// ── メール保存 ──
 function saveEmails() {
   localStorage.setItem('demoEmail', document.getElementById('demoEmail').value);
   localStorage.setItem('directionEmail', document.getElementById('directionEmail').value);
@@ -766,7 +721,6 @@ function loadEmails() {
   if (di) document.getElementById('directionEmail').value = di;
 }
 
-// ── テーマ ──
 const THEMES = {
   blue: {
     '--accent1':'#0179E8','--accent2':'#225AD3','--gold':'#D0A900',
@@ -807,7 +761,6 @@ function setTheme(theme) {
   closeSettings();
 }
 
-// ── チップ ──
 function selectChip(el) {
   document.querySelectorAll('#industryChips .chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
@@ -820,19 +773,17 @@ function toggleChip(el) {
   else { selectedConcerns = selectedConcerns.filter(c=>c!==text); }
 }
 
-// ── モーダル・設定 ──
 function openModal(id) { document.getElementById(id).classList.add('open'); closeSettings(); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function toggleSettings() { document.getElementById('settingsDropdown').classList.toggle('open'); }
 function closeSettings() { document.getElementById('settingsDropdown').classList.remove('open'); }
 document.addEventListener('click', e => { if(!e.target.closest('.gear-wrap')) closeSettings(); });
 
-// ── デモデータ ──
 const DEMO_DATA = {
   industry:'美容・サロン', region:'埼玉県さいたま市',
   company:'ビューティーサロン Belle',
   concerns:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],
-  strengths:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心して来られる完全個室あり。',
+  strengths:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',
   appeal:'リピート率90%以上、地域密着15年'
 };
 
@@ -860,7 +811,6 @@ function clearDemo() {
   showToast('🗑️ データをクリアしました');
 }
 
-// ── 確認 ──
 function openConfirm() {
   const rows=[
     {label:'業種',value:selectedIndustry},
@@ -884,7 +834,6 @@ function openConfirm() {
   openModal('confirmModal');
 }
 
-// ── トースト ──
 function showToast(msg) {
   const t=document.createElement('div');
   t.textContent=msg;
@@ -893,7 +842,6 @@ function showToast(msg) {
   setTimeout(()=>t.remove(),2500);
 }
 
-// ── 花火 ──
 function launchFireworks() {
   const container=document.getElementById('fireworkContainer');
   container.classList.add('active');
@@ -922,7 +870,6 @@ function launchFireworks() {
   },280);
 }
 
-// ── 診断開始 ──
 async function startDiagnosis() {
   if(!selectedIndustry){alert('業種を選んでください');return;}
   const region=document.getElementById('regionInput').value;
@@ -959,7 +906,6 @@ async function startDiagnosis() {
   }
 }
 
-// ── 診断結果 ──
 function renderResult(jsonText) {
   let data;
   try { const clean=jsonText.replace(/```json|```/g,'').trim(); data=JSON.parse(clean); }
@@ -990,7 +936,6 @@ function renderResult(jsonText) {
   document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
 }
 
-// ── キャッチコピー生成 ──
 async function generateCopy() {
   const strengths=document.getElementById('strengthsInput').value;
   const appeal=document.getElementById('appealInput').value||"";
@@ -998,7 +943,10 @@ async function generateCopy() {
   document.getElementById('copyLoading').classList.add('active');
   document.getElementById('copyPatterns').classList.remove('active');
   document.getElementById('patternList').innerHTML='';
-  document.getElementById('generateHPWrap').classList.remove('active');
+  // HP生成エリアを確実に隠す
+  const area=document.getElementById('hpGenArea');
+  area.classList.remove('show');
+  area.style.display='none';
   selectedCopyData=null;
 
   try {
@@ -1045,33 +993,48 @@ function renderCopyPatterns(jsonText) {
 function selectCopy(el, idx) {
   document.querySelectorAll('.copy-pattern-card').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
+
   selectedCopyData = {
     ...window._copyData.patterns[idx],
     appealPoints: window._copyData.appealPoints,
     serviceDescriptions: window._copyData.serviceDescriptions
   };
-  const wrap=document.getElementById('generateHPWrap');
-  wrap.classList.add('active');
-  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
-  showToast('✅ パターン'+(idx+1)+'を選択しました！');
+
+  // ★ここが肝心：styleで直接表示する
+  const area=document.getElementById('hpGenArea');
+  area.style.display='block';
+  area.classList.add('show');
+
+  showToast('✅ パターン'+(idx+1)+'を選択！下のボタンでHP生成へ');
+  setTimeout(()=>area.scrollIntoView({behavior:'smooth',block:'nearest'}),150);
 }
 
-// ── HP生成 ──
 async function generateHP() {
   if(!selectedCopyData){alert('キャッチコピーを選んでください');return;}
 
-  // STEP03を表示して生成アニメーション開始
+  // STEP03を確実に表示
   const step3=document.getElementById('step3');
+  step3.style.display='block';
   step3.classList.add('active');
+
+  // 各要素リセット
+  document.getElementById('hpLoading').style.display='block';
   document.getElementById('hpLoading').classList.add('active');
+  document.getElementById('completeBurst').style.display='none';
   document.getElementById('completeBurst').classList.remove('active');
+  document.getElementById('hpPreview').style.display='none';
   document.getElementById('hpPreview').classList.remove('active');
 
   setTimeout(()=>step3.scrollIntoView({behavior:'smooth'}),100);
 
-  // プログレスバーアニメーション
+  // プログレスバーリセット＆開始
   const pb=document.getElementById('progressBar');
-  pb.style.animation='none'; pb.offsetHeight;
+  pb.style.width='0%';
+  pb.style.transition='none';
+  pb.offsetHeight;
+  pb.style.transition='';
+  pb.style.animation='none';
+  pb.offsetHeight;
   pb.style.animation='progressAnim 25s linear forwards';
 
   try {
@@ -1089,26 +1052,36 @@ async function generateHP() {
     const data=await res.json();
     generatedHTML=data.result;
 
-    // アニメーション終了 → 完成バースト → 花火 → プレビュー
+    // アニメーション終了
+    document.getElementById('hpLoading').style.display='none';
     document.getElementById('hpLoading').classList.remove('active');
+
+    // 完成バースト
+    document.getElementById('completeBurst').style.display='block';
     document.getElementById('completeBurst').classList.add('active');
+
+    // 花火！
     launchFireworks();
 
+    // 1.8秒後にプレビュー
     setTimeout(()=>{
       const frame=document.getElementById('previewFrame');
       const doc=frame.contentDocument||frame.contentWindow.document;
       doc.open(); doc.write(generatedHTML); doc.close();
+
+      document.getElementById('hpPreview').style.display='block';
       document.getElementById('hpPreview').classList.add('active');
       setTimeout(()=>document.getElementById('hpPreview').scrollIntoView({behavior:'smooth'}),100);
     },1800);
 
   } catch(e) {
-    alert('ホームページ生成に失敗しました');
+    console.error(e);
+    alert('ホームページ生成に失敗しました：'+e.message);
+    document.getElementById('hpLoading').style.display='none';
     document.getElementById('hpLoading').classList.remove('active');
   }
 }
 
-// ── ダウンロード ──
 function downloadHP() {
   if(!generatedHTML)return;
   const blob=new Blob([generatedHTML],{type:'text/html'});
@@ -1117,19 +1090,16 @@ function downloadHP() {
   URL.revokeObjectURL(url);
 }
 
-// ── メール送信 ──
 function sendMail() {
   const dirEmail=document.getElementById('directionEmail').value;
   const demoEmail=document.getElementById('demoEmail').value;
   const company=document.getElementById('companyInput').value||"御社";
-  const industry=selectedIndustry||"";
-  const region=document.getElementById('regionInput').value||"";
   const catchCopy=selectedCopyData?.catch||"";
   const subCopy=selectedCopyData?.sub||"";
 
   if(!dirEmail){
     showToast('⚠️ 設定からディレクション担当者メールを入力してください');
-    setTimeout(()=>toggleSettings(),500);
+    setTimeout(()=>toggleSettings(),600);
     return;
   }
 
@@ -1144,8 +1114,8 @@ Smartpage-i にてホームページ提案が完成しました。
 ■ クライアント情報
 ━━━━━━━━━━━━━━━━━━
 会社名：${company}
-業種：${industry}
-地域：${region}
+業種：${selectedIndustry||""}
+地域：${document.getElementById('regionInput').value||""}
 
 ━━━━━━━━━━━━━━━━━━
 ■ 採用キャッチコピー
@@ -1167,27 +1137,38 @@ Smartpage-i にてホームページ提案が完成しました。
 デモ担当：${demoEmail||"未設定"}
 送信ツール：Smartpage-i
 `);
-
   window.location.href=`mailto:${dirEmail}?subject=${subject}&body=${body}`;
   showToast('📧 メーラーが起動しました。HTMLを添付して送信してください');
 }
 
-// ── リセット ──
 function resetAll() {
   selectedIndustry=""; selectedConcerns=[]; generatedHTML=""; selectedCopyData=null;
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
   ['regionInput','companyInput','appealInput','strengthsInput'].forEach(id=>document.getElementById(id).value='');
+
   document.getElementById('step1').classList.add('active');
   document.getElementById('step2').classList.remove('active');
-  document.getElementById('step3').classList.remove('active');
+
+  const step3=document.getElementById('step3');
+  step3.classList.remove('active');
+  step3.style.display='none';
+
   document.getElementById('loadingScreen').classList.remove('active');
   document.getElementById('resultCard').classList.remove('active');
   document.getElementById('copyLoading').classList.remove('active');
   document.getElementById('copyPatterns').classList.remove('active');
-  document.getElementById('generateHPWrap').classList.remove('active');
+
+  const area=document.getElementById('hpGenArea');
+  area.classList.remove('show');
+  area.style.display='none';
+
   document.getElementById('hpLoading').classList.remove('active');
+  document.getElementById('hpLoading').style.display='none';
   document.getElementById('hpPreview').classList.remove('active');
+  document.getElementById('hpPreview').style.display='none';
   document.getElementById('completeBurst').classList.remove('active');
+  document.getElementById('completeBurst').style.display='none';
+
   document.querySelectorAll('.loading-step-item').forEach(el=>el.classList.remove('done'));
   window.scrollTo({top:0,behavior:'smooth'});
 }
