@@ -7,11 +7,42 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* テーマ変数 */
+:root {
+  --accent1: #0179E8;
+  --accent2: #225AD3;
+  --gold: #D0A900;
+  --bg-main: #0a0a1a;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-hero-from: #0a0a1a;
+  --bg-hero-mid: #1a1a3e;
+  --bg-hero-to: #0d2060;
+  --bg-body: #0a0a1a;
+  --radar-color: rgba(1,121,232,0.6);
+  --radar-border: rgba(1,121,232,0.3);
+  --progress-from: #0179E8;
+  --progress-to: #D0A900;
+  --sitemap-after: #0179E8;
+  --chip-grad-from: #0179E8;
+  --chip-grad-to: #225AD3;
+  --btn-grad-from: #0179E8;
+  --btn-grad-to: #225AD3;
+  --score-from: #0179E8;
+  --score-to: #D0A900;
+  --summary-bg: rgba(1,121,232,0.1);
+  --summary-border: rgba(1,121,232,0.3);
+  --loading-color: #0179E8;
+  --tag-bg: rgba(1,121,232,0.2);
+  --tag-border: rgba(1,121,232,0.4);
+  --tag-color: #0179E8;
+}
+
 body {
   font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  background: #0a0a1a;
+  background: var(--bg-body);
   color: #fff;
   min-height: 100vh;
+  transition: background 0.4s ease;
 }
 
 /* ヘッダー */
@@ -26,12 +57,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: background 0.4s ease;
 }
 
 .header-logo {
   font-size: 16px;
   font-weight: 900;
-  background: linear-gradient(135deg, #0179E8, #D0A900);
+  background: linear-gradient(135deg, var(--accent1), var(--gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -58,7 +90,7 @@ body {
 }
 
 .header-btn:hover {
-  border-color: #0179E8;
+  border-color: var(--accent1);
   color: #fff;
   background: rgba(1,121,232,0.15);
 }
@@ -73,13 +105,20 @@ body {
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 14px;
   padding: 8px;
-  min-width: 200px;
+  min-width: 220px;
   display: none;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   z-index: 200;
 }
 
 .settings-dropdown.open { display: block; animation: fadeInUp 0.2s ease; }
+
+.settings-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.3);
+  padding: 6px 14px 4px;
+}
 
 .settings-item {
   padding: 10px 14px;
@@ -94,11 +133,25 @@ body {
 }
 
 .settings-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.settings-item.active-theme { background: rgba(255,255,255,0.1); font-weight: 700; color: #fff; }
 
 .settings-divider {
   height: 1px;
   background: rgba(255,255,255,0.08);
   margin: 6px 0;
+}
+
+/* テーマプレビュードット */
+.theme-dots {
+  display: flex;
+  gap: 3px;
+  margin-left: auto;
+}
+
+.theme-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 /* モーダル */
@@ -131,10 +184,8 @@ body {
 
 .modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 32px;
-  height: 32px;
+  top: 16px; right: 16px;
+  width: 32px; height: 32px;
   border-radius: 50%;
   background: rgba(255,255,255,0.08);
   border: none;
@@ -148,7 +199,6 @@ body {
 }
 
 .modal-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
-
 .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
 .modal-subtitle { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 24px; }
 
@@ -158,13 +208,13 @@ body {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #0179E8;
+  color: var(--accent1);
   margin-bottom: 12px;
 }
 
 .howto-purpose {
-  background: rgba(1,121,232,0.1);
-  border: 1px solid rgba(1,121,232,0.25);
+  background: var(--summary-bg);
+  border: 1px solid var(--summary-border);
   border-radius: 12px;
   padding: 16px;
   font-size: 14px;
@@ -190,10 +240,9 @@ body {
 
 .howto-steps li::before {
   content: counter(step-counter);
-  width: 24px;
-  height: 24px;
+  width: 24px; height: 24px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0179E8, #225AD3);
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -250,11 +299,12 @@ body {
 
 /* ヒーロー */
 .hero {
-  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0d2060 100%);
+  background: linear-gradient(135deg, var(--bg-hero-from) 0%, var(--bg-hero-mid) 50%, var(--bg-hero-to) 100%);
   padding: 40px 20px 60px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  transition: background 0.4s ease;
 }
 
 .hero::before {
@@ -274,7 +324,7 @@ body {
 .hero-brand {
   font-size: 12px;
   letter-spacing: 4px;
-  color: #D0A900;
+  color: var(--gold);
   margin-bottom: 14px;
   position: relative;
 }
@@ -282,7 +332,7 @@ body {
 .hero h1 {
   font-size: clamp(28px, 5vw, 48px);
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff, #0179E8, #D0A900);
+  background: linear-gradient(135deg, #ffffff, var(--accent1), var(--gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -295,13 +345,14 @@ body {
 .container { max-width: 800px; margin: 0 auto; padding: 0 20px 80px; }
 
 .step-card {
-  background: rgba(255,255,255,0.04);
+  background: var(--bg-card);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 20px;
   padding: 32px;
   margin-top: 32px;
   display: none;
   animation: fadeInUp 0.5s ease;
+  transition: background 0.4s ease;
 }
 
 .step-card.active { display: block; }
@@ -311,7 +362,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.step-label { font-size: 11px; letter-spacing: 3px; color: #0179E8; margin-bottom: 8px; }
+.step-label { font-size: 11px; letter-spacing: 3px; color: var(--accent1); margin-bottom: 8px; }
 .step-title { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
 .field-group { margin-bottom: 20px; }
 .field-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
@@ -328,10 +379,10 @@ body {
   transition: all 0.2s;
 }
 
-.chip:hover { border-color: #0179E8; color: #fff; }
+.chip:hover { border-color: var(--accent1); color: #fff; }
 
 .chip.selected {
-  background: linear-gradient(135deg, #0179E8, #225AD3);
+  background: linear-gradient(135deg, var(--chip-grad-from), var(--chip-grad-to));
   border-color: transparent;
   color: #fff;
   font-weight: 600;
@@ -349,13 +400,13 @@ body {
   transition: border-color 0.2s;
 }
 
-.text-input:focus { border-color: #0179E8; }
+.text-input:focus { border-color: var(--accent1); }
 .text-input::placeholder { color: rgba(255,255,255,0.3); }
 
 .btn-primary {
   width: 100%;
   padding: 16px;
-  background: linear-gradient(135deg, #0179E8, #225AD3);
+  background: linear-gradient(135deg, var(--btn-grad-from), var(--btn-grad-to));
   border: none;
   border-radius: 14px;
   color: #fff;
@@ -407,25 +458,22 @@ body {
 .loading-screen.active { display: block; }
 
 .radar {
-  width: 120px;
-  height: 120px;
+  width: 120px; height: 120px;
   margin: 0 auto 32px;
   position: relative;
 }
 
 .radar-circle {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   border-radius: 50%;
-  border: 2px solid rgba(1,121,232,0.3);
+  border: 2px solid var(--radar-border);
   position: absolute;
   animation: radarSpin 2s linear infinite;
 }
 
 .radar-sweep {
-  width: 50%;
-  height: 50%;
-  background: conic-gradient(from 0deg, transparent 0deg, rgba(1,121,232,0.6) 60deg, transparent 60deg);
+  width: 50%; height: 50%;
+  background: conic-gradient(from 0deg, transparent 0deg, var(--radar-color) 60deg, transparent 60deg);
   position: absolute;
   top: 0; left: 50%;
   transform-origin: bottom left;
@@ -434,12 +482,12 @@ body {
 
 .radar-dot {
   width: 8px; height: 8px;
-  background: #0179E8;
+  background: var(--accent1);
   border-radius: 50%;
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 20px #0179E8;
+  box-shadow: 0 0 20px var(--accent1);
 }
 
 @keyframes radarSpin {
@@ -447,7 +495,7 @@ body {
   to { transform: rotate(360deg); }
 }
 
-.loading-text { font-size: 18px; font-weight: 600; color: #0179E8; margin-bottom: 8px; }
+.loading-text { font-size: 18px; font-weight: 600; color: var(--loading-color); margin-bottom: 8px; }
 .loading-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
 
 .loading-steps {
@@ -469,7 +517,7 @@ body {
 }
 
 .loading-step-item.done { color: rgba(255,255,255,0.8); }
-.loading-step-item.done .step-dot { background: #0179E8; box-shadow: 0 0 10px #0179E8; }
+.loading-step-item.done .step-dot { background: var(--accent1); box-shadow: 0 0 10px var(--accent1); }
 
 .step-dot {
   width: 8px; height: 8px;
@@ -488,7 +536,7 @@ body {
 .score-number {
   font-size: 72px;
   font-weight: 900;
-  background: linear-gradient(135deg, #0179E8, #D0A900);
+  background: linear-gradient(135deg, var(--score-from), var(--score-to));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -498,8 +546,8 @@ body {
 .score-label { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 4px; }
 
 .summary-box {
-  background: rgba(1,121,232,0.1);
-  border: 1px solid rgba(1,121,232,0.3);
+  background: var(--summary-bg);
+  border: 1px solid var(--summary-border);
   border-radius: 14px;
   padding: 20px;
   margin-bottom: 24px;
@@ -534,17 +582,11 @@ body {
 }
 
 .sitemap-box.before { border-top: 3px solid #e05555; }
-.sitemap-box.after { border-top: 3px solid #0179E8; }
+.sitemap-box.after { border-top: 3px solid var(--sitemap-after); }
 
-.sitemap-header {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
+.sitemap-header { font-size: 12px; font-weight: 700; letter-spacing: 2px; margin-bottom: 12px; }
 .sitemap-box.before .sitemap-header { color: #e05555; }
-.sitemap-box.after .sitemap-header { color: #0179E8; }
+.sitemap-box.after .sitemap-header { color: var(--sitemap-after); }
 
 .sitemap-item {
   background: rgba(255,255,255,0.06);
@@ -571,7 +613,7 @@ body {
   padding: 16px;
 }
 
-.sns-platform { font-size: 12px; font-weight: 700; color: #D0A900; letter-spacing: 1px; margin-bottom: 6px; }
+.sns-platform { font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px; }
 .sns-content { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 8px; }
 .sns-freq { font-size: 11px; color: rgba(255,255,255,0.4); }
 
@@ -591,7 +633,7 @@ body {
 .idea-num {
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0179E8, #225AD3);
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -602,9 +644,9 @@ body {
 
 .idea-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
 .idea-detail { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
-.idea-effect { font-size: 12px; color: #D0A900; margin-top: 4px; }
+.idea-effect { font-size: 12px; color: var(--gold); margin-top: 4px; }
 
-/* HP生成ローディング（新アニメーション） */
+/* HP生成ローディング */
 .hp-loading { display: none; margin-top: 24px; }
 .hp-loading.active { display: block; }
 
@@ -623,7 +665,7 @@ body {
   position: absolute;
   top: 0; left: -100%;
   width: 100%; height: 3px;
-  background: linear-gradient(90deg, transparent, #0179E8, #D0A900, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent1), var(--gold), transparent);
   animation: scanLine 1.5s linear infinite;
 }
 
@@ -634,14 +676,12 @@ body {
 
 .build-animation {
   position: relative;
-  width: 240px;
-  height: 160px;
+  width: 240px; height: 160px;
   margin: 0 auto 28px;
 }
 
 .build-screen {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -651,17 +691,13 @@ body {
 
 .build-bar {
   position: absolute;
-  left: 0;
-  height: 100%;
-  background: linear-gradient(135deg, #0179E8, #225AD3, #D0A900);
+  left: 0; height: 100%;
+  background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--gold));
   animation: buildFill 3s ease-in-out infinite;
   opacity: 0.15;
 }
 
-@keyframes buildFill {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
+@keyframes buildFill { 0% { width: 0%; } 100% { width: 100%; } }
 
 .build-lines {
   position: absolute;
@@ -673,7 +709,7 @@ body {
 .build-line {
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(90deg, #0179E8, #225AD3);
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
   margin-bottom: 8px;
   opacity: 0;
   animation: lineAppear 0.4s ease forwards;
@@ -695,18 +731,13 @@ body {
 
 .build-cursor {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 10px;
-  height: 14px;
-  background: #0179E8;
+  bottom: 12px; right: 12px;
+  width: 10px; height: 14px;
+  background: var(--accent1);
   animation: blink 0.8s step-end infinite;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
 .floating-tags {
   display: flex;
@@ -725,30 +756,20 @@ body {
   animation: tagPop 0.4s ease forwards;
 }
 
-.f-tag:nth-child(1) { background: rgba(1,121,232,0.2); border: 1px solid rgba(1,121,232,0.4); color: #0179E8; animation-delay: 0.3s; }
+.f-tag:nth-child(1) { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--tag-color); animation-delay: 0.3s; }
 .f-tag:nth-child(2) { background: rgba(208,169,0,0.2); border: 1px solid rgba(208,169,0,0.4); color: #D0A900; animation-delay: 0.6s; }
 .f-tag:nth-child(3) { background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.4); color: #22c55e; animation-delay: 0.9s; }
 .f-tag:nth-child(4) { background: rgba(224,85,85,0.2); border: 1px solid rgba(224,85,85,0.4); color: #e05555; animation-delay: 1.2s; }
 .f-tag:nth-child(5) { background: rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.4); color: #8b5cf6; animation-delay: 1.5s; }
-.f-tag:nth-child(6) { background: rgba(1,121,232,0.2); border: 1px solid rgba(1,121,232,0.4); color: #0179E8; animation-delay: 1.8s; }
+.f-tag:nth-child(6) { background: var(--tag-bg); border: 1px solid var(--tag-border); color: var(--tag-color); animation-delay: 1.8s; }
 
 @keyframes tagPop {
   from { opacity: 0; transform: scale(0.5); }
   to { opacity: 1; transform: scale(1); }
 }
 
-.hp-loading-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 6px;
-}
-
-.hp-loading-sub {
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 20px;
-}
+.hp-loading-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.hp-loading-sub { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
 
 .progress-wrap {
   background: rgba(255,255,255,0.08);
@@ -762,7 +783,7 @@ body {
 .progress-bar {
   height: 100%;
   border-radius: 100px;
-  background: linear-gradient(90deg, #0179E8, #D0A900);
+  background: linear-gradient(90deg, var(--progress-from), var(--progress-to));
   animation: progressAnim 25s linear forwards;
 }
 
@@ -772,13 +793,8 @@ body {
   100% { width: 95%; }
 }
 
-/* 完成アニメーション */
-.complete-burst {
-  display: none;
-  text-align: center;
-  padding: 30px;
-}
-
+/* 完成バースト */
+.complete-burst { display: none; text-align: center; padding: 30px; }
 .complete-burst.active { display: block; animation: fadeInUp 0.5s ease; }
 
 .burst-emoji {
@@ -797,7 +813,7 @@ body {
 .burst-title {
   font-size: 22px;
   font-weight: 800;
-  background: linear-gradient(135deg, #0179E8, #D0A900);
+  background: linear-gradient(135deg, var(--accent1), var(--gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -823,8 +839,7 @@ body {
 .preview-dot { width: 10px; height: 10px; border-radius: 50%; }
 
 .preview-iframe {
-  width: 100%;
-  height: 520px;
+  width: 100%; height: 520px;
   border: none;
   border-radius: 0 0 14px 14px;
   background: #fff;
@@ -834,7 +849,7 @@ body {
 
 .gear-wrap { position: relative; }
 
-/* 花火パーティクル */
+/* 花火 */
 .firework-container {
   position: fixed;
   inset: 0;
@@ -844,18 +859,63 @@ body {
 }
 
 .firework-container.active { display: block; }
+.particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; }
 
-.particle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+/* フッター */
+.site-footer {
+  background: rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-supervised {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-supervised::before,
+.footer-supervised::after {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
+.footer-supervised span {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+}
+
+.footer-brand {
+  font-size: 13px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent1), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 </style>
 </head>
 <body>
 
-<!-- 花火コンテナ -->
 <div class="firework-container" id="fireworkContainer"></div>
 
 <!-- ヘッダー -->
@@ -868,6 +928,25 @@ body {
     <div class="gear-wrap">
       <button class="header-btn gear" onclick="toggleSettings()">⚙️</button>
       <div class="settings-dropdown" id="settingsDropdown">
+
+        <div class="settings-label">配色テーマ</div>
+        <div class="settings-item active-theme" id="themeBlue" onclick="setTheme('blue')">
+          🔵 スタンダード（ブルー）
+          <div class="theme-dots">
+            <div class="theme-dot" style="background:#0179E8;"></div>
+            <div class="theme-dot" style="background:#e8f4ff;"></div>
+          </div>
+        </div>
+        <div class="settings-item" id="themePink" onclick="setTheme('pink')">
+          🌸 レディース（ピンク）
+          <div class="theme-dots">
+            <div class="theme-dot" style="background:#e91e8c;"></div>
+            <div class="theme-dot" style="background:#fff0f7;"></div>
+          </div>
+        </div>
+
+        <div class="settings-divider"></div>
+        <div class="settings-label">デモ操作</div>
         <div class="settings-item" onclick="loadDemo();closeSettings()">🎯 デモデータ入力</div>
         <div class="settings-item" onclick="clearDemo();closeSettings()">🗑️ デモデータクリア</div>
         <div class="settings-divider"></div>
@@ -895,17 +974,18 @@ body {
       <div class="howto-section-title">🚀 使い方ステップ</div>
       <ol class="howto-steps">
         <li>訪問前に⚙️設定からデモデータを入力して動作を確認しておく</li>
+        <li>⚙️設定の配色テーマで訪問先に合わせたカラーを選ぶ</li>
         <li>オーナーの前でアプリを開き、業種・地域・会社名を一緒に入力する</li>
         <li>悩みのチップをオーナー自身にタップしてもらうと効果的</li>
         <li>「AI診断スタート」を押してレーダーアニメーションを見せる（驚きポイント）</li>
         <li>診断結果のBefore/Afterサイトマップで現状課題を共有する</li>
         <li>SNS戦略・集客アイデアを見せながら具体的な提案トークへつなぐ</li>
-        <li>「ホームページを生成する」でHTMLをその場で生成して見せる</li>
-        <li>完成時の花火演出でオーナーのテンションを上げてクロージングへ！</li>
+        <li>「ホームページを生成する」で花火演出と共にHTMLをその場で生成する</li>
+        <li>「HTMLをダウンロード」して制作チームへ渡すクロージングへ移行する</li>
       </ol>
     </div>
     <div class="howto-tip">
-      💡 営業のコツ：HTMLダウンロード後に「このデザインをベースに作ります」と言えばクロージングの合図です 🤝
+      💡 営業のコツ：女性オーナーや美容・サロン系への訪問は🌸ピンクテーマに切り替えると親近感がぐっと上がります！HTMLダウンロードがクロージングの合図です 🤝
     </div>
   </div>
 </div>
@@ -923,7 +1003,7 @@ body {
 </div>
 
 <!-- ヒーロー -->
-<div class="hero">
+<div class="hero" id="heroSection">
   <div class="hero-brand">SMILE PLUS CONSULTING × i-mobile</div>
   <h1>Smartpage-i</h1>
   <p>AIが御社の集客課題を診断し、ホームページを即時生成します</p>
@@ -937,16 +1017,16 @@ body {
     <div class="step-title">業種を選んでください 🏢</div>
     <div class="field-group">
       <div class="chip-group" id="industryChips">
-        <div class="chip" onclick="selectChip(this,'industry')">飲食業</div>
-        <div class="chip" onclick="selectChip(this,'industry')">美容・サロン</div>
-        <div class="chip" onclick="selectChip(this,'industry')">税理士・会計</div>
-        <div class="chip" onclick="selectChip(this,'industry')">製造業</div>
-        <div class="chip" onclick="selectChip(this,'industry')">不動産</div>
-        <div class="chip" onclick="selectChip(this,'industry')">医療・歯科</div>
-        <div class="chip" onclick="selectChip(this,'industry')">小売・販売</div>
-        <div class="chip" onclick="selectChip(this,'industry')">建設・工務店</div>
-        <div class="chip" onclick="selectChip(this,'industry')">士業・コンサル</div>
-        <div class="chip" onclick="selectChip(this,'industry')">その他</div>
+        <div class="chip" onclick="selectChip(this)">飲食業</div>
+        <div class="chip" onclick="selectChip(this)">美容・サロン</div>
+        <div class="chip" onclick="selectChip(this)">税理士・会計</div>
+        <div class="chip" onclick="selectChip(this)">製造業</div>
+        <div class="chip" onclick="selectChip(this)">不動産</div>
+        <div class="chip" onclick="selectChip(this)">医療・歯科</div>
+        <div class="chip" onclick="selectChip(this)">小売・販売</div>
+        <div class="chip" onclick="selectChip(this)">建設・工務店</div>
+        <div class="chip" onclick="selectChip(this)">士業・コンサル</div>
+        <div class="chip" onclick="selectChip(this)">その他</div>
       </div>
     </div>
     <div class="field-group">
@@ -993,7 +1073,7 @@ body {
 
   <!-- 結果 -->
   <div class="result-card" id="resultCard">
-    <div class="step-card active" id="resultInner">
+    <div class="step-card active">
 
       <div class="score-ring">
         <div class="score-number" id="scoreNumber">--</div>
@@ -1038,7 +1118,6 @@ body {
 
       <button class="btn-gold" id="generateBtn" onclick="generateHP()">✨ ホームページを生成する</button>
 
-      <!-- HP生成ローディング（新アニメーション） -->
       <div class="hp-loading" id="hpLoading">
         <div class="hp-loading-inner">
           <div class="build-animation">
@@ -1057,7 +1136,6 @@ body {
               <div class="build-cursor"></div>
             </div>
           </div>
-
           <div class="floating-tags">
             <span class="f-tag">レスポンシブ設計</span>
             <span class="f-tag">グラデーション</span>
@@ -1066,24 +1144,20 @@ body {
             <span class="f-tag">お客様の声</span>
             <span class="f-tag">お問い合わせ</span>
           </div>
-
           <div class="hp-loading-title">ホームページを生成中…</div>
           <div class="hp-loading-sub">AIがデザインを構築しています（20〜30秒）</div>
-
           <div class="progress-wrap">
             <div class="progress-bar" id="progressBar"></div>
           </div>
         </div>
       </div>
 
-      <!-- 完成バースト -->
       <div class="complete-burst" id="completeBurst">
         <span class="burst-emoji">🎉</span>
         <div class="burst-title">ホームページが完成しました！</div>
         <div class="burst-sub">プレビューを確認してダウンロードしてください</div>
       </div>
 
-      <!-- HP プレビュー -->
       <div class="hp-preview-container" id="hpPreview">
         <div class="preview-header">
           <div class="preview-dot" style="background:#e05555;"></div>
@@ -1101,13 +1175,104 @@ body {
 
 </div>
 
+<!-- フッター -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">Smartpage-i</div>
+    <div class="footer-supervised">
+      監修：<span>前田経営研究所</span>
+    </div>
+    <div class="footer-copy">© 2025 Smile Plus Consulting × i-mobile. All rights reserved.</div>
+  </div>
+</footer>
+
 <script>
 const WORKER_URL = "https://smartpage-i-tool.yymmatsu.workers.dev";
 
 let selectedIndustry = "";
 let selectedConcerns = [];
 let generatedHTML = "";
+let currentTheme = "blue";
 
+// ── テーマ定義 ──
+const THEMES = {
+  blue: {
+    '--accent1': '#0179E8',
+    '--accent2': '#225AD3',
+    '--gold': '#D0A900',
+    '--bg-body': '#0a0a1a',
+    '--bg-card': 'rgba(255,255,255,0.04)',
+    '--bg-hero-from': '#0a0a1a',
+    '--bg-hero-mid': '#1a1a3e',
+    '--bg-hero-to': '#0d2060',
+    '--radar-color': 'rgba(1,121,232,0.6)',
+    '--radar-border': 'rgba(1,121,232,0.3)',
+    '--progress-from': '#0179E8',
+    '--progress-to': '#D0A900',
+    '--sitemap-after': '#0179E8',
+    '--chip-grad-from': '#0179E8',
+    '--chip-grad-to': '#225AD3',
+    '--btn-grad-from': '#0179E8',
+    '--btn-grad-to': '#225AD3',
+    '--score-from': '#0179E8',
+    '--score-to': '#D0A900',
+    '--summary-bg': 'rgba(1,121,232,0.1)',
+    '--summary-border': 'rgba(1,121,232,0.3)',
+    '--loading-color': '#0179E8',
+    '--tag-bg': 'rgba(1,121,232,0.2)',
+    '--tag-border': 'rgba(1,121,232,0.4)',
+    '--tag-color': '#0179E8',
+    headerBg: 'rgba(10,10,26,0.95)',
+  },
+  pink: {
+    '--accent1': '#e91e8c',
+    '--accent2': '#c2185b',
+    '--gold': '#ff6eb4',
+    '--bg-body': '#1a0a12',
+    '--bg-card': 'rgba(255,220,240,0.06)',
+    '--bg-hero-from': '#1a0a12',
+    '--bg-hero-mid': '#3d0a24',
+    '--bg-hero-to': '#600d38',
+    '--radar-color': 'rgba(233,30,140,0.6)',
+    '--radar-border': 'rgba(233,30,140,0.3)',
+    '--progress-from': '#e91e8c',
+    '--progress-to': '#ff6eb4',
+    '--sitemap-after': '#e91e8c',
+    '--chip-grad-from': '#e91e8c',
+    '--chip-grad-to': '#c2185b',
+    '--btn-grad-from': '#e91e8c',
+    '--btn-grad-to': '#c2185b',
+    '--score-from': '#e91e8c',
+    '--score-to': '#ff6eb4',
+    '--summary-bg': 'rgba(233,30,140,0.1)',
+    '--summary-border': 'rgba(233,30,140,0.3)',
+    '--loading-color': '#e91e8c',
+    '--tag-bg': 'rgba(233,30,140,0.2)',
+    '--tag-border': 'rgba(233,30,140,0.4)',
+    '--tag-color': '#e91e8c',
+    headerBg: 'rgba(26,10,18,0.95)',
+  }
+};
+
+function setTheme(theme) {
+  currentTheme = theme;
+  const t = THEMES[theme];
+  const root = document.documentElement;
+
+  Object.entries(t).forEach(([key, val]) => {
+    if (key.startsWith('--')) root.style.setProperty(key, val);
+  });
+
+  document.querySelector('.top-header').style.background = t.headerBg;
+
+  document.getElementById('themeBlue').classList.toggle('active-theme', theme === 'blue');
+  document.getElementById('themePink').classList.toggle('active-theme', theme === 'pink');
+
+  showToast(theme === 'pink' ? '🌸 ピンクテーマに切り替えました' : '🔵 ブルーテーマに切り替えました');
+  closeSettings();
+}
+
+// ── チップ操作 ──
 function selectChip(el) {
   document.querySelectorAll('#industryChips .chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
@@ -1124,6 +1289,7 @@ function toggleChip(el) {
   }
 }
 
+// ── モーダル ──
 function openModal(id) {
   document.getElementById(id).classList.add('open');
   closeSettings();
@@ -1133,6 +1299,7 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 
+// ── 設定 ──
 function toggleSettings() {
   document.getElementById('settingsDropdown').classList.toggle('open');
 }
@@ -1145,6 +1312,7 @@ document.addEventListener('click', function(e) {
   if (!e.target.closest('.gear-wrap')) closeSettings();
 });
 
+// ── デモデータ ──
 const DEMO_DATA = {
   industry: '美容・サロン',
   region: '埼玉県さいたま市',
@@ -1177,12 +1345,11 @@ function clearDemo() {
   selectedIndustry = "";
   selectedConcerns = [];
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-  document.getElementById('regionInput').value = '';
-  document.getElementById('companyInput').value = '';
-  document.getElementById('appealInput').value = '';
+  ['regionInput','companyInput','appealInput'].forEach(id => document.getElementById(id).value = '');
   showToast('🗑️ データをクリアしました');
 }
 
+// ── 確認表示 ──
 function openConfirm() {
   const rows = [
     { label: '業種', value: selectedIndustry },
@@ -1211,6 +1378,7 @@ function openConfirm() {
   openModal('confirmModal');
 }
 
+// ── トースト ──
 function showToast(msg) {
   const t = document.createElement('div');
   t.textContent = msg;
@@ -1219,17 +1387,21 @@ function showToast(msg) {
     background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);
     color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;
     z-index:9999;animation:fadeInUp 0.3s ease;
-    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;
   `;
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 2500);
 }
 
-// 花火エフェクト
+// ── 花火 ──
 function launchFireworks() {
   const container = document.getElementById('fireworkContainer');
   container.classList.add('active');
-  const colors = ['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
+  const t = THEMES[currentTheme];
+  const colors = currentTheme === 'pink'
+    ? ['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffb3d9','#ff4da6','#D0A900']
+    : ['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
+
   let count = 0;
   const interval = setInterval(() => {
     for (let i = 0; i < 12; i++) {
@@ -1239,37 +1411,25 @@ function launchFireworks() {
       const y = Math.random() * window.innerHeight * 0.6;
       const color = colors[Math.floor(Math.random() * colors.length)];
       const size = Math.random() * 8 + 4;
-      p.style.cssText = `
-        left:${x}px;top:${y}px;
-        background:${color};
-        width:${size}px;height:${size}px;
-        box-shadow:0 0 ${size*2}px ${color};
-      `;
+      p.style.cssText = `left:${x}px;top:${y}px;background:${color};width:${size}px;height:${size}px;box-shadow:0 0 ${size*2}px ${color};`;
       container.appendChild(p);
       const angle = Math.random() * Math.PI * 2;
       const speed = Math.random() * 120 + 60;
       const vx = Math.cos(angle) * speed;
       const vy = Math.sin(angle) * speed - 80;
-      let opacity = 1;
-      let px = x, py = y;
+      let opacity = 1, px = x, py = y;
       const anim = setInterval(() => {
-        px += vx * 0.04;
-        py += vy * 0.04 + 2;
-        opacity -= 0.03;
-        p.style.left = px + 'px';
-        p.style.top = py + 'px';
-        p.style.opacity = opacity;
+        px += vx * 0.04; py += vy * 0.04 + 2; opacity -= 0.03;
+        p.style.left = px + 'px'; p.style.top = py + 'px'; p.style.opacity = opacity;
         if (opacity <= 0) { clearInterval(anim); p.remove(); }
       }, 16);
     }
     count++;
-    if (count > 8) {
-      clearInterval(interval);
-      setTimeout(() => container.classList.remove('active'), 1000);
-    }
+    if (count > 8) { clearInterval(interval); setTimeout(() => container.classList.remove('active'), 1000); }
   }, 300);
 }
 
+// ── 診断開始 ──
 async function startDiagnosis() {
   if (!selectedIndustry) { alert('業種を選んでください'); return; }
   const region = document.getElementById('regionInput').value;
@@ -1283,10 +1443,8 @@ async function startDiagnosis() {
   const steps = ['ls1','ls2','ls3','ls4','ls5'];
   let i = 0;
   const stepInterval = setInterval(() => {
-    if (i < steps.length) {
-      document.getElementById(steps[i]).classList.add('done');
-      i++;
-    } else clearInterval(stepInterval);
+    if (i < steps.length) { document.getElementById(steps[i]).classList.add('done'); i++; }
+    else clearInterval(stepInterval);
   }, 800);
 
   try {
@@ -1309,6 +1467,7 @@ async function startDiagnosis() {
   }
 }
 
+// ── 結果表示 ──
 function renderResult(jsonText) {
   let data;
   try {
@@ -1350,6 +1509,7 @@ function renderResult(jsonText) {
   document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth' });
 }
 
+// ── HP生成 ──
 async function generateHP() {
   const appeal = document.getElementById('appealInput').value || "";
   const company = document.getElementById('companyInput').value || "御社";
@@ -1359,7 +1519,6 @@ async function generateHP() {
   document.getElementById('completeBurst').classList.remove('active');
   document.getElementById('generateBtn').disabled = true;
 
-  // プログレスバーリセット
   const pb = document.getElementById('progressBar');
   pb.style.animation = 'none';
   pb.offsetHeight;
@@ -1380,16 +1539,10 @@ async function generateHP() {
     const data = await res.json();
     generatedHTML = data.result;
 
-    // ローディング非表示
     document.getElementById('hpLoading').classList.remove('active');
-
-    // 完成バースト表示
     document.getElementById('completeBurst').classList.add('active');
-
-    // 花火発射！
     launchFireworks();
 
-    // 少し待ってプレビュー表示
     setTimeout(() => {
       const frame = document.getElementById('previewFrame');
       const doc = frame.contentDocument || frame.contentWindow.document;
@@ -1408,6 +1561,7 @@ async function generateHP() {
   document.getElementById('generateBtn').disabled = false;
 }
 
+// ── ダウンロード ──
 function downloadHP() {
   if (!generatedHTML) return;
   const blob = new Blob([generatedHTML], { type: 'text/html' });
@@ -1419,6 +1573,7 @@ function downloadHP() {
   URL.revokeObjectURL(url);
 }
 
+// ── リセット ──
 function resetAll() {
   selectedIndustry = "";
   selectedConcerns = [];
