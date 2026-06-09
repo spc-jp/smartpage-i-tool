@@ -187,7 +187,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 <body>
 <div class="fwc" id="fwc"></div>
 
-<!-- ヘッダー -->
 <div class="top-header">
   <span class="hlogo" id="logoBtn">Smartpage-i</span>
   <div class="hright">
@@ -213,7 +212,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
-<!-- 使い方モーダル -->
 <div class="mo" id="mHow">
   <div class="mb">
     <button class="mc" id="closeHow">✕</button>
@@ -236,7 +234,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
-<!-- 確認モーダル -->
 <div class="mo" id="mConf">
   <div class="mb">
     <button class="mc" id="closeConf">✕</button>
@@ -248,7 +245,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
-<!-- ヒーロー -->
 <div class="hero">
   <div class="hbrand">SMILE PLUS CONSULTING × i-mobile</div>
   <div class="htag">Smartpage-i</div>
@@ -257,44 +253,31 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 
 <div class="wrap">
 
-<!-- ★全セクションを最初から静的に配置。表示切替はhiddenクラスのみ ★ -->
-
-<!-- STEP01 -->
 <div class="card" id="sec_step1">
   <div class="clb2">STEP 01</div>
   <div class="ctit">業種と基本情報を入力してください 🏢</div>
   <div class="fg"><div class="fl">業種</div>
     <div class="chips" id="indChips">
-      <div class="chip" id="ind_飲食業">飲食業</div>
-      <div class="chip" id="ind_美容サロン">美容・サロン</div>
-      <div class="chip" id="ind_税理士会計">税理士・会計</div>
-      <div class="chip" id="ind_製造業">製造業</div>
-      <div class="chip" id="ind_不動産">不動産</div>
-      <div class="chip" id="ind_医療歯科">医療・歯科</div>
-      <div class="chip" id="ind_小売販売">小売・販売</div>
-      <div class="chip" id="ind_建設工務店">建設・工務店</div>
-      <div class="chip" id="ind_士業コンサル">士業・コンサル</div>
-      <div class="chip" id="ind_その他">その他</div>
+      <div class="chip">飲食業</div><div class="chip">美容・サロン</div>
+      <div class="chip">税理士・会計</div><div class="chip">製造業</div>
+      <div class="chip">不動産</div><div class="chip">医療・歯科</div>
+      <div class="chip">小売・販売</div><div class="chip">建設・工務店</div>
+      <div class="chip">士業・コンサル</div><div class="chip">その他</div>
     </div>
   </div>
   <div class="fg"><div class="fl">地域（例：東京都大田区）</div><input class="inp" id="reg" type="text" placeholder="例：東京都大田区"></div>
   <div class="fg"><div class="fl">会社名・店舗名（任意）</div><input class="inp" id="com" type="text" placeholder="例：株式会社〇〇"></div>
   <div class="fg"><div class="fl">いまのWeb集客の悩みは？（複数選択OK）</div>
     <div class="chips" id="conChips">
-      <div class="chip" id="con_hp">ホームページが古い</div>
-      <div class="chip" id="con_google">Googleで見つからない</div>
-      <div class="chip" id="con_sns">SNSを活用できていない</div>
-      <div class="chip" id="con_inquiry">問い合わせが少ない</div>
-      <div class="chip" id="con_sp">スマホ対応できていない</div>
-      <div class="chip" id="con_comp">競合に負けている</div>
-      <div class="chip" id="con_kuchi">口コミが広がらない</div>
-      <div class="chip" id="con_start">何から始めればいいかわからない</div>
+      <div class="chip">ホームページが古い</div><div class="chip">Googleで見つからない</div>
+      <div class="chip">SNSを活用できていない</div><div class="chip">問い合わせが少ない</div>
+      <div class="chip">スマホ対応できていない</div><div class="chip">競合に負けている</div>
+      <div class="chip">口コミが広がらない</div><div class="chip">何から始めればいいかわからない</div>
     </div>
   </div>
   <button class="btn-blue" id="btn_startDiag">🔍 AI診断スタート</button>
 </div>
 
-<!-- 診断ローディング -->
 <div class="card loading-box hidden" id="sec_diagLoad">
   <div class="radar"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
   <div class="lt">AIが分析しています…</div><div class="ls">御社に最適な戦略を構築中</div>
@@ -307,7 +290,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
-<!-- 診断結果 -->
 <div class="card hidden" id="sec_result">
   <div class="sring"><div class="snum" id="r_score">--</div><div class="slbl">現状Web集客スコア / 100</div></div>
   <div class="sbox" id="r_summary"></div>
@@ -323,7 +305,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   <div class="stitle">💡 集客アイデア</div><div id="r_ideas"></div>
 </div>
 
-<!-- STEP02 -->
 <div class="card hidden" id="sec_step2">
   <div class="clb2">STEP 02</div>
   <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
@@ -332,27 +313,24 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   <button class="btn-blue" id="btn_genCopy">✨ キャッチコピーを3パターン生成する</button>
 </div>
 
-<!-- コピーローディング -->
 <div class="card loading-box hidden" id="sec_copyLoad">
   <div class="radar sm"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
   <div class="lt sm">キャッチコピーを考えています…</div>
   <div class="ls">経営者の想いを言葉に変換中</div>
 </div>
 
-<!-- コピーパターン -->
 <div class="card hidden" id="sec_copyPats">
   <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」</div>
   <div id="patList"></div>
 </div>
 
-<!-- ★HP生成ボタン：最初から静的に配置 -->
+<!-- ★最初から静的に配置・hidden で隠す -->
 <div class="card-gold hidden" id="sec_genBtn">
   <div style="font-size:16px;font-weight:700;color:#D0A900;margin-bottom:8px;">🎉 キャッチコピーが決まりました！</div>
   <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:20px;">このコピーをホームページのヒーローにそのまま反映します。下のボタンで今すぐ生成しましょう 🚀</div>
   <button class="btn-gold" id="btn_genHP">🌐 このコピーでホームページを生成する</button>
 </div>
 
-<!-- HP生成ローディング -->
 <div class="card hidden" id="sec_hpLoad">
   <div class="hpload-inner">
     <div class="banim"><div class="bscreen"><div class="bbar"></div><div class="blines"><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div><div class="bl"></div></div><div class="bcur"></div></div></div>
@@ -363,7 +341,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
-<!-- 完成バースト -->
 <div class="card hidden" id="sec_burst">
   <div class="burst-wrap">
     <span class="burst-e">🎉</span>
@@ -372,7 +349,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   </div>
 </div>
 
-<!-- プレビュー -->
 <div class="card hidden" id="sec_preview">
   <div class="prevhdr">
     <div class="prevdot" style="background:#e05555;"></div>
@@ -386,7 +362,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   <button class="btn-ghost" id="btn_reset">🔄 最初からやり直す</button>
 </div>
 
-</div><!-- /wrap -->
+</div>
 
 <footer class="footer">
   <div class="fi">
@@ -397,409 +373,266 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 </footer>
 
 <script>
-const WK = "https://smartpage-i-tool.yymmatsu.workers.dev";
-let ind="", cons=[], genHtml="", theme="blue", cpData=null;
+const WK="https://smartpage-i-tool.yymmatsu.workers.dev";
+let ind="",cons=[],genHtml="",theme="blue",cpData=null;
 
-// ══════════════════════════════════
-// show/hide ユーティリティ
-// ══════════════════════════════════
-function show(id){ document.getElementById(id).classList.remove('hidden'); }
-function hide(id){ document.getElementById(id).classList.add('hidden'); }
-function scroll(id){ setTimeout(()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 100); }
+function show(id){document.getElementById(id).classList.remove('hidden');}
+function hide(id){document.getElementById(id).classList.add('hidden');}
+function sc(id){setTimeout(function(){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});},100);}
 
-// ══════════════════════════════════
-// ★全ボタンをDOMContentLoadedで登録
-// ★onclickは一切使わない
-// ══════════════════════════════════
-document.addEventListener('DOMContentLoaded', function(){
+// ══ 全ボタンをDOMContentLoadedで登録 ══
+document.addEventListener('DOMContentLoaded',function(){
 
-  // ロゴ
-  document.getElementById('logoBtn').addEventListener('click', resetAll);
+  document.getElementById('logoBtn').addEventListener('click',resetAll);
+  document.getElementById('howtoBtn').addEventListener('click',function(){openM('mHow');});
+  document.getElementById('gearBtn').addEventListener('click',togS);
+  document.getElementById('closeHow').addEventListener('click',function(){closeM('mHow');});
+  document.getElementById('closeConf').addEventListener('click',function(){closeM('mConf');});
+  document.getElementById('closeConfBtn').addEventListener('click',function(){closeM('mConf');});
+  document.getElementById('tBlue').addEventListener('click',function(){setTheme('blue');});
+  document.getElementById('tPink').addEventListener('click',function(){setTheme('pink');});
+  document.getElementById('loadDemoBtn').addEventListener('click',function(){loadDemo();closeS();});
+  document.getElementById('clearDemoBtn').addEventListener('click',function(){clearDemo();closeS();});
+  document.getElementById('confirmBtn').addEventListener('click',function(){openConfirm();closeS();});
+  document.getElementById('btn_startDiag').addEventListener('click',startDiag);
+  document.getElementById('btn_genCopy').addEventListener('click',genCopy);
 
-  // ヘッダー
-  document.getElementById('howtoBtn').addEventListener('click', ()=>openM('mHow'));
-  document.getElementById('gearBtn').addEventListener('click', togS);
-  document.getElementById('closeHow').addEventListener('click', ()=>closeM('mHow'));
-  document.getElementById('closeConf').addEventListener('click', ()=>closeM('mConf'));
-  document.getElementById('closeConfBtn').addEventListener('click', ()=>closeM('mConf'));
+  // ★このボタンは静的に存在するので確実に登録できる
+  document.getElementById('btn_genHP').addEventListener('click',genHP);
 
-  // テーマ
-  document.getElementById('tBlue').addEventListener('click', ()=>setTheme('blue'));
-  document.getElementById('tPink').addEventListener('click', ()=>setTheme('pink'));
-
-  // 設定メニュー
-  document.getElementById('loadDemoBtn').addEventListener('click', ()=>{ loadDemo(); closeS(); });
-  document.getElementById('clearDemoBtn').addEventListener('click', ()=>{ clearDemo(); closeS(); });
-  document.getElementById('confirmBtn').addEventListener('click', ()=>{ openConfirm(); closeS(); });
-
-  // 設定外クリック
-  document.addEventListener('click', function(e){ if(!e.target.closest('.gwrap')) closeS(); });
+  document.getElementById('btn_download').addEventListener('click',dlHP);
+  document.getElementById('btn_sendMail').addEventListener('click',sendMail);
+  document.getElementById('btn_reset').addEventListener('click',resetAll);
+  document.getElementById('demoMail').addEventListener('input',saveMails);
+  document.getElementById('dirMail').addEventListener('input',saveMails);
 
   // 業種チップ
   document.querySelectorAll('#indChips .chip').forEach(function(c){
-    c.addEventListener('click', function(){
-      document.querySelectorAll('#indChips .chip').forEach(x=>x.classList.remove('on'));
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#indChips .chip').forEach(function(x){x.classList.remove('on');});
       c.classList.add('on');
-      ind = c.textContent.trim();
+      ind=c.textContent.trim();
     });
   });
 
   // 悩みチップ
   document.querySelectorAll('#conChips .chip').forEach(function(c){
-    c.addEventListener('click', function(){
+    c.addEventListener('click',function(){
       c.classList.toggle('on');
-      const v = c.textContent.trim();
-      if(c.classList.contains('on')){ if(!cons.includes(v)) cons.push(v); }
-      else { cons = cons.filter(x=>x!==v); }
+      var v=c.textContent.trim();
+      if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}
+      else{cons=cons.filter(function(x){return x!==v;});}
     });
   });
 
-  // 診断スタート
-  document.getElementById('btn_startDiag').addEventListener('click', startDiag);
+  // 設定外クリックで閉じる
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.gwrap'))closeS();
+  });
 
-  // コピー生成
-  document.getElementById('btn_genCopy').addEventListener('click', genCopy);
-
-  // ★HP生成ボタン（静的に存在するので確実に登録できる）
-  document.getElementById('btn_genHP').addEventListener('click', genHP);
-
-  // ダウンロード
-  document.getElementById('btn_download').addEventListener('click', dlHP);
-
-  // メール
-  document.getElementById('btn_sendMail').addEventListener('click', sendMail);
-
-  // リセット
-  document.getElementById('btn_reset').addEventListener('click', resetAll);
-
-  // メール保存
-  document.getElementById('demoMail').addEventListener('input', saveMails);
-  document.getElementById('dirMail').addEventListener('input', saveMails);
-
-  // 初期化
   loadMails();
 });
 
-// ══════════════════════════════════
 // テーマ
-// ══════════════════════════════════
-const TH = {
-  blue: {'--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900','--bg':'#0a0a1a','--hf':'#0a0a1a','--hm':'#1a1a3e','--ht':'#0d2060', hbg:'rgba(10,10,26,0.95)'},
-  pink: {'--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4','--bg':'#1a0a12','--hf':'#1a0a12','--hm':'#3d0a24','--ht':'#600d38', hbg:'rgba(26,10,18,0.95)'}
+var TH={
+  blue:{'--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900','--bg':'#0a0a1a','--hf':'#0a0a1a','--hm':'#1a1a3e','--ht':'#0d2060',hbg:'rgba(10,10,26,0.95)'},
+  pink:{'--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4','--bg':'#1a0a12','--hf':'#1a0a12','--hm':'#3d0a24','--ht':'#600d38',hbg:'rgba(26,10,18,0.95)'}
 };
 function setTheme(t){
   theme=t;
-  Object.entries(TH[t]).forEach(([k,v])=>{ if(k.startsWith('--')) document.documentElement.style.setProperty(k,v); });
-  document.querySelector('.top-header').style.background = TH[t].hbg;
-  document.getElementById('tBlue').classList.toggle('on', t==='blue');
-  document.getElementById('tPink').classList.toggle('on', t==='pink');
+  Object.entries(TH[t]).forEach(function(e){if(e[0].startsWith('--'))document.documentElement.style.setProperty(e[0],e[1]);});
+  document.querySelector('.top-header').style.background=TH[t].hbg;
+  document.getElementById('tBlue').classList.toggle('on',t==='blue');
+  document.getElementById('tPink').classList.toggle('on',t==='pink');
   toast(t==='pink'?'🌸 ピンクテーマ':'🔵 ブルーテーマ');
   closeS();
 }
 
-// ══════════════════════════════════
-// モーダル・設定
-// ══════════════════════════════════
-function openM(id){ document.getElementById(id).classList.add('open'); closeS(); }
-function closeM(id){ document.getElementById(id).classList.remove('open'); }
-function togS(){ document.getElementById('sdrop').classList.toggle('open'); }
-function closeS(){ document.getElementById('sdrop').classList.remove('open'); }
+function openM(id){document.getElementById(id).classList.add('open');closeS();}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+function togS(){document.getElementById('sdrop').classList.toggle('open');}
+function closeS(){document.getElementById('sdrop').classList.remove('open');}
 
-// ══════════════════════════════════
-// メール
-// ══════════════════════════════════
-function saveMails(){
-  localStorage.setItem('dm', document.getElementById('demoMail').value);
-  localStorage.setItem('di', document.getElementById('dirMail').value);
-}
-function loadMails(){
-  const dm=localStorage.getItem('dm'), di=localStorage.getItem('di');
-  if(dm) document.getElementById('demoMail').value=dm;
-  if(di) document.getElementById('dirMail').value=di;
-}
+function saveMails(){localStorage.setItem('dm',document.getElementById('demoMail').value);localStorage.setItem('di',document.getElementById('dirMail').value);}
+function loadMails(){var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');if(dm)document.getElementById('demoMail').value=dm;if(di)document.getElementById('dirMail').value=di;}
 
-// ══════════════════════════════════
-// デモ
-// ══════════════════════════════════
-const DEMO={
-  ind:'美容・サロン', reg:'埼玉県さいたま市', com:'ビューティーサロン Belle',
-  cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],
-  str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',
-  app:'リピート率90%以上、地域密着15年'
-};
+var DEMO={ind:'美容・サロン',reg:'埼玉県さいたま市',com:'ビューティーサロン Belle',cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',app:'リピート率90%以上、地域密着15年'};
 
 function loadDemo(){
-  // 業種
-  document.querySelectorAll('#indChips .chip').forEach(c=>{
-    c.classList.remove('on');
-    if(c.textContent.trim()===DEMO.ind){ c.classList.add('on'); ind=DEMO.ind; }
-  });
-  // テキスト
+  ind=DEMO.ind;
+  document.querySelectorAll('#indChips .chip').forEach(function(c){c.classList.remove('on');if(c.textContent.trim()===DEMO.ind)c.classList.add('on');});
   document.getElementById('reg').value=DEMO.reg;
   document.getElementById('com').value=DEMO.com;
   document.getElementById('str').value=DEMO.str;
   document.getElementById('app').value=DEMO.app;
-  // 悩み
   cons=[];
-  document.querySelectorAll('#conChips .chip').forEach(c=>{
-    c.classList.remove('on');
-    if(DEMO.cons.includes(c.textContent.trim())){ c.classList.add('on'); cons.push(c.textContent.trim()); }
-  });
+  document.querySelectorAll('#conChips .chip').forEach(function(c){c.classList.remove('on');if(DEMO.cons.includes(c.textContent.trim())){c.classList.add('on');cons.push(c.textContent.trim());}});
   toast('🎯 デモデータを入力しました');
 }
 
 function clearDemo(){
-  ind=""; cons=[];
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
-  ['reg','com','str','app'].forEach(id=>document.getElementById(id).value='');
+  ind="";cons=[];
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
   toast('🗑️ クリアしました');
 }
 
-// ══════════════════════════════════
-// 確認
-// ══════════════════════════════════
 function openConfirm(){
-  const rows=[
-    {l:'業種',v:ind},{l:'地域',v:document.getElementById('reg').value},
-    {l:'会社名',v:document.getElementById('com').value},{l:'悩み',v:cons.join('、')},
-    {l:'強み',v:document.getElementById('str').value},
-    {l:'デモ担当者',v:document.getElementById('demoMail').value},
-    {l:'ディレクション担当者',v:document.getElementById('dirMail').value}
-  ];
-  let h='';
-  rows.forEach(r=>{ const v=r.v?`<span class="cv">${r.v}</span>`:`<span class="ce">未入力</span>`; h+=`<div class="cr"><span class="clb">${r.l}</span>${v}</div>`; });
+  var rows=[{l:'業種',v:ind},{l:'地域',v:document.getElementById('reg').value},{l:'会社名',v:document.getElementById('com').value},{l:'悩み',v:cons.join('、')},{l:'強み',v:document.getElementById('str').value},{l:'デモ担当者',v:document.getElementById('demoMail').value},{l:'ディレクション担当者',v:document.getElementById('dirMail').value}];
+  var h='';
+  rows.forEach(function(r){var v=r.v?'<span class="cv">'+r.v+'</span>':'<span class="ce">未入力</span>';h+='<div class="cr"><span class="clb">'+r.l+'</span>'+v+'</div>';});
   document.getElementById('confRows').innerHTML=h;
-  const ok=ind&&document.getElementById('reg').value;
-  const s=document.getElementById('confSt');
+  var ok=ind&&document.getElementById('reg').value;
+  var s=document.getElementById('confSt');
   s.className=ok?'cst ok':'cst ng';
   s.textContent=ok?'✅ 診断に必要な情報が揃っています！':'⚠️ 業種と地域は必須です。';
   openM('mConf');
 }
 
-// ══════════════════════════════════
-// トースト・花火
-// ══════════════════════════════════
-function toast(msg){
-  const t=document.createElement('div');
-  t.textContent=msg;
-  t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),2500);
-}
+function toast(msg){var t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';document.body.appendChild(t);setTimeout(function(){t.remove();},2500);}
 
 function fireworks(){
-  const c=document.getElementById('fwc');
-  c.style.display='block';
-  const cols=theme==='pink'?['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffd700']:['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
-  let n=0;
-  const iv=setInterval(()=>{
-    for(let i=0;i<14;i++){
-      const p=document.createElement('div'); p.className='pt';
-      const x=Math.random()*window.innerWidth, y=Math.random()*window.innerHeight*0.6;
-      const col=cols[Math.floor(Math.random()*cols.length)], sz=Math.random()*8+4;
-      p.style.cssText=`left:${x}px;top:${y}px;background:${col};width:${sz}px;height:${sz}px;box-shadow:0 0 ${sz*2}px ${col};`;
+  var c=document.getElementById('fwc');c.style.display='block';
+  var cols=theme==='pink'?['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffd700']:['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
+  var n=0;
+  var iv=setInterval(function(){
+    for(var i=0;i<14;i++){
+      var p=document.createElement('div');p.className='pt';
+      var x=Math.random()*window.innerWidth,y=Math.random()*window.innerHeight*0.6;
+      var col=cols[Math.floor(Math.random()*cols.length)],sz=Math.random()*8+4;
+      p.style.cssText='left:'+x+'px;top:'+y+'px;background:'+col+';width:'+sz+'px;height:'+sz+'px;box-shadow:0 0 '+(sz*2)+'px '+col+';';
       c.appendChild(p);
-      const a=Math.random()*Math.PI*2, sp=Math.random()*130+60;
-      const vx=Math.cos(a)*sp, vy=Math.sin(a)*sp-90;
-      let op=1, px=x, py=y;
-      const iv2=setInterval(()=>{
-        px+=vx*0.04; py+=vy*0.04+2.5; op-=0.025;
-        p.style.left=px+'px'; p.style.top=py+'px'; p.style.opacity=op;
-        if(op<=0){ clearInterval(iv2); p.remove(); }
-      },16);
+      var a=Math.random()*Math.PI*2,sp=Math.random()*130+60;
+      var vx=Math.cos(a)*sp,vy=Math.sin(a)*sp-90;
+      var op=1,px=x,py=y;
+      (function(p,vx,vy,px,py,op){
+        var iv2=setInterval(function(){
+          px+=vx*0.04;py+=vy*0.04+2.5;op-=0.025;
+          p.style.left=px+'px';p.style.top=py+'px';p.style.opacity=op;
+          if(op<=0){clearInterval(iv2);p.remove();}
+        },16);
+      })(p,vx,vy,px,py,op);
     }
-    if(++n>10){ clearInterval(iv); setTimeout(()=>{ c.style.display='none'; },1000); }
+    if(++n>10){clearInterval(iv);setTimeout(function(){c.style.display='none';},1000);}
   },280);
 }
 
-// ══════════════════════════════════
-// 診断
-// ══════════════════════════════════
 async function startDiag(){
-  if(!ind){ alert('業種を選んでください'); return; }
-  const reg=document.getElementById('reg').value;
-  if(!reg){ alert('地域を入力してください'); return; }
-
+  if(!ind){alert('業種を選んでください');return;}
+  var reg=document.getElementById('reg').value;
+  if(!reg){alert('地域を入力してください');return;}
   hide('sec_step1');
   show('sec_diagLoad');
-  scroll('sec_diagLoad');
-
-  const steps=['ls1','ls2','ls3','ls4','ls5'];
-  let i=0;
-  const si=setInterval(()=>{
-    if(i<steps.length){ document.getElementById(steps[i]).classList.add('done'); i++; }
-    else clearInterval(si);
-  },800);
-
+  sc('sec_diagLoad');
+  var steps=['ls1','ls2','ls3','ls4','ls5'],i=0;
+  var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},800);
   try{
-    const r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'diagnosis',industry:ind,region:reg,concerns:cons.join('、')||'全般的な集客強化',companyName:document.getElementById('com').value})});
-    const d=await r.json();
+    var r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'diagnosis',industry:ind,region:reg,concerns:cons.join('、')||'全般的な集客強化',companyName:document.getElementById('com').value})});
+    var d=await r.json();
     clearInterval(si);
-    steps.forEach(s=>document.getElementById(s).classList.add('done'));
-
-    let data;
-    try{ data=JSON.parse(d.result.replace(/```json|```/g,'').trim()); }
-    catch(e){ alert('解析エラー'); hide('sec_diagLoad'); show('sec_step1'); return; }
-
-    // 結果を描画
+    steps.forEach(function(s){document.getElementById(s).classList.add('done');});
+    var data;
+    try{data=JSON.parse(d.result.replace(/```json|```/g,'').trim());}catch(e){alert('解析エラー');hide('sec_diagLoad');show('sec_step1');return;}
     document.getElementById('r_score').textContent=data.score;
     document.getElementById('r_summary').textContent=data.summary;
-
-    let bf='';
-    (data.sitemapBefore||[]).forEach(x=>{ bf+=`<div class="smitem"><div class="pn">📄 ${x.page}</div><div class="pno">⚠️ ${x.issue}</div></div>`; });
-    document.getElementById('r_smBf').innerHTML=bf;
-
-    let af='';
-    (data.sitemapAfter||[]).forEach(x=>{ af+=`<div class="smitem"><div class="pn">✅ ${x.page}</div><div class="pno">💡 ${x.point}</div></div>`; });
-    document.getElementById('r_smAf').innerHTML=af;
-
-    let sns='';
-    (data.snsStrategy||[]).forEach(x=>{ sns+=`<div class="snscard"><div class="snspl">${x.platform}</div><div class="snsco">${x.content}</div><div class="snsfq">📅 ${x.frequency}</div></div>`; });
-    document.getElementById('r_sns').innerHTML=sns;
-
-    let ideas='';
-    (data.collectIdeas||[]).forEach((x,i)=>{ ideas+=`<div class="iitem"><div class="inum">${i+1}</div><div><div class="it">${x.title}</div><div class="id2">${x.detail}</div><div class="ie">期待効果：${x.effect}</div></div></div>`; });
-    document.getElementById('r_ideas').innerHTML=ideas;
-
-    hide('sec_diagLoad');
-    show('sec_result');
-    show('sec_step2');
-    scroll('sec_result');
-
-  }catch(e){
-    clearInterval(si);
-    alert('エラーが発生しました');
-    hide('sec_diagLoad');
-    show('sec_step1');
-  }
+    var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_smBf').innerHTML=bf;
+    var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_smAf').innerHTML=af;
+    var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});document.getElementById('r_sns').innerHTML=sns;
+    var ideas='';(data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});document.getElementById('r_ideas').innerHTML=ideas;
+    hide('sec_diagLoad');show('sec_result');show('sec_step2');sc('sec_result');
+  }catch(e){clearInterval(si);alert('エラーが発生しました');hide('sec_diagLoad');show('sec_step1');}
 }
 
-// ══════════════════════════════════
-// コピー生成
-// ══════════════════════════════════
 async function genCopy(){
+  // ★ここで hide('sec_genBtn') を呼ばない
+  // コピーパターンだけ隠してローディングを出す
   hide('sec_copyPats');
-  hide('sec_genBtn');
-  cpData=null;
   show('sec_copyLoad');
-  scroll('sec_copyLoad');
+  sc('sec_copyLoad');
+  cpData=null;
 
   try{
-    const r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})});
-    const d=await r.json();
+    var r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})});
+    var d=await r.json();
+    var data;
+    try{data=JSON.parse(d.result.replace(/```json|```/g,'').trim());}catch(e){alert('解析エラー');hide('sec_copyLoad');return;}
 
-    let data;
-    try{ data=JSON.parse(d.result.replace(/```json|```/g,'').trim()); }
-    catch(e){ alert('解析エラー'); hide('sec_copyLoad'); return; }
-
-    // ★コピーパターンを描画してaddEventListenerで登録
-    const pl=document.getElementById('patList');
+    // ★コピーパターンをaddEventListenerで登録
+    var pl=document.getElementById('patList');
     pl.innerHTML='';
     (data.patterns||[]).forEach(function(p,i){
-      const div=document.createElement('div');
+      var div=document.createElement('div');
       div.className='cpcard';
-      div.innerHTML=`<span class="cpbadge">✓ 選択中</span><div class="cpconcept">パターン${p.id}：${p.concept}</div><div class="cpcatch">${p.catch}</div><div class="cpsub">${p.sub}</div>`;
-      // ★addEventListener で登録（onclickではない）
-      div.addEventListener('click', function(){
-        // 全カードのonを外す
-        document.querySelectorAll('#patList .cpcard').forEach(c=>c.classList.remove('on'));
-        // このカードをon
+      div.innerHTML='<span class="cpbadge">✓ 選択中</span><div class="cpconcept">パターン'+p.id+'：'+p.concept+'</div><div class="cpcatch">'+p.catch+'</div><div class="cpsub">'+p.sub+'</div>';
+      div.addEventListener('click',function(){
+        document.querySelectorAll('#patList .cpcard').forEach(function(c){c.classList.remove('on');});
         div.classList.add('on');
-        // cpDataを設定
         cpData={
-          ...p,
-          appealPoints: data.appealPoints,
-          serviceDescriptions: data.serviceDescriptions
+          id:p.id,catch:p.catch,sub:p.sub,concept:p.concept,
+          appealPoints:data.appealPoints,
+          serviceDescriptions:data.serviceDescriptions
         };
         toast('✅ パターン'+(i+1)+'を選択！');
-        // ★sec_genBtnを表示（hiddenを外すだけ）
+        // ★hiddenを外すだけ。すでにDOMに存在するボタン
         show('sec_genBtn');
-        scroll('sec_genBtn');
+        sc('sec_genBtn');
       });
       pl.appendChild(div);
     });
 
     hide('sec_copyLoad');
+    // ★sec_genBtnは隠したまま（選択後に表示）
+    hide('sec_genBtn');
     show('sec_copyPats');
-    scroll('sec_copyPats');
-
-  }catch(e){
-    alert('コピー生成に失敗しました');
-    hide('sec_copyLoad');
-  }
+    sc('sec_copyPats');
+  }catch(e){alert('コピー生成に失敗しました');hide('sec_copyLoad');}
 }
 
-// ══════════════════════════════════
-// HP生成
-// ══════════════════════════════════
 async function genHP(){
-  if(!cpData){ alert('コピーを選んでください'); return; }
-
+  if(!cpData){alert('コピーを選んでください');return;}
   hide('sec_genBtn');
   show('sec_hpLoad');
-  scroll('sec_hpLoad');
-
-  // プログレスバー
-  const pb=document.getElementById('pgBar');
-  pb.style.animation='none';
-  pb.offsetHeight;
-  pb.style.animation='prog 25s linear forwards';
-
+  sc('sec_hpLoad');
+  var pb=document.getElementById('pgBar');
+  pb.style.animation='none';pb.offsetHeight;pb.style.animation='prog 25s linear forwards';
   try{
-    const r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'generate',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value||'御社',appeal:document.getElementById('app').value,selectedCopy:cpData})});
-    const d=await r.json();
+    var r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'generate',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value||'御社',appeal:document.getElementById('app').value,selectedCopy:cpData})});
+    var d=await r.json();
     genHtml=d.result;
-
     hide('sec_hpLoad');
     show('sec_burst');
     fireworks();
-
     setTimeout(function(){
-      const fr=document.getElementById('prevFrame');
-      const doc=fr.contentDocument||fr.contentWindow.document;
-      doc.open(); doc.write(genHtml); doc.close();
+      var fr=document.getElementById('prevFrame');
+      var doc=fr.contentDocument||fr.contentWindow.document;
+      doc.open();doc.write(genHtml);doc.close();
       show('sec_preview');
-      scroll('sec_preview');
+      sc('sec_preview');
     },1800);
-
-  }catch(e){
-    alert('HP生成に失敗しました：'+e.message);
-    hide('sec_hpLoad');
-    show('sec_genBtn');
-  }
+  }catch(e){alert('HP生成に失敗しました：'+e.message);hide('sec_hpLoad');show('sec_genBtn');}
 }
 
-// ══════════════════════════════════
-// ダウンロード・メール・リセット
-// ══════════════════════════════════
-function dlHP(){
-  if(!genHtml) return;
-  const b=new Blob([genHtml],{type:'text/html'});
-  const u=URL.createObjectURL(b);
-  const a=document.createElement('a'); a.href=u; a.download='smartpage-proposal.html'; a.click();
-  URL.revokeObjectURL(u);
-}
+function dlHP(){if(!genHtml)return;var b=new Blob([genHtml],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
 
 function sendMail(){
-  const de=document.getElementById('dirMail').value;
-  if(!de){ toast('⚠️ 設定からディレクション担当者メールを入力してください'); setTimeout(()=>togS(),600); return; }
-  const co=document.getElementById('com').value||'御社';
-  const sub=encodeURIComponent(`【Smartpage-i】ホームページ提案：${co}`);
-  const body=encodeURIComponent(`ディレクションご担当者様\n\nSmartpage-i にてホームページ提案が完成しました。\n\n■ クライアント情報\n会社名：${co}\n業種：${ind}\n地域：${document.getElementById('reg').value}\n\n■ 採用キャッチコピー\nメイン：${cpData?.catch||''}\nサブ：${cpData?.sub||''}\n\n■ 添付ファイル\nホームページ提案HTML（別途添付してください）\n\nデモ担当：${document.getElementById('demoMail').value||'未設定'}\n送信ツール：Smartpage-i`);
-  window.location.href=`mailto:${de}?subject=${sub}&body=${body}`;
+  var de=document.getElementById('dirMail').value;
+  if(!de){toast('⚠️ 設定からディレクション担当者メールを入力してください');setTimeout(togS,600);return;}
+  var co=document.getElementById('com').value||'御社';
+  var sub=encodeURIComponent('【Smartpage-i】ホームページ提案：'+co);
+  var body=encodeURIComponent('ディレクションご担当者様\n\nSmartpage-i にてホームページ提案が完成しました。\n\n■ クライアント情報\n会社名：'+co+'\n業種：'+ind+'\n地域：'+document.getElementById('reg').value+'\n\n■ 採用キャッチコピー\nメイン：'+(cpData?cpData.catch:'')+'\nサブ：'+(cpData?cpData.sub:'')+'\n\n■ 添付ファイル\nホームページ提案HTML（別途添付してください）\n\nデモ担当：'+document.getElementById('demoMail').value+'\n送信ツール：Smartpage-i');
+  window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;
   toast('📧 メーラーが起動しました');
 }
 
 function resetAll(){
-  ind=""; cons=[]; genHtml=""; cpData=null;
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
-  ['reg','com','str','app'].forEach(id=>document.getElementById(id).value='');
+  ind="";cons=[];genHtml="";cpData=null;
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('patList').innerHTML='';
-  document.getElementById('pgBar').style.animation='none';
-
+  var pb=document.getElementById('pgBar');pb.style.animation='none';
   show('sec_step1');
   ['sec_diagLoad','sec_result','sec_step2','sec_copyLoad','sec_copyPats','sec_genBtn','sec_hpLoad','sec_burst','sec_preview'].forEach(hide);
-  ['ls1','ls2','ls3','ls4','ls5'].forEach(id=>document.getElementById(id).classList.remove('done'));
+  ['ls1','ls2','ls3','ls4','ls5'].forEach(function(id){document.getElementById(id).classList.remove('done');});
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
