@@ -14,6 +14,271 @@ body {
   min-height: 100vh;
 }
 
+/* ヘッダー */
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,26,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-logo {
+  font-size: 16px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #0179E8, #D0A900);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-btn {
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-btn:hover {
+  border-color: #0179E8;
+  color: #fff;
+  background: rgba(1,121,232,0.15);
+}
+
+.header-btn.gear {
+  padding: 7px 10px;
+  font-size: 16px;
+  position: relative;
+}
+
+/* 設定ドロップダウン */
+.settings-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #1a1a3e;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 8px;
+  min-width: 200px;
+  display: none;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  z-index: 200;
+}
+
+.settings-dropdown.open { display: block; animation: fadeInUp 0.2s ease; }
+
+.settings-item {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s;
+}
+
+.settings-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+.settings-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 6px 0;
+}
+
+/* モーダル共通 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  background: #12122a;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: fadeInUp 0.3s ease;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.modal-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+}
+
+/* 使い方モーダル */
+.howto-section {
+  margin-bottom: 24px;
+}
+
+.howto-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #0179E8;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.howto-purpose {
+  background: rgba(1,121,232,0.1);
+  border: 1px solid rgba(1,121,232,0.25);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.85);
+}
+
+.howto-steps {
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.howto-steps li {
+  counter-increment: step-counter;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+}
+
+.howto-steps li:last-child { border-bottom: none; }
+
+.howto-steps li::before {
+  content: counter(step-counter);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0179E8, #225AD3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.howto-tip {
+  background: rgba(208,169,0,0.1);
+  border: 1px solid rgba(208,169,0,0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  margin-top: 16px;
+}
+
+/* 確認モーダル */
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-size: 13px;
+}
+
+.confirm-row:last-child { border-bottom: none; }
+.confirm-label { color: rgba(255,255,255,0.4); }
+.confirm-value { color: #fff; font-weight: 600; text-align: right; max-width: 60%; }
+.confirm-empty { color: rgba(255,255,255,0.2); font-style: italic; }
+
+.confirm-status {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.confirm-status.ok {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  color: #22c55e;
+}
+
+.confirm-status.ng {
+  background: rgba(224,85,85,0.1);
+  border: 1px solid rgba(224,85,85,0.3);
+  color: #e05555;
+}
+
+/* ヒーロー */
 .hero {
   background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0d2060 100%);
   padding: 40px 20px 60px;
@@ -38,11 +303,11 @@ body {
   50% { transform: scale(1.1); opacity: 1; }
 }
 
-.logo {
-  font-size: 13px;
+.hero-brand {
+  font-size: 12px;
   letter-spacing: 4px;
   color: #D0A900;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   position: relative;
 }
 
@@ -53,22 +318,24 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   position: relative;
 }
 
 .hero p {
-  font-size: 15px;
-  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
   position: relative;
 }
 
+/* コンテナ */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 20px 80px;
 }
 
+/* STEP カード */
 .step-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
@@ -82,7 +349,7 @@ body {
 .step-card.active { display: block; }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -99,9 +366,7 @@ body {
   margin-bottom: 24px;
 }
 
-.field-group {
-  margin-bottom: 20px;
-}
+.field-group { margin-bottom: 20px; }
 
 .field-label {
   font-size: 13px;
@@ -109,11 +374,7 @@ body {
   margin-bottom: 8px;
 }
 
-.chip-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .chip {
   padding: 8px 16px;
@@ -127,6 +388,7 @@ body {
 }
 
 .chip:hover { border-color: #0179E8; color: #fff; }
+
 .chip.selected {
   background: linear-gradient(135deg, #0179E8, #225AD3);
   border-color: transparent;
@@ -169,11 +431,7 @@ body {
   box-shadow: 0 8px 30px rgba(1,121,232,0.4);
 }
 
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 .btn-gold {
   width: 100%;
@@ -210,6 +468,7 @@ body {
 
 .btn-ghost:hover { border-color: #fff; color: #fff; }
 
+/* ローディング */
 .loading-screen {
   display: none;
   text-align: center;
@@ -262,17 +521,8 @@ body {
   to { transform: rotate(360deg); }
 }
 
-.loading-text {
-  font-size: 18px;
-  font-weight: 600;
-  color: #0179E8;
-  margin-bottom: 8px;
-}
-
-.loading-sub {
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-}
+.loading-text { font-size: 18px; font-weight: 600; color: #0179E8; margin-bottom: 8px; }
+.loading-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
 
 .loading-steps {
   margin-top: 32px;
@@ -304,17 +554,11 @@ body {
   transition: all 0.5s;
 }
 
-.result-card {
-  display: none;
-  animation: fadeInUp 0.5s ease;
-}
-
+/* 結果 */
+.result-card { display: none; animation: fadeInUp 0.5s ease; }
 .result-card.active { display: block; }
 
-.score-ring {
-  text-align: center;
-  padding: 40px 0 32px;
-}
+.score-ring { text-align: center; padding: 40px 0 32px; }
 
 .score-number {
   font-size: 72px;
@@ -355,9 +599,7 @@ body {
   margin-bottom: 24px;
 }
 
-@media(max-width: 600px) {
-  .sitemap-container { grid-template-columns: 1fr; }
-}
+@media(max-width: 600px) { .sitemap-container { grid-template-columns: 1fr; } }
 
 .sitemap-box {
   background: rgba(255,255,255,0.04);
@@ -404,14 +646,7 @@ body {
   padding: 16px;
 }
 
-.sns-platform {
-  font-size: 12px;
-  font-weight: 700;
-  color: #D0A900;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-
+.sns-platform { font-size: 12px; font-weight: 700; color: #D0A900; letter-spacing: 1px; margin-bottom: 6px; }
 .sns-content { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 8px; }
 .sns-freq { font-size: 11px; color: rgba(255,255,255,0.4); }
 
@@ -445,19 +680,10 @@ body {
 .idea-detail { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
 .idea-effect { font-size: 12px; color: #D0A900; margin-top: 4px; }
 
-.hp-loading {
-  display: none;
-  text-align: center;
-  padding: 40px;
-}
-
+.hp-loading { display: none; text-align: center; padding: 40px; }
 .hp-loading.active { display: block; }
 
-.hp-preview-container {
-  display: none;
-  margin-top: 24px;
-}
-
+.hp-preview-container { display: none; margin-top: 24px; }
 .hp-preview-container.active { display: block; }
 
 .preview-header {
@@ -470,11 +696,7 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.preview-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
+.preview-dot { width: 10px; height: 10px; border-radius: 50%; }
 
 .preview-iframe {
   width: 100%;
@@ -490,23 +712,84 @@ body {
   margin: 24px 0;
 }
 
-.tag {
-  display: inline-block;
-  padding: 4px 10px;
-  background: rgba(1,121,232,0.2);
-  border: 1px solid rgba(1,121,232,0.4);
-  border-radius: 100px;
-  font-size: 11px;
-  color: #0179E8;
-  margin-right: 6px;
-  margin-bottom: 6px;
-}
+.gear-wrap { position: relative; }
 </style>
 </head>
 <body>
 
+<!-- トップヘッダー -->
+<div class="top-header">
+  <div class="header-left">
+    <span class="header-logo">Smartpage-i</span>
+  </div>
+  <div class="header-right">
+    <button class="header-btn" onclick="openModal('howtoModal')">📖 使い方</button>
+    <div class="gear-wrap">
+      <button class="header-btn gear" onclick="toggleSettings()">⚙️</button>
+      <div class="settings-dropdown" id="settingsDropdown">
+        <div class="settings-item" onclick="loadDemo();closeSettings()">🎯 デモデータ入力</div>
+        <div class="settings-item" onclick="clearDemo();closeSettings()">🗑️ デモデータクリア</div>
+        <div class="settings-divider"></div>
+        <div class="settings-item" onclick="openConfirm();closeSettings()">✅ 確認表示</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 使い方モーダル -->
+<div class="modal-overlay" id="howtoModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('howtoModal')">✕</button>
+    <div class="modal-title">📖 使い方ガイド</div>
+    <div class="modal-subtitle">Smartpage-i の目的と操作手順</div>
+
+    <div class="howto-section">
+      <div class="howto-section-title">🎯 このアプリの目的</div>
+      <div class="howto-purpose">
+        Smartpage-i は、代理店営業・新人スタッフが中小企業オーナーへの初回提案をスムーズに行うためのAI診断ツールです。<br><br>
+        業種・地域・悩みを入力するだけで、Web集客の現状診断・サイトマップ改善提案・SNS戦略・ホームページの自動生成まで、その場で完結します。<br><br>
+        「百聞は一見にしかず」をコンセプトに、オーナーに驚きと納得を同時に届けてください。
+      </div>
+    </div>
+
+    <div class="howto-section">
+      <div class="howto-section-title">🚀 使い方ステップ</div>
+      <ol class="howto-steps">
+        <li>訪問前に⚙️設定からデモデータを入力して動作を確認しておく</li>
+        <li>オーナーの前でアプリを開き、業種・地域・会社名を一緒に入力する</li>
+        <li>悩みのチップをオーナー自身にタップしてもらうと効果的</li>
+        <li>「AI診断スタート」を押してレーダーアニメーションを見せる（驚きポイント）</li>
+        <li>診断結果のBefore/Afterサイトマップで現状課題を共有する</li>
+        <li>SNS戦略・集客アイデアを見せながら具体的な提案トークへつなぐ</li>
+        <li>「ホームページを生成する」でHTMLをその場で生成して見せる</li>
+        <li>「HTMLをダウンロード」して制作チームへ渡すクロージングへ移行する</li>
+      </ol>
+    </div>
+
+    <div class="howto-tip">
+      💡 営業のコツ：診断結果画面でスクロールしながら「これが御社の現状です」「こう変えるとこう変わります」という流れで話すと、オーナーが自然にうなずきます。HTMLダウンロードがクロージングの合図です 🤝
+    </div>
+  </div>
+</div>
+
+<!-- 確認モーダル -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('confirmModal')">✕</button>
+    <div class="modal-title">✅ 入力内容の確認</div>
+    <div class="modal-subtitle">診断に使用する情報を確認してください</div>
+
+    <div id="confirmRows"></div>
+
+    <div id="confirmStatus" class="confirm-status"></div>
+
+    <button class="btn-primary" style="margin-top:20px;" onclick="closeModal('confirmModal')">閉じる</button>
+  </div>
+</div>
+
+<!-- ヒーロー -->
 <div class="hero">
-  <div class="logo">SMILE PLUS CONSULTING × i-mobile</div>
+  <div class="hero-brand">SMILE PLUS CONSULTING × i-mobile</div>
   <h1>Smartpage-i</h1>
   <p>AIが御社の集客課題を診断し、ホームページを即時生成します</p>
 </div>
@@ -517,6 +800,7 @@ body {
   <div class="step-card active" id="step1">
     <div class="step-label">STEP 01</div>
     <div class="step-title">業種を選んでください 🏢</div>
+
     <div class="field-group">
       <div class="chip-group" id="industryChips">
         <div class="chip" onclick="selectChip(this,'industry')">飲食業</div>
@@ -624,7 +908,6 @@ body {
 
       <button class="btn-gold" onclick="generateHP()">✨ ホームページを生成する</button>
 
-      <!-- HP Loading -->
       <div class="hp-loading" id="hpLoading">
         <div class="radar" style="width:80px;height:80px;margin:20px auto;">
           <div class="radar-circle"></div>
@@ -635,7 +918,6 @@ body {
         <div class="loading-sub">少々お待ちください（20〜30秒）</div>
       </div>
 
-      <!-- HP Preview -->
       <div class="hp-preview-container" id="hpPreview">
         <div class="preview-header">
           <div class="preview-dot" style="background:#e05555;"></div>
@@ -660,15 +942,16 @@ let selectedIndustry = "";
 let selectedConcerns = [];
 let generatedHTML = "";
 
+// ── チップ操作 ──
 function selectChip(el, type) {
-  document.querySelectorAll(`#industryChips .chip`).forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('#industryChips .chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  selectedIndustry = el.textContent;
+  selectedIndustry = el.textContent.trim();
 }
 
 function toggleChip(el) {
   el.classList.toggle('selected');
-  const text = el.textContent;
+  const text = el.textContent.trim();
   if (el.classList.contains('selected')) {
     if (!selectedConcerns.includes(text)) selectedConcerns.push(text);
   } else {
@@ -676,9 +959,127 @@ function toggleChip(el) {
   }
 }
 
+// ── モーダル ──
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  closeSettings();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ── 設定ドロップダウン ──
+function toggleSettings() {
+  document.getElementById('settingsDropdown').classList.toggle('open');
+}
+
+function closeSettings() {
+  document.getElementById('settingsDropdown').classList.remove('open');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.gear-wrap')) closeSettings();
+});
+
+// ── デモデータ ──
+const DEMO_DATA = {
+  industry: '美容・サロン',
+  region: '埼玉県さいたま市',
+  company: 'ビューティーサロン Belle',
+  concerns: ['ホームページが古い', 'SNSを活用できていない', '口コミが広がらない']
+};
+
+function loadDemo() {
+  // 業種チップ選択
+  document.querySelectorAll('#industryChips .chip').forEach(c => {
+    c.classList.remove('selected');
+    if (c.textContent.trim() === DEMO_DATA.industry) {
+      c.classList.add('selected');
+      selectedIndustry = DEMO_DATA.industry;
+    }
+  });
+
+  // テキスト入力
+  document.getElementById('regionInput').value = DEMO_DATA.region;
+  document.getElementById('companyInput').value = DEMO_DATA.company;
+
+  // 悩みチップ
+  selectedConcerns = [];
+  document.querySelectorAll('#concernChips .chip').forEach(c => {
+    c.classList.remove('selected');
+    if (DEMO_DATA.concerns.includes(c.textContent.trim())) {
+      c.classList.add('selected');
+      selectedConcerns.push(c.textContent.trim());
+    }
+  });
+
+  showToast('🎯 デモデータを入力しました');
+}
+
+function clearDemo() {
+  selectedIndustry = "";
+  selectedConcerns = [];
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.getElementById('regionInput').value = '';
+  document.getElementById('companyInput').value = '';
+  document.getElementById('appealInput').value = '';
+  showToast('🗑️ データをクリアしました');
+}
+
+// ── 確認表示 ──
+function openConfirm() {
+  const rows = [
+    { label: '業種', value: selectedIndustry },
+    { label: '地域', value: document.getElementById('regionInput').value },
+    { label: '会社名', value: document.getElementById('companyInput').value },
+    { label: '悩み', value: selectedConcerns.join('、') },
+    { label: 'アピールポイント', value: document.getElementById('appealInput').value }
+  ];
+
+  let html = '';
+  rows.forEach(r => {
+    const val = r.value
+      ? `<span class="confirm-value">${r.value}</span>`
+      : `<span class="confirm-empty">未入力</span>`;
+    html += `<div class="confirm-row"><span class="confirm-label">${r.label}</span>${val}</div>`;
+  });
+  document.getElementById('confirmRows').innerHTML = html;
+
+  const ready = selectedIndustry && document.getElementById('regionInput').value;
+  const status = document.getElementById('confirmStatus');
+  if (ready) {
+    status.className = 'confirm-status ok';
+    status.textContent = '✅ 診断に必要な情報が揃っています。AI診断スタートできます！';
+  } else {
+    status.className = 'confirm-status ng';
+    status.textContent = '⚠️ 業種と地域は必須です。入力を確認してください。';
+  }
+
+  openModal('confirmModal');
+}
+
+// ── トースト通知 ──
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = `
+    position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+    background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);
+    color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;
+    z-index:9999;animation:fadeInUp 0.3s ease;
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  `;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+// ── 診断開始 ──
 async function startDiagnosis() {
   if (!selectedIndustry) { alert('業種を選んでください'); return; }
   const region = document.getElementById('regionInput').value || "未入力";
+  if (!region || region === "未入力") { alert('地域を入力してください'); return; }
+
   const company = document.getElementById('companyInput').value || "";
   const concerns = selectedConcerns.length > 0 ? selectedConcerns.join('、') : "全般的な集客強化";
 
@@ -724,6 +1125,7 @@ async function startDiagnosis() {
   }
 }
 
+// ── 結果レンダリング ──
 function renderResult(jsonText) {
   let data;
   try {
@@ -765,6 +1167,7 @@ function renderResult(jsonText) {
   document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth' });
 }
 
+// ── HP生成 ──
 async function generateHP() {
   const appeal = document.getElementById('appealInput').value || "";
   const company = document.getElementById('companyInput').value || "御社";
@@ -806,6 +1209,7 @@ async function generateHP() {
   document.querySelector('.btn-gold').disabled = false;
 }
 
+// ── ダウンロード ──
 function downloadHP() {
   if (!generatedHTML) return;
   const blob = new Blob([generatedHTML], { type: 'text/html' });
@@ -817,6 +1221,7 @@ function downloadHP() {
   URL.revokeObjectURL(url);
 }
 
+// ── リセット ──
 function resetAll() {
   selectedIndustry = "";
   selectedConcerns = [];
