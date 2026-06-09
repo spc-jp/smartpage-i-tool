@@ -324,7 +324,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
   <div id="patList"></div>
 </div>
 
-<!-- ★最初から静的に配置・hidden で隠す -->
 <div class="card-gold hidden" id="sec_genBtn">
   <div style="font-size:16px;font-weight:700;color:#D0A900;margin-bottom:8px;">🎉 キャッチコピーが決まりました！</div>
   <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:20px;">このコピーをホームページのヒーローにそのまま反映します。下のボタンで今すぐ生成しましょう 🚀</div>
@@ -373,65 +372,20 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 </footer>
 
 <script>
-const WK="https://smartpage-i-tool.yymmatsu.workers.dev";
-let ind="",cons=[],genHtml="",theme="blue",cpData=null;
+var WK="https://smartpage-i-tool.yymmatsu.workers.dev";
+var ind="",cons=[],genHtml="",theme="blue",cpData=null;
 
 function show(id){document.getElementById(id).classList.remove('hidden');}
 function hide(id){document.getElementById(id).classList.add('hidden');}
-function sc(id){setTimeout(function(){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});},100);}
+function sc(id){setTimeout(function(){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});},150);}
 
-// ══ 全ボタンをDOMContentLoadedで登録 ══
-document.addEventListener('DOMContentLoaded',function(){
-
-  document.getElementById('logoBtn').addEventListener('click',resetAll);
-  document.getElementById('howtoBtn').addEventListener('click',function(){openM('mHow');});
-  document.getElementById('gearBtn').addEventListener('click',togS);
-  document.getElementById('closeHow').addEventListener('click',function(){closeM('mHow');});
-  document.getElementById('closeConf').addEventListener('click',function(){closeM('mConf');});
-  document.getElementById('closeConfBtn').addEventListener('click',function(){closeM('mConf');});
-  document.getElementById('tBlue').addEventListener('click',function(){setTheme('blue');});
-  document.getElementById('tPink').addEventListener('click',function(){setTheme('pink');});
-  document.getElementById('loadDemoBtn').addEventListener('click',function(){loadDemo();closeS();});
-  document.getElementById('clearDemoBtn').addEventListener('click',function(){clearDemo();closeS();});
-  document.getElementById('confirmBtn').addEventListener('click',function(){openConfirm();closeS();});
-  document.getElementById('btn_startDiag').addEventListener('click',startDiag);
-  document.getElementById('btn_genCopy').addEventListener('click',genCopy);
-
-  // ★このボタンは静的に存在するので確実に登録できる
-  document.getElementById('btn_genHP').addEventListener('click',genHP);
-
-  document.getElementById('btn_download').addEventListener('click',dlHP);
-  document.getElementById('btn_sendMail').addEventListener('click',sendMail);
-  document.getElementById('btn_reset').addEventListener('click',resetAll);
-  document.getElementById('demoMail').addEventListener('input',saveMails);
-  document.getElementById('dirMail').addEventListener('input',saveMails);
-
-  // 業種チップ
-  document.querySelectorAll('#indChips .chip').forEach(function(c){
-    c.addEventListener('click',function(){
-      document.querySelectorAll('#indChips .chip').forEach(function(x){x.classList.remove('on');});
-      c.classList.add('on');
-      ind=c.textContent.trim();
-    });
-  });
-
-  // 悩みチップ
-  document.querySelectorAll('#conChips .chip').forEach(function(c){
-    c.addEventListener('click',function(){
-      c.classList.toggle('on');
-      var v=c.textContent.trim();
-      if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}
-      else{cons=cons.filter(function(x){return x!==v;});}
-    });
-  });
-
-  // 設定外クリックで閉じる
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('.gwrap'))closeS();
-  });
-
-  loadMails();
-});
+function toast(msg){
+  var t=document.createElement('div');
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';
+  document.body.appendChild(t);
+  setTimeout(function(){t.remove();},2500);
+}
 
 // テーマ
 var TH={
@@ -440,7 +394,7 @@ var TH={
 };
 function setTheme(t){
   theme=t;
-  Object.entries(TH[t]).forEach(function(e){if(e[0].startsWith('--'))document.documentElement.style.setProperty(e[0],e[1]);});
+  Object.entries(TH[t]).forEach(function(kv){if(kv[0].startsWith('--'))document.documentElement.style.setProperty(kv[0],kv[1]);});
   document.querySelector('.top-header').style.background=TH[t].hbg;
   document.getElementById('tBlue').classList.toggle('on',t==='blue');
   document.getElementById('tPink').classList.toggle('on',t==='pink');
@@ -453,20 +407,38 @@ function closeM(id){document.getElementById(id).classList.remove('open');}
 function togS(){document.getElementById('sdrop').classList.toggle('open');}
 function closeS(){document.getElementById('sdrop').classList.remove('open');}
 
-function saveMails(){localStorage.setItem('dm',document.getElementById('demoMail').value);localStorage.setItem('di',document.getElementById('dirMail').value);}
-function loadMails(){var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');if(dm)document.getElementById('demoMail').value=dm;if(di)document.getElementById('dirMail').value=di;}
+function saveMails(){
+  localStorage.setItem('dm',document.getElementById('demoMail').value);
+  localStorage.setItem('di',document.getElementById('dirMail').value);
+}
+function loadMails(){
+  var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');
+  if(dm)document.getElementById('demoMail').value=dm;
+  if(di)document.getElementById('dirMail').value=di;
+}
 
-var DEMO={ind:'美容・サロン',reg:'埼玉県さいたま市',com:'ビューティーサロン Belle',cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',app:'リピート率90%以上、地域密着15年'};
+var DEMO={
+  ind:'美容・サロン',reg:'埼玉県さいたま市',com:'ビューティーサロン Belle',
+  cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],
+  str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',
+  app:'リピート率90%以上、地域密着15年'
+};
 
 function loadDemo(){
   ind=DEMO.ind;
-  document.querySelectorAll('#indChips .chip').forEach(function(c){c.classList.remove('on');if(c.textContent.trim()===DEMO.ind)c.classList.add('on');});
+  document.querySelectorAll('#indChips .chip').forEach(function(c){
+    c.classList.remove('on');
+    if(c.textContent.trim()===DEMO.ind)c.classList.add('on');
+  });
   document.getElementById('reg').value=DEMO.reg;
   document.getElementById('com').value=DEMO.com;
   document.getElementById('str').value=DEMO.str;
   document.getElementById('app').value=DEMO.app;
   cons=[];
-  document.querySelectorAll('#conChips .chip').forEach(function(c){c.classList.remove('on');if(DEMO.cons.includes(c.textContent.trim())){c.classList.add('on');cons.push(c.textContent.trim());}});
+  document.querySelectorAll('#conChips .chip').forEach(function(c){
+    c.classList.remove('on');
+    if(DEMO.cons.includes(c.textContent.trim())){c.classList.add('on');cons.push(c.textContent.trim());}
+  });
   toast('🎯 デモデータを入力しました');
 }
 
@@ -478,9 +450,18 @@ function clearDemo(){
 }
 
 function openConfirm(){
-  var rows=[{l:'業種',v:ind},{l:'地域',v:document.getElementById('reg').value},{l:'会社名',v:document.getElementById('com').value},{l:'悩み',v:cons.join('、')},{l:'強み',v:document.getElementById('str').value},{l:'デモ担当者',v:document.getElementById('demoMail').value},{l:'ディレクション担当者',v:document.getElementById('dirMail').value}];
+  var rows=[
+    {l:'業種',v:ind},{l:'地域',v:document.getElementById('reg').value},
+    {l:'会社名',v:document.getElementById('com').value},{l:'悩み',v:cons.join('、')},
+    {l:'強み',v:document.getElementById('str').value},
+    {l:'デモ担当者',v:document.getElementById('demoMail').value},
+    {l:'ディレクション担当者',v:document.getElementById('dirMail').value}
+  ];
   var h='';
-  rows.forEach(function(r){var v=r.v?'<span class="cv">'+r.v+'</span>':'<span class="ce">未入力</span>';h+='<div class="cr"><span class="clb">'+r.l+'</span>'+v+'</div>';});
+  rows.forEach(function(r){
+    var v=r.v?'<span class="cv">'+r.v+'</span>':'<span class="ce">未入力</span>';
+    h+='<div class="cr"><span class="clb">'+r.l+'</span>'+v+'</div>';
+  });
   document.getElementById('confRows').innerHTML=h;
   var ok=ind&&document.getElementById('reg').value;
   var s=document.getElementById('confSt');
@@ -489,10 +470,9 @@ function openConfirm(){
   openM('mConf');
 }
 
-function toast(msg){var t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a3e;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.4);white-space:nowrap;';document.body.appendChild(t);setTimeout(function(){t.remove();},2500);}
-
 function fireworks(){
-  var c=document.getElementById('fwc');c.style.display='block';
+  var c=document.getElementById('fwc');
+  c.style.display='block';
   var cols=theme==='pink'?['#e91e8c','#ff6eb4','#c2185b','#ff9ac4','#fff','#ffd700']:['#0179E8','#D0A900','#22c55e','#e05555','#8b5cf6','#f0c800','#ff6b6b','#06c755'];
   var n=0;
   var iv=setInterval(function(){
@@ -502,22 +482,22 @@ function fireworks(){
       var col=cols[Math.floor(Math.random()*cols.length)],sz=Math.random()*8+4;
       p.style.cssText='left:'+x+'px;top:'+y+'px;background:'+col+';width:'+sz+'px;height:'+sz+'px;box-shadow:0 0 '+(sz*2)+'px '+col+';';
       c.appendChild(p);
-      var a=Math.random()*Math.PI*2,sp=Math.random()*130+60;
-      var vx=Math.cos(a)*sp,vy=Math.sin(a)*sp-90;
-      var op=1,px=x,py=y;
-      (function(p,vx,vy,px,py,op){
+      (function(p){
+        var a=Math.random()*Math.PI*2,sp=Math.random()*130+60;
+        var vx=Math.cos(a)*sp,vy=Math.sin(a)*sp-90,op=1,px=x,py=y;
         var iv2=setInterval(function(){
           px+=vx*0.04;py+=vy*0.04+2.5;op-=0.025;
           p.style.left=px+'px';p.style.top=py+'px';p.style.opacity=op;
           if(op<=0){clearInterval(iv2);p.remove();}
         },16);
-      })(p,vx,vy,px,py,op);
+      })(p);
     }
     if(++n>10){clearInterval(iv);setTimeout(function(){c.style.display='none';},1000);}
   },280);
 }
 
-async function startDiag(){
+// ★診断
+function startDiag(){
   if(!ind){alert('業種を選んでください');return;}
   var reg=document.getElementById('reg').value;
   if(!reg){alert('地域を入力してください');return;}
@@ -525,79 +505,123 @@ async function startDiag(){
   show('sec_diagLoad');
   sc('sec_diagLoad');
   var steps=['ls1','ls2','ls3','ls4','ls5'],i=0;
-  var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},800);
-  try{
-    var r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'diagnosis',industry:ind,region:reg,concerns:cons.join('、')||'全般的な集客強化',companyName:document.getElementById('com').value})});
-    var d=await r.json();
+  var si=setInterval(function(){
+    if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}
+    else clearInterval(si);
+  },800);
+  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'diagnosis',industry:ind,region:reg,concerns:cons.join('、')||'全般的な集客強化',companyName:document.getElementById('com').value})})
+  .then(function(r){return r.json();})
+  .then(function(d){
     clearInterval(si);
     steps.forEach(function(s){document.getElementById(s).classList.add('done');});
-    var data;
-    try{data=JSON.parse(d.result.replace(/```json|```/g,'').trim());}catch(e){alert('解析エラー');hide('sec_diagLoad');show('sec_step1');return;}
+    var raw=d.result;
+    if(typeof raw==='object')raw=JSON.stringify(raw);
+    raw=raw.replace(/```json|```/g,'').trim();
+    var data=JSON.parse(raw);
     document.getElementById('r_score').textContent=data.score;
     document.getElementById('r_summary').textContent=data.summary;
-    var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_smBf').innerHTML=bf;
-    var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_smAf').innerHTML=af;
-    var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});document.getElementById('r_sns').innerHTML=sns;
-    var ideas='';(data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});document.getElementById('r_ideas').innerHTML=ideas;
-    hide('sec_diagLoad');show('sec_result');show('sec_step2');sc('sec_result');
-  }catch(e){clearInterval(si);alert('エラーが発生しました');hide('sec_diagLoad');show('sec_step1');}
+    var bf='';
+    (data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});
+    document.getElementById('r_smBf').innerHTML=bf;
+    var af='';
+    (data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});
+    document.getElementById('r_smAf').innerHTML=af;
+    var sns='';
+    (data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});
+    document.getElementById('r_sns').innerHTML=sns;
+    var ideas='';
+    (data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});
+    document.getElementById('r_ideas').innerHTML=ideas;
+    hide('sec_diagLoad');
+    show('sec_result');
+    show('sec_step2');
+    sc('sec_result');
+  })
+  .catch(function(e){
+    clearInterval(si);
+    alert('エラーが発生しました');
+    hide('sec_diagLoad');
+    show('sec_step1');
+  });
 }
 
-async function genCopy(){
-  // ★ここで hide('sec_genBtn') を呼ばない
-  // コピーパターンだけ隠してローディングを出す
+// ★コピー生成
+function genCopy(){
   hide('sec_copyPats');
+  hide('sec_genBtn');
+  cpData=null;
   show('sec_copyLoad');
   sc('sec_copyLoad');
-  cpData=null;
+  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    // ★JSONパース（二重パースに対応）
+    var raw=d.result;
+    if(typeof raw==='object')raw=JSON.stringify(raw);
+    raw=raw.replace(/```json|```/g,'').trim();
+    var data=JSON.parse(raw);
 
-  try{
-    var r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'copywriting',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value,appeal:document.getElementById('app').value,strengths:document.getElementById('str').value})});
-    var d=await r.json();
-    var data;
-    try{data=JSON.parse(d.result.replace(/```json|```/g,'').trim());}catch(e){alert('解析エラー');hide('sec_copyLoad');return;}
-
-    // ★コピーパターンをaddEventListenerで登録
+    // ★コピーカードを生成してaddEventListenerで登録
     var pl=document.getElementById('patList');
     pl.innerHTML='';
-    (data.patterns||[]).forEach(function(p,i){
+
+    var patterns=data.patterns||[];
+    patterns.forEach(function(p,idx){
       var div=document.createElement('div');
       div.className='cpcard';
-      div.innerHTML='<span class="cpbadge">✓ 選択中</span><div class="cpconcept">パターン'+p.id+'：'+p.concept+'</div><div class="cpcatch">'+p.catch+'</div><div class="cpsub">'+p.sub+'</div>';
-      div.addEventListener('click',function(){
-        document.querySelectorAll('#patList .cpcard').forEach(function(c){c.classList.remove('on');});
-        div.classList.add('on');
-        cpData={
-          id:p.id,catch:p.catch,sub:p.sub,concept:p.concept,
-          appealPoints:data.appealPoints,
-          serviceDescriptions:data.serviceDescriptions
-        };
-        toast('✅ パターン'+(i+1)+'を選択！');
-        // ★hiddenを外すだけ。すでにDOMに存在するボタン
-        show('sec_genBtn');
-        sc('sec_genBtn');
-      });
+      div.innerHTML='<span class="cpbadge">✓ 選択中</span>'
+        +'<div class="cpconcept">パターン'+p.id+'：'+p.concept+'</div>'
+        +'<div class="cpcatch">'+p.catch+'</div>'
+        +'<div class="cpsub">'+p.sub+'</div>';
+
+      // ★クロージャで p を保持
+      (function(pattern,index){
+        div.addEventListener('click',function(){
+          // 全カードのonを外す
+          var cards=document.querySelectorAll('#patList .cpcard');
+          for(var i=0;i<cards.length;i++)cards[i].classList.remove('on');
+          // このカードをon
+          div.classList.add('on');
+          // cpDataを設定
+          cpData={
+            id:pattern.id,
+            catch:pattern.catch,
+            sub:pattern.sub,
+            concept:pattern.concept,
+            appealPoints:data.appealPoints||[],
+            serviceDescriptions:data.serviceDescriptions||[]
+          };
+          toast('✅ パターン'+(index+1)+'を選択！');
+          // ★sec_genBtnを表示
+          show('sec_genBtn');
+          sc('sec_genBtn');
+        });
+      })(p,idx);
+
       pl.appendChild(div);
     });
 
     hide('sec_copyLoad');
-    // ★sec_genBtnは隠したまま（選択後に表示）
-    hide('sec_genBtn');
     show('sec_copyPats');
     sc('sec_copyPats');
-  }catch(e){alert('コピー生成に失敗しました');hide('sec_copyLoad');}
+  })
+  .catch(function(e){
+    alert('コピー生成に失敗しました：'+e.message);
+    hide('sec_copyLoad');
+  });
 }
 
-async function genHP(){
+// ★HP生成
+function genHP(){
   if(!cpData){alert('コピーを選んでください');return;}
   hide('sec_genBtn');
   show('sec_hpLoad');
   sc('sec_hpLoad');
   var pb=document.getElementById('pgBar');
   pb.style.animation='none';pb.offsetHeight;pb.style.animation='prog 25s linear forwards';
-  try{
-    var r=await fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'generate',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value||'御社',appeal:document.getElementById('app').value,selectedCopy:cpData})});
-    var d=await r.json();
+  fetch(WK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'generate',industry:ind,region:document.getElementById('reg').value,companyName:document.getElementById('com').value||'御社',appeal:document.getElementById('app').value,selectedCopy:cpData})})
+  .then(function(r){return r.json();})
+  .then(function(d){
     genHtml=d.result;
     hide('sec_hpLoad');
     show('sec_burst');
@@ -609,10 +633,21 @@ async function genHP(){
       show('sec_preview');
       sc('sec_preview');
     },1800);
-  }catch(e){alert('HP生成に失敗しました：'+e.message);hide('sec_hpLoad');show('sec_genBtn');}
+  })
+  .catch(function(e){
+    alert('HP生成に失敗しました：'+e.message);
+    hide('sec_hpLoad');
+    show('sec_genBtn');
+  });
 }
 
-function dlHP(){if(!genHtml)return;var b=new Blob([genHtml],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
+function dlHP(){
+  if(!genHtml)return;
+  var b=new Blob([genHtml],{type:'text/html'});
+  var u=URL.createObjectURL(b);
+  var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();
+  URL.revokeObjectURL(u);
+}
 
 function sendMail(){
   var de=document.getElementById('dirMail').value;
@@ -635,6 +670,50 @@ function resetAll(){
   ['ls1','ls2','ls3','ls4','ls5'].forEach(function(id){document.getElementById(id).classList.remove('done');});
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// ★全イベント登録（DOMContentLoaded不要・即時実行）
+document.getElementById('logoBtn').addEventListener('click',resetAll);
+document.getElementById('howtoBtn').addEventListener('click',function(){openM('mHow');});
+document.getElementById('gearBtn').addEventListener('click',togS);
+document.getElementById('closeHow').addEventListener('click',function(){closeM('mHow');});
+document.getElementById('closeConf').addEventListener('click',function(){closeM('mConf');});
+document.getElementById('closeConfBtn').addEventListener('click',function(){closeM('mConf');});
+document.getElementById('tBlue').addEventListener('click',function(){setTheme('blue');});
+document.getElementById('tPink').addEventListener('click',function(){setTheme('pink');});
+document.getElementById('loadDemoBtn').addEventListener('click',function(){loadDemo();closeS();});
+document.getElementById('clearDemoBtn').addEventListener('click',function(){clearDemo();closeS();});
+document.getElementById('confirmBtn').addEventListener('click',function(){openConfirm();closeS();});
+document.getElementById('btn_startDiag').addEventListener('click',startDiag);
+document.getElementById('btn_genCopy').addEventListener('click',genCopy);
+document.getElementById('btn_genHP').addEventListener('click',genHP);
+document.getElementById('btn_download').addEventListener('click',dlHP);
+document.getElementById('btn_sendMail').addEventListener('click',sendMail);
+document.getElementById('btn_reset').addEventListener('click',resetAll);
+document.getElementById('demoMail').addEventListener('input',saveMails);
+document.getElementById('dirMail').addEventListener('input',saveMails);
+
+document.getElementById('indChips').addEventListener('click',function(e){
+  var c=e.target.closest('.chip');
+  if(!c)return;
+  document.querySelectorAll('#indChips .chip').forEach(function(x){x.classList.remove('on');});
+  c.classList.add('on');
+  ind=c.textContent.trim();
+});
+
+document.getElementById('conChips').addEventListener('click',function(e){
+  var c=e.target.closest('.chip');
+  if(!c)return;
+  c.classList.toggle('on');
+  var v=c.textContent.trim();
+  if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}
+  else{cons=cons.filter(function(x){return x!==v;});}
+});
+
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.gwrap'))closeS();
+});
+
+loadMails();
 </script>
 </body>
 </html>
