@@ -454,7 +454,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <div style="font-size:40px;margin-bottom:12px;">🌐</div>
     <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">ホームページが完成しました！</div>
     <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;">下のボタンでプレビューを確認してください</div>
-    <button id="b_open_prev" style="padding:14px 36px;background:linear-gradient(135deg,var(--a1),var(--a2));border:none;border-radius:100px;color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(1,121,232,0.4);">🚀 プレビューを全画面で見る</button>
+    <button id="b_open_prev" style="padding:14px 36px;background:linear-gradient(135deg,var(--a1),var(--a2));border:none;border-radius:100px;color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(1,121,232,0.4);">🚀 別タブでプレビューを開く</button>
   </div>
   
   <!-- ヒアリングシート -->
@@ -533,10 +533,20 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
       </div>
     </div>
 
-    <!-- ⑤メール送信 -->
-    <button class="btn-hs-mail" id="b_hs_mail">
+    <!-- ⑤保存＆送信 -->
+    <button class="btn-blue" id="b_hs_save" style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;">
+      💾 ヒアリングシートを保存する
+    </button>
+    <button class="btn-hs-mail" id="b_hs_mail" style="margin-top:8px;">
       📧 ヒアリング内容をディレクションにメールで送る
     </button>
+
+    <!-- 送信完了メッセージ -->
+    <div id="hs_done" style="display:none;margin-top:16px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.4);border-radius:14px;padding:20px;text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">✅</div>
+      <div style="font-size:16px;font-weight:800;color:#22c55e;margin-bottom:6px;">送信完了しました！</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">ヒアリングシートをディレクション担当者に送信しました。<br>内容はlocalStorageに保存されています。</div>
+    </div>
   </div>
 
   <button class="btn-blue" id="b_dl" style="margin-top:16px;">💾 HTMLをダウンロード</button>
@@ -813,6 +823,7 @@ window.genHP = function(){
     setTimeout(function(){
       window.S('s_pv');window.GO('s_pv');
       window.initHearing(pages,TC,TS,TA);
+      window.openPrev();
     },1800);
   },3200);
 }
@@ -873,6 +884,43 @@ window.initHearing = function(pages, TC, TS, TA){
   if(!document.getElementById('hs_tel').value){
     document.getElementById('hs_addr').value=document.getElementById('reg').value||'';
   }
+}
+
+// ヒアリングシート保存
+window.saveHearing = function(){
+  var data=collectHsData();
+  localStorage.setItem('smartpage_hearing',JSON.stringify(data));
+  window.toast('💾 ヒアリングシートを保存しました！');
+}
+
+// ヒアリングデータ収集（共通処理）
+function collectHsData(){
+  var selIdx=0;
+  for(var i=0;i<3;i++){if(document.getElementById('hs_sel'+i)&&document.getElementById('hs_sel'+i).checked){selIdx=i;break;}}
+  var pages=[];
+  var nodes=document.getElementById('hs_pages').querySelectorAll('.hs-pg-row');
+  nodes.forEach(function(row,i){
+    var name=row.querySelector('.hs-pg-name').textContent;
+    var memo=document.getElementById('hs_pg_'+i)?document.getElementById('hs_pg_'+i).value:'';
+    pages.push({page:name,memo:memo});
+  });
+  return {
+    date:new Date().toLocaleString('ja-JP'),
+    company:document.getElementById('com').value||'',
+    industry:ind,region:document.getElementById('reg').value||'',
+    selectedCopyIdx:selIdx,
+    catchEdit:document.getElementById('hs_edit'+selIdx)?document.getElementById('hs_edit'+selIdx).value:'',
+    catchMain:document.getElementById('hs_cpc'+selIdx)?document.getElementById('hs_cpc'+selIdx).textContent:'',
+    catchSub:document.getElementById('hs_cps'+selIdx)?document.getElementById('hs_cps'+selIdx).textContent:'',
+    pages:pages,
+    colors:{main:document.getElementById('hs_ct1').value,sub:document.getElementById('hs_ct2').value,accent:document.getElementById('hs_ct3').value},
+    tel:document.getElementById('hs_tel').value,
+    hours:document.getElementById('hs_hours').value,
+    holiday:document.getElementById('hs_holi').value,
+    address:document.getElementById('hs_addr').value,
+    url:document.getElementById('hs_url').value,
+    other:document.getElementById('hs_other').value
+  };
 }
 
 // ヒアリングメール送信
@@ -961,19 +1009,27 @@ window.sendHsMail = function(){
 
   var sub=encodeURIComponent('【Smartpage-i ヒアリングシート】'+co+' '+ind);
   window.location.href='mailto:'+de+'?subject='+sub+'&body='+encodeURIComponent(bodyText);
+
+  // 送信完了表示
+  window.saveHearing();
+  var done=document.getElementById('hs_done');
+  done.style.display='block';
+  setTimeout(function(){done.scrollIntoView({behavior:'smooth'});},300);
   window.toast('📧 メーラーが起動しました');
 }
 
 window.openPrev = function() {
   if(!html){window.toast('⚠️ まずホームページを生成してください');return;}
-  var modal=document.getElementById('pvModal');
-  var frame=document.getElementById('pvFrame');
-  var comp=document.getElementById('com').value||'御社';
-  document.getElementById('pvTitle').textContent=comp+' | プレビュー';
-  // ★srcdoc方式：CSP制限を受けない確実な方法
-  frame.srcdoc=html;
-  modal.classList.add('open');
-  document.body.style.overflow='hidden';
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.target='_blank';
+  a.rel='noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},5000);
 }
 
 document.getElementById('pvClose').addEventListener('click',function(){
@@ -1025,6 +1081,7 @@ document.getElementById('confirmBtn').addEventListener('click',function(){window
 document.getElementById('b_diag').addEventListener('click',window.startDiag);
 document.getElementById('b_copy').addEventListener('click',window.genCopy);
 document.getElementById('b_hp').addEventListener('click',window.genHP);
+document.getElementById('b_hs_save').addEventListener('click',window.saveHearing);
 document.getElementById('b_hs_mail').addEventListener('click',window.sendHsMail);
 document.getElementById('b_dl').addEventListener('click',window.dlHP);
 document.getElementById('b_rst').addEventListener('click',window.resetAll);
