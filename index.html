@@ -31,6 +31,19 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--b
 .tdot{width:10px;height:10px;border-radius:50%;}
 .mo{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;}
 .mo.open{display:flex;}
+/* 送信方法モーダル */
+.send-opt{background:#fff;border-radius:16px;padding:20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all 0.2s;border:2px solid transparent;}
+.send-opt:hover{border-color:#0179E8;background:#f0f7ff;}
+.send-opt:last-of-type{margin-bottom:0;}
+.send-opt-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.send-opt-title{font-size:16px;font-weight:800;color:#111;margin-bottom:3px;}
+.send-opt-desc{font-size:13px;color:#666;}
+.send-copy-area{background:#f5f5f5;border-radius:12px;padding:14px;margin-top:16px;}
+.send-copy-label{font-size:12px;color:#666;margin-bottom:8px;line-height:1.6;}
+.send-copy-txt{width:100%;height:110px;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:12px;resize:none;background:#fff;color:#333;box-sizing:border-box;}
+.send-copy-btn{width:100%;padding:12px;background:#e5e7eb;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;color:#333;transition:all 0.2s;}
+.send-copy-btn:hover{background:#d1d5db;}
+.send-copy-btn.copied{background:#22c55e;color:#fff;}
 .mb{background:#12122a;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:32px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative;}
 .mc{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.6);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .mc:hover{background:rgba(255,255,255,0.15);color:#fff;}
@@ -256,6 +269,37 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <button class="pv-close" id="pvClose">✕ 閉じる</button>
   </div>
   <iframe class="pv-frame" id="pvFrame"></iframe>
+</div>
+
+<!-- 送信方法選択モーダル -->
+<div class="mo" id="mSend">
+  <div class="mb" style="max-width:480px;">
+    <button class="mc" id="closeSend">✕</button>
+    <div class="mt" style="color:#111;">送信方法を選んでください</div>
+    <div class="msb" style="color:#666;">ディレクション担当者へのヒアリングシート送信</div>
+
+    <div class="send-opt" id="opt_mailto">
+      <div class="send-opt-icon" style="background:#e8f0fe;">📧</div>
+      <div>
+        <div class="send-opt-title">メールソフトで送る</div>
+        <div class="send-opt-desc">Outlook、Macメールなど設定済みの方</div>
+      </div>
+    </div>
+
+    <div class="send-opt" id="opt_gmail">
+      <div class="send-opt-icon" style="background:#fce8e6;">✉️</div>
+      <div>
+        <div class="send-opt-title">Gmailで送る</div>
+        <div class="send-opt-desc">ブラウザでGmailをお使いの方</div>
+      </div>
+    </div>
+
+    <div class="send-copy-area">
+      <div class="send-copy-label">うまくいかない場合は…<br>以下の本文をコピーして、使い慣れたメール等の本文に貼り付けて送信してください。</div>
+      <textarea class="send-copy-txt" id="send_copy_txt" readonly></textarea>
+      <button class="send-copy-btn" id="send_copy_btn">本文をコピーする</button>
+    </div>
+  </div>
 </div>
 
 <div class="top-header">
@@ -923,33 +967,43 @@ function collectHsData(){
   };
 }
 
-// ヒアリングメール送信
+// ヒアリングメール送信（送信方法選択モーダルを開く）
 window.sendHsMail = function(){
   var de=document.getElementById('dirMail').value;
   if(!de){window.toast('⚠️ 設定からディレクション担当者メールを入力してください');setTimeout(window.togS,600);return;}
 
+  var bodyText=buildMailBody();
+
+  // テキストエリアにセット
+  document.getElementById('send_copy_txt').value=bodyText;
+
+  // メールソフト用のhref
+  window._mailHref='mailto:'+de+'?subject='+encodeURIComponent('【Smartpage-i ヒアリングシート】'+(document.getElementById('com').value||'御社')+' '+ind)+'&body='+encodeURIComponent(bodyText);
+
+  // Gmail用のhref
+  window._gmailHref='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(de)+'&su='+encodeURIComponent('【Smartpage-i ヒアリングシート】'+(document.getElementById('com').value||'御社')+' '+ind)+'&body='+encodeURIComponent(bodyText);
+
+  // モーダルを開く
+  window.openM('mSend');
+}
+
+// メール本文生成（共通）
+function buildMailBody(){
   var co=document.getElementById('com').value||'御社';
   var reg=document.getElementById('reg').value||'';
-
-  // 採用コピーの取得
   var selIdx=0;
   for(var i=0;i<3;i++){if(document.getElementById('hs_sel'+i)&&document.getElementById('hs_sel'+i).checked){selIdx=i;break;}}
-  var selCatch=document.getElementById('hs_edit'+selIdx).value||document.getElementById('hs_cpc'+selIdx).textContent;
-  var selSub=document.getElementById('hs_cps'+selIdx).textContent;
-  var selConcept=document.getElementById('hs_cpn'+selIdx).textContent;
 
-  // 全コピー案
   var allCopy='';
   for(var j=0;j<3;j++){
     var mark=(j===selIdx)?'★採用 ':'　　　';
-    var edit=document.getElementById('hs_edit'+j).value;
-    var catchTxt=edit||document.getElementById('hs_cpc'+j).textContent;
-    var subTxt=document.getElementById('hs_cps'+j).textContent;
-    var numTxt=document.getElementById('hs_cpn'+j).textContent;
-    if(catchTxt&&catchTxt!=='-')allCopy+=mark+'['+numTxt+']\n　メイン：'+catchTxt+(edit?'（修正済）':'')+'\n　サブ　：'+subTxt+'\n';
+    var edit=document.getElementById('hs_edit'+j)?document.getElementById('hs_edit'+j).value:'';
+    var catchTxt=edit||( document.getElementById('hs_cpc'+j)?document.getElementById('hs_cpc'+j).textContent:'');
+    var subTxt=document.getElementById('hs_cps'+j)?document.getElementById('hs_cps'+j).textContent:'';
+    var numTxt=document.getElementById('hs_cpn'+j)?document.getElementById('hs_cpn'+j).textContent:'';
+    if(catchTxt&&catchTxt!=='-')allCopy+=mark+'['+numTxt+']\n　メイン：'+catchTxt+(edit?' (修正済)':'')+'\n　サブ　：'+subTxt+'\n';
   }
 
-  // サイトマップご要望
   var pageNotes='';
   var nodes=document.getElementById('hs_pages').querySelectorAll('.hs-pg-row');
   nodes.forEach(function(row,i){
@@ -959,24 +1013,19 @@ window.sendHsMail = function(){
     if(memo)pageNotes+='    → '+memo+'\n';
   });
 
-  // カラー
   var c1=document.getElementById('hs_ct1').value;
   var c2=document.getElementById('hs_ct2').value;
   var c3=document.getElementById('hs_ct3').value;
-
-  // 基本情報
   var tel=document.getElementById('hs_tel').value;
   var hours=document.getElementById('hs_hours').value;
   var holi=document.getElementById('hs_holi').value;
   var addr=document.getElementById('hs_addr').value;
   var url=document.getElementById('hs_url').value;
   var other=document.getElementById('hs_other').value;
-
   var now=new Date();
   var dateStr=now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate()+' '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
 
-  var bodyText=
-    'ディレクションご担当者様\n\n'
+  return 'ディレクションご担当者様\n\n'
     +'Smartpage-i にてヒアリングが完了しました。\n'
     +'内容をご確認のうえ、制作をお願いいたします。\n\n'
     +'━━━━━━━━━━━━━━━━━━━━━━━━\n'
@@ -1005,17 +1054,7 @@ window.sendHsMail = function(){
     +'\n━━━━━━━━━━━━━━━━━━━━━━━━\n'
     +'送信ツール：Smartpage-i\n'
     +'監修：前田経営研究所\n'
-    +'担当：'+( document.getElementById('demoMail').value||'未設定');
-
-  var sub=encodeURIComponent('【Smartpage-i ヒアリングシート】'+co+' '+ind);
-  window.location.href='mailto:'+de+'?subject='+sub+'&body='+encodeURIComponent(bodyText);
-
-  // 送信完了表示
-  window.saveHearing();
-  var done=document.getElementById('hs_done');
-  done.style.display='block';
-  setTimeout(function(){done.scrollIntoView({behavior:'smooth'});},300);
-  window.toast('📧 メーラーが起動しました');
+    +'担当：'+(document.getElementById('demoMail').value||'未設定');
 }
 
 window.openPrev = function() {
@@ -1083,6 +1122,42 @@ document.getElementById('b_copy').addEventListener('click',window.genCopy);
 document.getElementById('b_hp').addEventListener('click',window.genHP);
 document.getElementById('b_hs_save').addEventListener('click',window.saveHearing);
 document.getElementById('b_hs_mail').addEventListener('click',window.sendHsMail);
+document.getElementById('closeSend').addEventListener('click',function(){window.closeM('mSend');});
+
+// メールソフトで送る
+document.getElementById('opt_mailto').addEventListener('click',function(){
+  window.location.href=window._mailHref||'';
+  afterSend();
+});
+
+// Gmailで送る
+document.getElementById('opt_gmail').addEventListener('click',function(){
+  window.open(window._gmailHref||'','_blank');
+  afterSend();
+});
+
+// 本文コピー
+document.getElementById('send_copy_btn').addEventListener('click',function(){
+  var txt=document.getElementById('send_copy_txt').value;
+  var btn=document.getElementById('send_copy_btn');
+  navigator.clipboard.writeText(txt).then(function(){
+    btn.textContent='✅ コピーしました！';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='本文をコピーする';btn.classList.remove('copied');},2500);
+  }).catch(function(){
+    document.getElementById('send_copy_txt').select();document.execCommand('copy');
+    btn.textContent='✅ コピーしました！';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='本文をコピーする';btn.classList.remove('copied');},2500);
+  });
+});
+
+function afterSend(){
+  window.closeM('mSend');
+  window.saveHearing();
+  var done=document.getElementById('hs_done');
+  done.style.display='block';
+  setTimeout(function(){done.scrollIntoView({behavior:'smooth'});},300);
+  window.toast('📧 送信しました！');
+}
 document.getElementById('b_dl').addEventListener('click',window.dlHP);
 document.getElementById('b_rst').addEventListener('click',window.resetAll);
 document.getElementById('demoMail').addEventListener('input',window.saveMails);
