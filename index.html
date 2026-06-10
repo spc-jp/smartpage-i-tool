@@ -427,16 +427,13 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <div class="prevdot" style="background:#D0A900;"></div>
     <div class="prevdot" style="background:#22c55e;"></div>
     <span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span>
+    <button id="b_open_prev" style="margin-left:auto;padding:6px 16px;background:rgba(1,121,232,0.25);border:1px solid rgba(1,121,232,0.5);border-radius:100px;color:#fff;font-size:12px;cursor:pointer;transition:all 0.2s;">🔍 プレビューを表示する</button>
   </div>
-  
-  <div class="prevframe">
-    <div class="p-msg">
-      <div class="p-icon">✨</div>
-      <div class="p-title">ハイクオリティな提案サイトが完成しました！</div>
-      <div class="p-desc">下のボタンでHTMLをダウンロードして、ブラウザで開くとフル画面でプレビューできます。</div>
-      <button class="btn-open" id="b_open_prev">💾 HTMLをダウンロードしてプレビュー</button>
-    </div>
+  <div id="prev_placeholder" style="width:100%;min-height:220px;background:#1a1a2e;border-radius:0 0 14px 14px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;">
+    <div style="font-size:48px;">✨</div>
+    <div style="font-size:15px;color:rgba(255,255,255,0.5);">上の「🔍 プレビューを表示する」を押してください</div>
   </div>
+  <iframe id="prevFrame" style="width:100%;height:620px;border:none;border-radius:0 0 14px 14px;display:none;"></iframe>
   
   <!-- ヒアリングシート -->
   <div class="hs-wrap" id="s_hearing">
@@ -947,14 +944,14 @@ window.sendHsMail = function(){
 
 window.openPrev = function() {
   if(!html){window.toast('⚠️ まずホームページを生成してください');return;}
-  var blob=new Blob([html],{type:'text/html'});
-  var u=URL.createObjectURL(blob);
-  var a=document.createElement('a');
-  a.href=u;a.download='smartpage-preview.html';
-  document.body.appendChild(a);a.click();
-  document.body.removeChild(a);
-  setTimeout(function(){URL.revokeObjectURL(u);},3000);
-  window.toast('💾 ダウンロードしました！ブラウザで開いてご確認ください');
+  var ph=document.getElementById('prev_placeholder');
+  var fr=document.getElementById('prevFrame');
+  ph.style.display='none';
+  fr.style.display='block';
+  var doc=fr.contentDocument||fr.contentWindow.document;
+  doc.open();doc.write(html);doc.close();
+  document.getElementById('b_open_prev').textContent='🔄 再表示する';
+  window.toast('✅ プレビューを表示しました');
 }
 
 window.dlHP = function(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
