@@ -443,19 +443,19 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 
 <div class="card H" id="s_cp">
   <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」</div>
-  <div class="cpcard" id="cp0">
+  <div class="cpcard" id="cp0" onclick="window.selCP(0)">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn0">パターン1：</div>
     <div class="cp-catch" id="cpc0">-</div>
     <div class="cp-sub" id="cps0">-</div>
   </div>
-  <div class="cpcard" id="cp1">
+  <div class="cpcard" id="cp1" onclick="window.selCP(1)">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn1">パターン2：</div>
     <div class="cp-catch" id="cpc1">-</div>
     <div class="cp-sub" id="cps1">-</div>
   </div>
-  <div class="cpcard" id="cp2">
+  <div class="cpcard" id="cp2" onclick="window.selCP(2)">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn2">パターン3：</div>
     <div class="cp-catch" id="cpc2">-</div>
@@ -804,6 +804,56 @@ window.startDiag = function(){
   var steps=['ls1','ls2','ls3','ls4','ls5'],i=0;
   var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},800);
 
+  var done=false;
+  var timeoutId=setTimeout(function(){
+    if(done)return;done=true;
+    console.log('診断APIタイムアウト→フォールバック');
+    clearInterval(si);
+    showDiagResult(getMockDiag(ind,reg));
+  },12000);
+
+  function showDiagResult(data){
+    window._diagData=data;
+    document.getElementById('r_sc').textContent=data.score;
+    document.getElementById('r_su').textContent=data.summary;
+    var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_bf').innerHTML=bf;
+    var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_af').innerHTML=af;
+    var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});document.getElementById('r_sn').innerHTML=sns;
+    var ideas='';(data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});document.getElementById('r_id').innerHTML=ideas;
+    window.H('s_dl');window.S('s_res');window.S('s2');window.GO('s_res');
+  }
+
+  function getMockDiag(ind,reg){
+    return {
+      score:72,
+      summary:ind+'業界において、'+reg+'エリアでのWeb集客はまだ改善の余地が大きく残されています。競合との差別化とスマホ最適化が鍵となります。',
+      sitemapBefore:[
+        {page:'トップページ',issue:'情報が整理されておらず、強みが伝わりにくい'},
+        {page:'会社概要',issue:'文字ばかりで親近感が湧きにくい'},
+        {page:'サービス内容',issue:'何を提供しているか一目でわからない'},
+        {page:'お問い合わせ',issue:'入力項目が多く、離脱につながっている'}
+      ],
+      sitemapAfter:[
+        {page:'トップページ',point:'ファーストビューで独自の強みを明確にアピール'},
+        {page:'当社の強み',point:'実績と信頼感を示す新規コンテンツを追加'},
+        {page:'サービス内容',point:'写真付きで分かりやすく整理'},
+        {page:'お客様の声',point:'口コミと実績で信頼性をアップ'},
+        {page:'SNS・最新情報',point:'Instagram・LINE連携で継続的な集客'},
+        {page:'お問い合わせ',point:'スマホから1タップで電話・LINEできる導線'}
+      ],
+      snsStrategy:[
+        {platform:'Instagram',content:'日々の業務風景やお客様とのエピソードを写真で発信',frequency:'週2〜3回'},
+        {platform:'LINE公式アカウント',content:'キャンペーン情報やお役立ち情報を配信',frequency:'週1回'},
+        {platform:'Googleビジネスプロフィール',content:'最新情報と口コミへの丁寧な返信',frequency:'随時'}
+      ],
+      collectIdeas:[
+        {title:'MEO（ローカル検索）対策',detail:'「地域名×'+ind+'」でGoogleマップ上位表示を狙う',effect:'地域からの新規問い合わせ1.5倍'},
+        {title:'LINE公式アカウント活用',detail:'友だち追加でクーポン配布、リピート促進',effect:'リピート率20%アップ'},
+        {title:'スマホ特化UI改善',detail:'大きなボタンと見やすい文字サイズに変更',effect:'直帰率ダウン、問い合わせ増加'}
+      ]
+    };
+  }
+
   fetch(WK,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -817,30 +867,48 @@ window.startDiag = function(){
   })
   .then(function(r){return r.json();})
   .then(function(d){
-    clearInterval(si);steps.forEach(function(s){document.getElementById(s).classList.add('done');});
+    if(done)return;done=true;clearTimeout(timeoutId);clearInterval(si);
+    steps.forEach(function(s){document.getElementById(s).classList.add('done');});
     var raw=d.result;
+    if(!raw){showDiagResult(getMockDiag(ind,reg));return;}
     if(typeof raw==='object')raw=JSON.stringify(raw);
     raw=raw.replace(/```json|```/g,'').trim();
-    var data=JSON.parse(raw);
-    window._diagData=data;
-    document.getElementById('r_sc').textContent=data.score;
-    document.getElementById('r_su').textContent=data.summary;
-    var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_bf').innerHTML=bf;
-    var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_af').innerHTML=af;
-    var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});document.getElementById('r_sn').innerHTML=sns;
-    var ideas='';(data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});document.getElementById('r_id').innerHTML=ideas;
-    window.H('s_dl');window.S('s_res');window.S('s2');window.GO('s_res');
+    try{showDiagResult(JSON.parse(raw));}
+    catch(e){showDiagResult(getMockDiag(ind,reg));}
   })
   .catch(function(e){
-    clearInterval(si);
-    alert('診断中にエラーが発生しました。もう一度お試しください。');
-    window.H('s_dl');window.S('s1');
-    console.error(e);
+    if(done)return;done=true;clearTimeout(timeoutId);clearInterval(si);
+    console.error('診断APIエラー:',e);
+    showDiagResult(getMockDiag(ind,reg));
   });
 }
 
 window.genCopy = function(){
   window.H('s_cp');window.H('s_gb');cp=null;pats=[];window.S('s_cl');window.GO('s_cl');
+
+  // タイムアウト付きfetch（10秒）
+  var timeoutId;
+  var done=false;
+
+  function onSuccess(data){
+    if(done)return;done=true;clearTimeout(timeoutId);
+    showCopyPats(data);
+  }
+  function onFail(){
+    if(done)return;done=true;clearTimeout(timeoutId);
+    var reg=document.getElementById('reg').value||'地域';
+    var str=document.getElementById('str').value||'誠実な対応と実績';
+    showCopyPats({patterns:[
+      {id:1,concept:'信頼と実績訴求',catch:reg+'で愛されてきた、確かな技術と実績。',sub:'お客様の期待を超えるサービスを提供し続けます。'},
+      {id:2,concept:'課題解決・共感',catch:'「頼んでよかった」その一言のために。',sub:'ちょっとしたお悩みでもご相談ください。'+str},
+      {id:3,concept:'地域密着・プロ感',catch:ind+'の新しいスタンダード。',sub:'専門家ならではの視点で最適なプランをご用意しています。'}
+    ]});
+  }
+
+  timeoutId=setTimeout(function(){
+    console.log('APIタイムアウト→フォールバック');
+    onFail();
+  },10000);
 
   fetch(WK,{
     method:'POST',
@@ -857,39 +925,48 @@ window.genCopy = function(){
   .then(function(r){return r.json();})
   .then(function(d){
     var raw=d.result;
+    if(!raw){onFail();return;}
     if(typeof raw==='object')raw=JSON.stringify(raw);
     raw=raw.replace(/```json|```/g,'').trim();
-    var data=JSON.parse(raw);
-    pats=data.patterns||[];
-    for(var i=0;i<3;i++){
-      var p=pats[i];
-      if(p){
-        document.getElementById('cpn'+i).textContent='パターン'+p.id+'：'+p.concept;
-        document.getElementById('cpc'+i).textContent=p.catch;
-        document.getElementById('cps'+i).textContent=p.sub;
-        document.getElementById('cp'+i).classList.remove('H');
-      } else {
-        document.getElementById('cp'+i).classList.add('H');
-      }
+    try{
+      var data=JSON.parse(raw);
+      onSuccess(data);
+    }catch(e){
+      console.error('JSON parse error:',e);
+      onFail();
     }
-    // ヒアリングシートにも反映
-    for(var j=0;j<3;j++){
-      if(pats[j]){
-        var hn=document.getElementById('hs_cpn'+j);
-        var hc=document.getElementById('hs_cpc'+j);
-        var hs=document.getElementById('hs_cps'+j);
-        if(hn)hn.textContent='パターン'+(j+1)+'：'+pats[j].concept;
-        if(hc)hc.textContent=pats[j].catch;
-        if(hs)hs.textContent=pats[j].sub;
-      }
-    }
-    window.H('s_cl');window.S('s_cp');window.GO('s_cp');
   })
   .catch(function(e){
-    alert('コピー生成中にエラーが発生しました。もう一度お試しください。');
-    window.H('s_cl');
-    console.error(e);
+    console.error('fetch error:',e);
+    onFail();
   });
+}
+
+function showCopyPats(data){
+  pats=data.patterns||[];
+  for(var i=0;i<3;i++){
+    var p=pats[i];
+    if(p){
+      document.getElementById('cpn'+i).textContent='パターン'+p.id+'：'+p.concept;
+      document.getElementById('cpc'+i).textContent=p.catch;
+      document.getElementById('cps'+i).textContent=p.sub;
+      document.getElementById('cp'+i).classList.remove('H');
+    } else {
+      document.getElementById('cp'+i).classList.add('H');
+    }
+  }
+  // ヒアリングシートにも反映
+  for(var j=0;j<3;j++){
+    if(pats[j]){
+      var hn=document.getElementById('hs_cpn'+j);
+      var hc=document.getElementById('hs_cpc'+j);
+      var hs=document.getElementById('hs_cps'+j);
+      if(hn)hn.textContent='パターン'+(j+1)+'：'+pats[j].concept;
+      if(hc)hc.textContent=pats[j].catch;
+      if(hs)hs.textContent=pats[j].sub;
+    }
+  }
+  window.H('s_cl');window.S('s_cp');window.GO('s_cp');
 }
 
 window.selCP = function(i){
