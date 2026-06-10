@@ -7,8 +7,8 @@
 <title>Smartpage-i | AI集客診断ツール</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--a1:#0179E8;--a2:#225AD3;--gold:#D0A900;--bg:#0a0a1a;--hf:#0a0a1a;--hm:#1a1a3e;--ht:#0d2060;}
-body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:#fff;min-height:100vh;}
+:root{--a1:#0179E8;--a2:#225AD3;--gold:#D0A900;--bg:#0a1628;--hf:#0a1628;--hm:#0d2060;--ht:#1a3a8a;--txt:#ffffff;--card:rgba(255,255,255,0.06);--cardb:rgba(1,121,232,0.2);--sub:rgba(255,255,255,0.6);--subb:rgba(1,121,232,0.1);}
+body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
 .H{display:none !important;}
 .top-header{position:sticky;top:0;z-index:100;background:rgba(10,10,26,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
 .hlogo{font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--a1),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;}
@@ -72,7 +72,7 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--b
 .htag{font-size:clamp(28px,5vw,48px);font-weight:900;background:linear-gradient(135deg,#fff,var(--a1),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;position:relative;}
 .hsub{font-size:14px;color:rgba(255,255,255,0.6);position:relative;}
 .wrap{max-width:800px;margin:0 auto;padding:0 20px 80px;}
-.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;margin-top:32px;}
+.card{background:var(--card);border:1px solid var(--cardb);border-radius:20px;padding:32px;margin-top:32px;}
 .card-gold{background:rgba(208,169,0,0.08);border:2px solid rgba(208,169,0,0.5);border-radius:20px;padding:32px;margin-top:32px;}
 .clb2{font-size:11px;letter-spacing:3px;color:var(--a1);margin-bottom:8px;}
 .ctit{font-size:22px;font-weight:700;margin-bottom:24px;}
@@ -695,13 +695,37 @@ window.toast = function(m){
 }
 
 var TH={
-  blue:{'--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900','--bg':'#0a0a1a','--hf':'#0a0a1a','--hm':'#1a1a3e','--ht':'#0d2060',hbg:'rgba(10,10,26,0.95)'},
-  pink:{'--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4','--bg':'#1a0a12','--hf':'#1a0a12','--hm':'#3d0a24','--ht':'#600d38',hbg:'rgba(26,10,18,0.95)'}
+  blue:{
+    '--a1':'#0179E8','--a2':'#225AD3','--gold':'#D0A900',
+    '--bg':'#0a1628',
+    '--hf':'#0a1628','--hm':'#0d2060','--ht':'#1a3a8a',
+    '--txt':'#ffffff',
+    '--card':'rgba(255,255,255,0.06)',
+    '--cardb':'rgba(1,121,232,0.2)',
+    '--sub':'rgba(255,255,255,0.6)',
+    '--subb':'rgba(1,121,232,0.1)',
+    hbg:'rgba(10,22,40,0.97)'
+  },
+  pink:{
+    '--a1':'#e91e8c','--a2':'#c2185b','--gold':'#ff6eb4',
+    '--bg':'#1a0820',
+    '--hf':'#1a0820','--hm':'#3d0a2e','--ht':'#5c0f42',
+    '--txt':'#ffffff',
+    '--card':'rgba(255,255,255,0.06)',
+    '--cardb':'rgba(233,30,140,0.2)',
+    '--sub':'rgba(255,255,255,0.6)',
+    '--subb':'rgba(233,30,140,0.1)',
+    hbg:'rgba(26,8,32,0.97)'
+  }
 };
 window.setTheme = function(t){
   theme=t;var th=TH[t];
-  Object.keys(th).forEach(function(k){if(k.startsWith('--'))document.documentElement.style.setProperty(k,th[k]);});
+  Object.keys(th).forEach(function(k){
+    if(k.startsWith('--'))document.documentElement.style.setProperty(k,th[k]);
+  });
   document.querySelector('.top-header').style.background=th.hbg;
+  // bodyのテキスト色を更新
+  document.body.style.color=th['--txt']||'#fff';
   document.getElementById('tBlue').classList.toggle('on',t==='blue');
   document.getElementById('tPink').classList.toggle('on',t==='pink');
   window.toast(t==='pink'?'🌸 ピンクテーマ':'🔵 ブルーテーマ');window.closeS();
