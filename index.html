@@ -930,15 +930,18 @@ window.sendHsMail = function(){
 }
 
 window.openPrev = function() {
-  if(!html) return;
-  var newWin = window.open('', '_blank');
-  if(newWin) {
-    newWin.document.open();
-    newWin.document.write(html);
-    newWin.document.close();
-  } else {
-    alert('別タブを開く許可をしてください');
-  }
+  if(!html){window.toast('⚠️ まずホームページを生成してください');return;}
+  // Blob URL方式でポップアップブロックを回避
+  var blob = new Blob([html], {type:'text/html'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);}, 3000);
 }
 
 window.dlHP = function(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
