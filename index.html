@@ -678,7 +678,15 @@ window.closeS = function(){document.getElementById('sdrop').classList.remove('op
 window.saveMails = function(){localStorage.setItem('dm',document.getElementById('demoMail').value);localStorage.setItem('di',document.getElementById('dirMail').value);}
 window.loadMails = function(){var dm=localStorage.getItem('dm'),di=localStorage.getItem('di');if(dm)document.getElementById('demoMail').value=dm;if(di)document.getElementById('dirMail').value=di;}
 
-var DEMO={ind:'美容・サロン',reg:'埼玉県さいたま市',com:'ビューティーサロン Belle',cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。地元のお客様に長く愛されてきた。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',app:'リピート率90%以上、地域密着15年'};
+var DEMO={
+  ind:'美容・サロン',
+  reg:'埼玉県川口市',
+  com:'ビューティーサロン Belle',
+  cons:['ホームページが古い','SNSを活用できていない','口コミが広がらない'],
+  str:'創業15年。丁寧なカウンセリングが評判でリピート率90%以上。川口市で愛されてきた、確かな技術と実績。スタッフ全員が国家資格保有。子連れでも安心の完全個室あり。',
+  app:'リピート率90%以上、地域密着15年',
+  holi:'火曜日'
+};
 
 window.loadDemo = function(){
   ind=DEMO.ind;
@@ -690,6 +698,9 @@ window.loadDemo = function(){
   document.getElementById('indOther').value='';
   document.getElementById('reg').value=DEMO.reg;document.getElementById('com').value=DEMO.com;
   document.getElementById('str').value=DEMO.str;document.getElementById('app').value=DEMO.app;
+  // ヒアリングシートの定休日もセット
+  var holiEl=document.getElementById('hs_holi');
+  if(holiEl)holiEl.value=DEMO.holi||'';
   cons=[];
   document.querySelectorAll('#conC .chip').forEach(function(c){c.classList.remove('on');if(DEMO.cons.includes(c.textContent.trim())){c.classList.add('on');cons.push(c.textContent.trim());}});
   window.toast('🎯 デモデータを入力しました');
