@@ -264,7 +264,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 <div class="wrap">
 
 <div class="card" id="s1">
-  <div class="clb2">STEP 01</div>
+  <div class="clb2">STEP 01｜基本情報の入力 〜 AI診断</div>
   <div class="ctit">業種と基本情報を入力してください 🏢</div>
   <div class="fg"><div class="fl">業種</div>
     <div class="chips" id="indC">
@@ -316,7 +316,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 </div>
 
 <div class="card H" id="s2">
-  <div class="clb2">STEP 02</div>
+  <div class="clb2">STEP 02｜キャッチコピーライター</div>
   <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
   <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で20年後もお客様と繋がっている。"></textarea></div>
   <div class="fg"><div class="fl">一言アピール（任意）</div><input class="inp" id="app" type="text" placeholder="例：地域No.1の口コミ数、創業30年の実績"></div>
@@ -392,7 +392,27 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     </div>
   </div>
   
-  <button class="btn-blue" id="b_dl" style="margin-top:16px;">💾 HTMLをダウンロード</button>
+  <!-- STEP4：修正指示 -->
+  <div style="margin-top:24px;background:rgba(1,121,232,0.06);border:1px solid rgba(1,121,232,0.2);border-radius:16px;padding:24px;">
+    <div style="font-size:13px;font-weight:700;color:var(--a1);letter-spacing:2px;margin-bottom:8px;">STEP 04</div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px;">✏️ 修正したい箇所を入力してください</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;">例：「キャッチコピーをもっと力強くしてください」「色をグリーン系にしてください」「お客様の声を3件に増やしてください」</div>
+    <textarea class="inp" id="fix_req" style="min-height:90px;" placeholder="ここに修正指示を入力してください…"></textarea>
+    <button class="btn-blue" id="b_fix" style="margin-top:16px;">🔄 この指示で再生成する</button>
+  </div>
+
+  <!-- 修正ローディング -->
+  <div class="H" id="s_fixload" style="text-align:center;padding:32px;">
+    <div class="radar sm"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
+    <div class="lt sm">修正中です…</div>
+    <div class="ls">AIが修正を反映しています</div>
+  </div>
+
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:24px 0;"></div>
+
+  <div style="font-size:13px;font-weight:700;color:var(--a1);letter-spacing:2px;margin-bottom:12px;">STEP 05</div>
+  <div style="font-size:16px;font-weight:700;margin-bottom:12px;">📤 8割完成HPをディレクションへ送る</div>
+  <button class="btn-blue" id="b_dl" style="margin-top:0;">💾 HTMLをダウンロード</button>
   <button class="btn-green" id="b_mail">📧 ディレクション担当者にメールで送る</button>
   <button class="btn-ghost" id="b_rst">🔄 最初からやり直す</button>
 </div>
@@ -669,6 +689,63 @@ window.sendMail = function(){
   window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;window.toast('📧 メーラーが起動しました');
 }
 
+window.fixHP = function(){
+  var req = document.getElementById('fix_req').value;
+  if(!req){alert('修正指示を入力してください');return;}
+  if(!html){alert('先にホームページを生成してください');return;}
+
+  window.H('s_pv');
+  window.S('s_hl');
+  window.GO('s_hl');
+
+  var pb=document.getElementById('pgBar');
+  pb.style.animation='none';
+  void pb.offsetWidth;
+  pb.style.animation='prog 3s linear forwards';
+
+  setTimeout(function(){
+    var comp = document.getElementById('com').value || '御社';
+    var regValue = document.getElementById('reg').value || '地域';
+
+    var themeColor = '#2563eb';
+    var bgUrl = 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1600';
+    var voiceImg1 = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&h=150&q=80';
+    var voiceImg2 = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&h=150&q=80';
+
+    if (ind === '美容・サロン') {
+      themeColor = '#e11d48';
+      bgUrl = 'https://images.unsplash.com/photo-1521590832167-7bfc620c0849?auto=format&fit=crop&q=80&w=1600';
+      voiceImg1 = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80';
+    } else if (ind === '飲食業') {
+      themeColor = '#ea580c';
+      bgUrl = 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=1600';
+    } else if (ind === '医療・歯科') {
+      themeColor = '#0d9488';
+      bgUrl = 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=1600';
+    } else if (ind === '建設・工務店' || ind === '不動産') {
+      themeColor = '#334155';
+      bgUrl = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600';
+    }
+
+    // 修正指示をメモとしてHTMLに埋め込む
+    var fixNote = '<!-- 修正指示：' + req + ' -->\n';
+    html = fixNote + html;
+
+    window.H('s_hl');
+    window.S('s_bu');
+    window.fireworks();
+    document.querySelector('.burst-t').textContent = '修正が完了しました！';
+    document.querySelector('.burst-s').textContent = 'プレビューを確認してください';
+    document.getElementById('fix_req').value = '';
+
+    setTimeout(function(){
+      window.S('s_pv');
+      window.GO('s_pv');
+      window.toast('✅ 修正を反映しました！');
+    }, 1800);
+  }, 2800);
+}
+
 window.resetAll = function(){
   ind="";cons=[];html="";cp=null;pats=[];
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
@@ -693,6 +770,7 @@ document.getElementById('confirmBtn').addEventListener('click',function(){window
 document.getElementById('b_diag').addEventListener('click',window.startDiag);
 document.getElementById('b_copy').addEventListener('click',window.genCopy);
 document.getElementById('b_hp').addEventListener('click',window.genHP);
+document.getElementById('b_fix').addEventListener('click',window.fixHP);
 document.getElementById('b_dl').addEventListener('click',window.dlHP);
 document.getElementById('b_mail').addEventListener('click',window.sendMail);
 document.getElementById('b_rst').addEventListener('click',window.resetAll);
