@@ -802,58 +802,64 @@ window.startDiag = function(){
   var reg=document.getElementById('reg').value;if(!reg){alert('地域を入力してください');return;}
   window.H('s1');window.S('s_dl');window.GO('s_dl');
   var steps=['ls1','ls2','ls3','ls4','ls5'],i=0;
-  var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},600);
-  
-  setTimeout(function() {
+  var si=setInterval(function(){if(i<steps.length){document.getElementById(steps[i]).classList.add('done');i++;}else clearInterval(si);},800);
+
+  fetch(WK,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      mode:'diagnosis',
+      industry:ind,
+      region:reg,
+      concerns:cons.join('、')||'全般的な集客強化',
+      companyName:document.getElementById('com').value||''
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
     clearInterval(si);steps.forEach(function(s){document.getElementById(s).classList.add('done');});
-    var data = {
-      score: 75,
-      summary: ind + "業界において、" + reg + "エリアでのWeb集客はまだ改善の余地が大きく残されています。競合との差別化とスマホ最適化が鍵となります。",
-      sitemapBefore: [
-        { page: "トップページ", issue: "情報が整理されておらず、強みが伝わりにくい" },
-        { page: "会社概要", issue: "文字ばかりで親近感が湧きにくい" },
-        { page: "お問い合わせ", issue: "入力項目が多く、離脱に繋がっている" }
-      ],
-      sitemapAfter: [
-        { page: "トップページ", point: "ファーストビューで独自の強みを明確にアピール" },
-        { page: "当社の強み", point: "実績と信頼感を示すため新規コンテンツとして追加" },
-        { page: "サービス内容", point: "提供している内容を分かりやすく写真付きで整理" },
-        { page: "お問い合わせ", point: "スマホから1タップで電話・LINEできる導線を設置" }
-      ],
-      snsStrategy: [
-        { platform: "Instagram", content: "日々の業務風景やお客様とのエピソードを写真で発信", frequency: "週2〜3回" },
-        { platform: "Googleビジネスプロフィール", content: "最新情報のお知らせと、口コミへの丁寧な返信", frequency: "随時" }
-      ],
-      collectIdeas: [
-        { title: "MEO（ローカル検索）対策の強化", detail: "「地域名 × " + ind + "」でGoogleマップ上位表示を狙う", effect: "地域からの新規問い合わせ数 1.5倍" },
-        { title: "スマホ特化のUI改善", detail: "スマホでの閲覧を前提とした大きなボタンと見やすい文字サイズへ変更", effect: "サイト滞在時間アップ、直帰率ダウン" }
-      ]
-    };
-    
-    window._diagData = data;
-    document.getElementById('r_sc').textContent=data.score;document.getElementById('r_su').textContent=data.summary;
+    var raw=d.result;
+    if(typeof raw==='object')raw=JSON.stringify(raw);
+    raw=raw.replace(/```json|```/g,'').trim();
+    var data=JSON.parse(raw);
+    window._diagData=data;
+    document.getElementById('r_sc').textContent=data.score;
+    document.getElementById('r_su').textContent=data.summary;
     var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_bf').innerHTML=bf;
     var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_af').innerHTML=af;
     var sns='';(data.snsStrategy||[]).forEach(function(x){sns+='<div class="snscard"><div class="snspl">'+x.platform+'</div><div class="snsco">'+x.content+'</div><div class="snsfq">📅 '+x.frequency+'</div></div>';});document.getElementById('r_sn').innerHTML=sns;
     var ideas='';(data.collectIdeas||[]).forEach(function(x,i){ideas+='<div class="iitem"><div class="inum">'+(i+1)+'</div><div><div class="it">'+x.title+'</div><div class="id2">'+x.detail+'</div><div class="ie">期待効果：'+x.effect+'</div></div></div>';});document.getElementById('r_id').innerHTML=ideas;
     window.H('s_dl');window.S('s_res');window.S('s2');window.GO('s_res');
-  }, 3000);
+  })
+  .catch(function(e){
+    clearInterval(si);
+    alert('診断中にエラーが発生しました。もう一度お試しください。');
+    window.H('s_dl');window.S('s1');
+    console.error(e);
+  });
 }
 
 window.genCopy = function(){
   window.H('s_cp');window.H('s_gb');cp=null;pats=[];window.S('s_cl');window.GO('s_cl');
-  
-  setTimeout(function() {
-    var str = document.getElementById('str').value || "誠実な対応と実績";
-    var regValue = document.getElementById('reg').value || "地域";
-    var data = {
-      patterns: [
-        { id: 1, concept: "信頼と実績訴求", catch: regValue + "で愛されてきた、確かな技術と実績。", sub: str + " お客様の期待を超えるサービスを提供し続けます。" },
-        { id: 2, concept: "課題解決・共感", catch: "「頼んでよかった」その一言のために。", sub: "ちょっとしたお悩みでもご相談ください。" + str },
-        { id: 3, concept: "先進性・プロ感", catch: ind + "の常識を変える、新しい提案。", sub: "専門家ならではの視点で、最適なプランをご用意しています。" }
-      ]
-    };
-    
+
+  fetch(WK,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      mode:'copywriting',
+      industry:ind,
+      region:document.getElementById('reg').value||'',
+      companyName:document.getElementById('com').value||'',
+      strengths:document.getElementById('str').value||'',
+      appeal:document.getElementById('app').value||''
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var raw=d.result;
+    if(typeof raw==='object')raw=JSON.stringify(raw);
+    raw=raw.replace(/```json|```/g,'').trim();
+    var data=JSON.parse(raw);
     pats=data.patterns||[];
     for(var i=0;i<3;i++){
       var p=pats[i];
@@ -866,9 +872,24 @@ window.genCopy = function(){
         document.getElementById('cp'+i).classList.add('H');
       }
     }
+    // ヒアリングシートにも反映
+    for(var j=0;j<3;j++){
+      if(pats[j]){
+        var hn=document.getElementById('hs_cpn'+j);
+        var hc=document.getElementById('hs_cpc'+j);
+        var hs=document.getElementById('hs_cps'+j);
+        if(hn)hn.textContent='パターン'+(j+1)+'：'+pats[j].concept;
+        if(hc)hc.textContent=pats[j].catch;
+        if(hs)hs.textContent=pats[j].sub;
+      }
+    }
     window.H('s_cl');window.S('s_cp');window.GO('s_cp');
-    window.selCP(0);
-  }, 2500);
+  })
+  .catch(function(e){
+    alert('コピー生成中にエラーが発生しました。もう一度お試しください。');
+    window.H('s_cl');
+    console.error(e);
+  });
 }
 
 window.selCP = function(i){
@@ -1029,12 +1050,47 @@ window.genHP = function(){
 
     html=mockHtml;
     window._diagData=window._diagData||null;
-    window.H('s_hl');window.S('s_bu');window.fireworks();
-    setTimeout(function(){
-      window.S('s_pv');window.GO('s_pv');
-      window.initHearing(pages,TC,TS,TA);
-      window.openPrev();
-    },1800);
+
+    // ★API接続：より高品質なHTMLをClaudeが生成して上書き
+    fetch(WK,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        mode:'generate',
+        industry:ind,
+        region:reg,
+        companyName:comp,
+        appeal:document.getElementById('app').value||'',
+        selectedCopy:{catch:cp.catch,sub:cp.sub,concept:cp.concept},
+        strengths:str,
+        sitemapAfter:(window._diagData&&window._diagData.sitemapAfter)?window._diagData.sitemapAfter:[]
+      })
+    })
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.result&&d.result.length>100){
+        // APIが生成したHTMLで上書き
+        var apiHtml=d.result;
+        if(apiHtml.indexOf('<!DOCTYPE')>-1||apiHtml.indexOf('<html')>-1){
+          html=apiHtml;
+        }
+      }
+      window.H('s_hl');window.S('s_bu');window.fireworks();
+      setTimeout(function(){
+        window.S('s_pv');window.GO('s_pv');
+        window.initHearing(pages,TC,TS,TA);
+        window.openPrev();
+      },1800);
+    })
+    .catch(function(){
+      // API失敗時はmockHtmlで続行
+      window.H('s_hl');window.S('s_bu');window.fireworks();
+      setTimeout(function(){
+        window.S('s_pv');window.GO('s_pv');
+        window.initHearing(pages,TC,TS,TA);
+        window.openPrev();
+      },1800);
+    });
   },3200);
 }
 
