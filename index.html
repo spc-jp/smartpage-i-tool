@@ -970,10 +970,10 @@ window.openPrev = function() {
   var frame=document.getElementById('pvFrame');
   var comp=document.getElementById('com').value||'御社';
   document.getElementById('pvTitle').textContent=comp+' | プレビュー';
+  // ★srcdoc方式：CSP制限を受けない確実な方法
+  frame.srcdoc=html;
   modal.classList.add('open');
   document.body.style.overflow='hidden';
-  var doc=frame.contentDocument||frame.contentWindow.document;
-  doc.open();doc.write(html);doc.close();
 }
 
 document.getElementById('pvClose').addEventListener('click',function(){
