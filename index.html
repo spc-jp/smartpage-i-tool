@@ -176,38 +176,6 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .prevdot{width:10px;height:10px;border-radius:50%;}
 
 .prevframe{width:100%;background:#f8f9fa;border-radius:0 0 14px 14px;padding:40px 20px;}
-
-/* STEP4 カスタマイズパネル */
-.s4wrap{background:rgba(1,121,232,0.05);border:1px solid rgba(1,121,232,0.2);border-radius:20px;padding:28px;margin-top:24px;}
-.s4title{font-size:11px;font-weight:700;color:var(--a1);letter-spacing:3px;margin-bottom:6px;}
-.s4head{font-size:20px;font-weight:800;margin-bottom:4px;}
-.s4sub{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:24px;}
-.s4block{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;margin-bottom:16px;}
-.s4blk-title{font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.color-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.color-label{font-size:13px;color:rgba(255,255,255,0.6);width:100px;flex-shrink:0;}
-.color-picker{width:44px;height:44px;border-radius:10px;border:2px solid rgba(255,255,255,0.15);cursor:pointer;padding:2px;background:none;}
-.color-code{flex:1;padding:10px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:13px;font-family:monospace;outline:none;}
-.color-code:focus{border-color:var(--a1);}
-.page-row{border:1px solid rgba(255,255,255,0.08);border-radius:12px;margin-bottom:10px;overflow:hidden;}
-.page-row-hdr{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;background:rgba(255,255,255,0.04);transition:background 0.2s;}
-.page-row-hdr:hover{background:rgba(255,255,255,0.08);}
-.page-chk{width:18px;height:18px;accent-color:var(--a1);cursor:pointer;flex-shrink:0;}
-.page-name{font-size:14px;font-weight:700;color:#fff;flex:1;}
-.page-toggle{font-size:11px;color:rgba(255,255,255,0.3);}
-.page-fields{padding:14px 16px 16px;border-top:1px solid rgba(255,255,255,0.08);display:none;}
-.page-fields.open{display:block;}
-.pf-label{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:6px;margin-top:10px;}
-.pf-label:first-child{margin-top:0;}
-.pf-inp{width:100%;padding:10px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;}
-.pf-inp:focus{border-color:var(--a1);}
-textarea.pf-inp{resize:vertical;min-height:70px;line-height:1.7;}
-.font-btns{display:flex;gap:8px;}
-.font-btn{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);font-size:13px;cursor:pointer;transition:all 0.2s;text-align:center;}
-.font-btn.on{background:var(--a1);border-color:var(--a1);color:#fff;font-weight:700;}
-.s5wrap{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;margin-top:8px;}
-.s5title{font-size:11px;font-weight:700;color:var(--a1);letter-spacing:3px;margin-bottom:8px;}
-.s5head{font-size:18px;font-weight:700;margin-bottom:16px;}
 .p-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 .p-icon{font-size:48px;margin-bottom:16px;}
 .p-title{font-size:20px;font-weight:800;color:#333;margin-bottom:12px;}
@@ -300,11 +268,18 @@ textarea.pf-inp{resize:vertical;min-height:70px;line-height:1.7;}
   <div class="ctit">業種と基本情報を入力してください 🏢</div>
   <div class="fg"><div class="fl">業種</div>
     <div class="chips" id="indC">
-      <div class="chip">飲食業</div><div class="chip">美容・サロン</div>
-      <div class="chip">税理士・会計</div><div class="chip">製造業</div>
-      <div class="chip">不動産</div><div class="chip">医療・歯科</div>
-      <div class="chip">小売・販売</div><div class="chip">建設・工務店</div>
-      <div class="chip">士業・コンサル</div><div class="chip">その他</div>
+      <div class="chip">製造業</div>
+      <div class="chip">建設・工務店</div>
+      <div class="chip">飲食業</div>
+      <div class="chip">サービス業</div>
+      <div class="chip">美容・サロン</div>
+      <div class="chip">小売・販売</div>
+      <div class="chip">不動産</div>
+      <div class="chip">士業・コンサル</div>
+      <div class="chip">その他</div>
+    </div>
+    <div id="indOtherWrap" style="display:none;margin-top:12px;">
+      <input class="inp" id="indOther" type="text" placeholder="業種を入力してください（例：介護・福祉、IT・Web、農業　など）">
     </div>
   </div>
   <div class="fg"><div class="fl">地域（例：東京都大田区）</div><input class="inp" id="reg" type="text" placeholder="例：東京都大田区"></div>
@@ -424,70 +399,9 @@ textarea.pf-inp{resize:vertical;min-height:70px;line-height:1.7;}
     </div>
   </div>
   
-  <!-- STEP4 カスタマイズパネル -->
-  <div class="s4wrap">
-    <div class="s4title">STEP 04｜プレビュー確認・カスタマイズ</div>
-    <div class="s4head">✏️ ホームページをカスタマイズ</div>
-    <div class="s4sub">色・文字・ページ内容をその場で変更して再生成できます</div>
-
-    <!-- 🎨 カラー -->
-    <div class="s4block">
-      <div class="s4blk-title">🎨 カラーカスタマイズ</div>
-      <div class="color-row">
-        <span class="color-label">メインカラー</span>
-        <input type="color" class="color-picker" id="c_main" value="#1e40af">
-        <input type="text" class="color-code" id="ct_main" value="#1e40af" maxlength="7" placeholder="#1e40af">
-      </div>
-      <div class="color-row">
-        <span class="color-label">サブカラー</span>
-        <input type="color" class="color-picker" id="c_sub" value="#3b82f6">
-        <input type="text" class="color-code" id="ct_sub" value="#3b82f6" maxlength="7" placeholder="#3b82f6">
-      </div>
-      <div class="color-row">
-        <span class="color-label">アクセント</span>
-        <input type="color" class="color-picker" id="c_acc" value="#f59e0b">
-        <input type="text" class="color-code" id="ct_acc" value="#f59e0b" maxlength="7" placeholder="#f59e0b">
-      </div>
-    </div>
-
-    <!-- 🔤 フォント・社名 -->
-    <div class="s4block">
-      <div class="s4blk-title">🔤 表示設定</div>
-      <div class="pf-label">ヘッダー社名・店舗名</div>
-      <input type="text" class="pf-inp" id="c_compname" placeholder="会社名・店舗名">
-      <div class="pf-label" style="margin-top:14px;">文字サイズ</div>
-      <div class="font-btns">
-        <div class="font-btn on" id="fs_normal">標準</div>
-        <div class="font-btn" id="fs_large">大きめ（高齢者向け）</div>
-      </div>
-    </div>
-
-    <!-- 📄 ページ内容 -->
-    <div class="s4block">
-      <div class="s4blk-title">📄 ページ内容の修正</div>
-      <div id="pageEditors">
-        <!-- JSで動的生成 -->
-      </div>
-    </div>
-
-    <button class="btn-gold" id="b_reGen" style="width:100%;margin-top:8px;">🔄 この内容で再生成する</button>
-  </div>
-
-  <!-- 再生成ローディング -->
-  <div class="H" id="s_reLoad" style="text-align:center;padding:32px;margin-top:16px;">
-    <div class="radar sm"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
-    <div class="lt sm">カスタマイズを反映中…</div>
-    <div class="ls">AIが修正内容を適用しています</div>
-  </div>
-
-  <!-- STEP5 -->
-  <div class="s5wrap">
-    <div class="s5title">STEP 05｜8割完成HPをディレクションへ</div>
-    <div class="s5head">📤 完成データを送る</div>
-    <button class="btn-blue" id="b_dl" style="margin-top:0;">💾 HTMLをダウンロード</button>
-    <button class="btn-green" id="b_mail">📧 ディレクション担当者にメールで送る</button>
-    <button class="btn-ghost" id="b_rst">🔄 最初からやり直す</button>
-  </div>
+  <button class="btn-blue" id="b_dl" style="margin-top:16px;">💾 HTMLをダウンロード</button>
+  <button class="btn-green" id="b_mail">📧 ディレクション担当者にメールで送る</button>
+  <button class="btn-ghost" id="b_rst">🔄 最初からやり直す</button>
 </div>
 
 </div>
@@ -539,7 +453,12 @@ var DEMO={ind:'美容・サロン',reg:'埼玉県さいたま市',com:'ビュー
 
 window.loadDemo = function(){
   ind=DEMO.ind;
-  document.querySelectorAll('#indC .chip').forEach(function(c){c.classList.remove('on');if(c.textContent.trim()===DEMO.ind)c.classList.add('on');});
+  document.querySelectorAll('#indC .chip').forEach(function(c){
+    c.classList.remove('on');
+    if(c.textContent.trim()===DEMO.ind)c.classList.add('on');
+  });
+  document.getElementById('indOtherWrap').style.display='none';
+  document.getElementById('indOther').value='';
   document.getElementById('reg').value=DEMO.reg;document.getElementById('com').value=DEMO.com;
   document.getElementById('str').value=DEMO.str;document.getElementById('app').value=DEMO.app;
   cons=[];
@@ -549,6 +468,8 @@ window.loadDemo = function(){
 
 window.clearDemo = function(){
   ind="";cons=[];document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  document.getElementById('indOtherWrap').style.display='none';
+  document.getElementById('indOther').value='';
   ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});window.toast('🗑️ クリアしました');
 }
 
@@ -733,214 +654,11 @@ window.genHP = function(){
 </html>`;
     
     html = mockHtml;
-    // STEP4パネルにカラーとページ情報を初期化
-    document.getElementById('ct_main').value=themeColor;
-    document.getElementById('c_main').value=themeColor;
-    document.getElementById('ct_sub').value=themeColor;
-    document.getElementById('c_sub').value=themeColor;
-    document.getElementById('ct_acc').value='#f59e0b';
-    document.getElementById('c_acc').value='#f59e0b';
-    document.getElementById('c_compname').value=comp;
-    if(cp){document.getElementById('pf_catch')&&(document.getElementById('pf_catch').value=cp.catch);document.getElementById('pf_sub')&&(document.getElementById('pf_sub').value=cp.sub);}
-    window.buildPageEditors();
     window.H('s_hl');window.S('s_bu');window.fireworks();
     setTimeout(function(){
       window.S('s_pv');window.GO('s_pv');
     }, 1800);
   }, 3200);
-}
-
-/* ===== STEP4 カスタマイズパネル ===== */
-
-// カラーピッカー ↔ テキスト入力の同期
-function syncColor(pickerId, textId){
-  var picker=document.getElementById(pickerId);
-  var text=document.getElementById(textId);
-  picker.addEventListener('input',function(){text.value=picker.value;});
-  text.addEventListener('input',function(){
-    if(/^#[0-9a-fA-F]{6}$/.test(text.value))picker.value=text.value;
-  });
-}
-syncColor('c_main','ct_main');
-syncColor('c_sub','ct_sub');
-syncColor('c_acc','ct_acc');
-
-// フォントサイズ切替
-document.getElementById('fs_normal').addEventListener('click',function(){
-  document.getElementById('fs_normal').classList.add('on');
-  document.getElementById('fs_large').classList.remove('on');
-});
-document.getElementById('fs_large').addEventListener('click',function(){
-  document.getElementById('fs_large').classList.add('on');
-  document.getElementById('fs_normal').classList.remove('on');
-});
-
-// ページエディタを診断結果から動的生成
-window.buildPageEditors = function(){
-  var diagData=window._diagData||null;
-  var pages=diagData&&diagData.sitemapAfter?diagData.sitemapAfter:[
-    {page:'トップページ',point:'ファーストビュー'},
-    {page:'当社の強み',point:'実績と信頼感'},
-    {page:'サービス内容',point:'サービス一覧'},
-    {page:'お客様の声',point:'口コミ・実績'},
-    {page:'お問い合わせ',point:'連絡先'}
-  ];
-
-  var container=document.getElementById('pageEditors');
-  container.innerHTML='';
-
-  pages.forEach(function(p,i){
-    var pg=p.page;
-    var isTop=(i===0);
-
-    // 各ページの入力フィールドを決定
-    var fields='';
-    if(isTop){
-      fields=`
-<div class="pf-label">キャッチコピー（メイン）</div>
-<input type="text" class="pf-inp" id="pf_catch" placeholder="${cp?cp.catch:'キャッチコピーを入力'}">
-<div class="pf-label">サブコピー</div>
-<input type="text" class="pf-inp" id="pf_sub" placeholder="${cp?cp.sub:'サブコピーを入力'}">`;
-    } else if(pg.indexOf('強み')>-1||pg.indexOf('特徴')>-1||pg.indexOf('選ばれる')>-1){
-      fields=`
-<div class="pf-label">強み①</div><input type="text" class="pf-inp" id="pf_str1" placeholder="例：創業15年の実績と信頼">
-<div class="pf-label">強み②</div><input type="text" class="pf-inp" id="pf_str2" placeholder="例：地域密着のきめ細かなサポート">
-<div class="pf-label">強み③</div><input type="text" class="pf-inp" id="pf_str3" placeholder="例：安心のアフターサポート">`;
-    } else if(pg.indexOf('声')>-1||pg.indexOf('口コミ')>-1||pg.indexOf('実績')>-1){
-      fields=`
-<div class="pf-label">お客様の声①</div><textarea class="pf-inp" id="pf_v1" placeholder="例：丁寧な対応に感動しました。また利用したいと思います。"></textarea>
-<div class="pf-label">お客様の声②</div><textarea class="pf-inp" id="pf_v2" placeholder="例：期待以上の仕上がりで大満足です。"></textarea>
-<div class="pf-label">お客様の声③</div><textarea class="pf-inp" id="pf_v3" placeholder="例：プロの技術と温かい対応に感謝しています。"></textarea>`;
-    } else if(pg.indexOf('問い合わせ')>-1||pg.indexOf('相談')>-1||pg.indexOf('予約')>-1){
-      fields=`
-<div class="pf-label">電話番号</div><input type="text" class="pf-inp" id="pf_tel" placeholder="例：048-000-0000">
-<div class="pf-label">営業時間</div><input type="text" class="pf-inp" id="pf_hours" placeholder="例：9:00〜18:00">
-<div class="pf-label">定休日</div><input type="text" class="pf-inp" id="pf_holiday" placeholder="例：日曜・祝日">`;
-    } else {
-      fields=`
-<div class="pf-label">セクションの説明文</div>
-<textarea class="pf-inp" id="pf_sec_${i}" placeholder="${p.point}についての内容を入力してください"></textarea>`;
-    }
-
-    var row=document.createElement('div');
-    row.className='page-row';
-    row.innerHTML=`
-<div class="page-row-hdr" onclick="togglePage(${i})">
-  <input type="checkbox" class="page-chk" id="pchk_${i}" checked onclick="event.stopPropagation()">
-  <span class="page-name">${pg}</span>
-  <span class="page-toggle" id="ptgl_${i}">▼ 編集する</span>
-</div>
-<div class="page-fields" id="pfields_${i}">${fields}</div>`;
-    container.appendChild(row);
-  });
-}
-
-window.togglePage = function(i){
-  var f=document.getElementById('pfields_'+i);
-  var t=document.getElementById('ptgl_'+i);
-  if(f.classList.contains('open')){
-    f.classList.remove('open');t.textContent='▼ 編集する';
-  } else {
-    f.classList.add('open');t.textContent='▲ 閉じる';
-  }
-}
-
-// 再生成処理
-window.reGenHP = function(){
-  if(!html){alert('先にホームページを生成してください');return;}
-
-  // カスタマイズ値を収集
-  var cMain=document.getElementById('ct_main').value||'#1e40af';
-  var cSub=document.getElementById('ct_sub').value||'#3b82f6';
-  var cAcc=document.getElementById('ct_acc').value||'#f59e0b';
-  var compName=document.getElementById('c_compname').value||document.getElementById('com').value||'御社';
-  var fontSize=document.getElementById('fs_large').classList.contains('on')?'18px':'15px';
-
-  // ページ内容を収集
-  var catchTxt=document.getElementById('pf_catch')?document.getElementById('pf_catch').value:'';
-  var subTxt=document.getElementById('pf_sub')?document.getElementById('pf_sub').value:'';
-  var str1=document.getElementById('pf_str1')?document.getElementById('pf_str1').value:'';
-  var str2=document.getElementById('pf_str2')?document.getElementById('pf_str2').value:'';
-  var str3=document.getElementById('pf_str3')?document.getElementById('pf_str3').value:'';
-  var v1=document.getElementById('pf_v1')?document.getElementById('pf_v1').value:'';
-  var v2=document.getElementById('pf_v2')?document.getElementById('pf_v2').value:'';
-  var v3=document.getElementById('pf_v3')?document.getElementById('pf_v3').value:'';
-  var tel=document.getElementById('pf_tel')?document.getElementById('pf_tel').value:'';
-  var hours=document.getElementById('pf_hours')?document.getElementById('pf_hours').value:'';
-  var holiday=document.getElementById('pf_holiday')?document.getElementById('pf_holiday').value:'';
-
-  // 非表示ページを収集
-  var hiddenPages=[];
-  document.querySelectorAll('.page-chk').forEach(function(chk,i){
-    if(!chk.checked)hiddenPages.push(i);
-  });
-
-  window.H('s_pv');
-  window.S('s_reLoad');
-  window.GO('s_reLoad');
-
-  setTimeout(function(){
-    // HTMLにカスタマイズを反映
-    var newHtml=html;
-
-    // カラー置換
-    newHtml=newHtml.replace(/color:#1e40af/g,'color:'+cMain)
-                   .replace(/background:#1e40af/g,'background:'+cMain)
-                   .replace(/background:linear-gradient\(135deg,#1e3a8a,#1e40af\)/g,'background:linear-gradient(135deg,'+cSub+','+cMain+')')
-                   .replace(/#3b82f6/g,cSub)
-                   .replace(/#f59e0b/g,cAcc);
-
-    // 社名置換
-    if(compName&&compName!==document.getElementById('com').value){
-      newHtml=newHtml.replace(new RegExp(document.getElementById('com').value||'御社','g'),compName);
-    }
-
-    // フォントサイズ
-    if(fontSize==='18px'){
-      newHtml=newHtml.replace(/font-size:15px/g,'font-size:18px').replace(/font-size:14px/g,'font-size:17px').replace(/font-size:13px/g,'font-size:16px');
-    }
-
-    // キャッチコピー置換
-    if(catchTxt&&cp){
-      newHtml=newHtml.replace(new RegExp(cp.catch.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'),catchTxt);
-    }
-    if(subTxt&&cp){
-      newHtml=newHtml.replace(new RegExp(cp.sub.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'),subTxt);
-    }
-
-    // 強み置換
-    if(str1)newHtml=newHtml.replace('確かな実績・技術力',str1);
-    if(str2)newHtml=newHtml.replace(document.getElementById('reg').value+'地域密着のサービス',str2);
-    if(str3)newHtml=newHtml.replace('安心のアフターサポート',str3);
-
-    // お客様の声置換
-    if(v1)newHtml=newHtml.replace('丁寧な対応と高い技術力に大変満足しています。また相談させていただきたいと思います。',v1);
-    if(v2)newHtml=newHtml.replace('スピーディな対応で助かりました。プロの仕事ぶりに感動しました。',v2);
-    if(v3)newHtml=newHtml.replace('何度もお世話になっています。いつも期待以上の結果を出してくださいます。',v3);
-
-    // 電話・営業時間・定休日
-    if(tel)newHtml=newHtml.replace(/営業時間：9:00〜18:00/,tel?'電話：'+tel+' ／ 営業時間：'+(hours||'9:00〜18:00'):'営業時間：'+(hours||'9:00〜18:00'));
-    if(hours)newHtml=newHtml.replace('9:00〜18:00',hours);
-    if(holiday)newHtml=newHtml.replace('日曜・祝日',holiday);
-
-    // 非表示ページのセクションをコメントアウト（簡易対応）
-    hiddenPages.forEach(function(i){
-      var re=new RegExp('<section id="sec'+i+'"[\\s\\S]*?</section>','g');
-      newHtml=newHtml.replace(re,'<!-- ページ非表示 -->');
-    });
-
-    html=newHtml;
-    window.H('s_reLoad');
-    window.S('s_bu');
-    document.querySelector('.burst-t').textContent='カスタマイズ完了！';
-    document.querySelector('.burst-s').textContent='プレビューを確認してください';
-    window.fireworks();
-    setTimeout(function(){
-      window.S('s_pv');
-      window.GO('s_pv');
-      window.toast('✅ カスタマイズを反映しました！');
-    },1800);
-  },2000);
 }
 
 window.openPrev = function() {
@@ -966,13 +684,13 @@ window.sendMail = function(){
 }
 
 window.resetAll = function(){
-  ind="";cons=[];html="";cp=null;pats=[];window._diagData=null;
+  ind="";cons=[];html="";cp=null;pats=[];
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  document.getElementById('indOtherWrap').style.display='none';
+  document.getElementById('indOther').value='';
   ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('pgBar').style.animation='none';
-  document.getElementById('pageEditors').innerHTML='';
-  document.getElementById('c_compname').value='';
-  window.S('s1');['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv','s_reLoad'].forEach(window.H);
+  window.S('s1');['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv'].forEach(window.H);
   ['ls1','ls2','ls3','ls4','ls5'].forEach(function(id){document.getElementById(id).classList.remove('done');});
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -991,14 +709,29 @@ document.getElementById('confirmBtn').addEventListener('click',function(){window
 document.getElementById('b_diag').addEventListener('click',window.startDiag);
 document.getElementById('b_copy').addEventListener('click',window.genCopy);
 document.getElementById('b_hp').addEventListener('click',window.genHP);
-document.getElementById('b_reGen').addEventListener('click',window.reGenHP);
 document.getElementById('b_dl').addEventListener('click',window.dlHP);
 document.getElementById('b_mail').addEventListener('click',window.sendMail);
 document.getElementById('b_rst').addEventListener('click',window.resetAll);
 document.getElementById('demoMail').addEventListener('input',window.saveMails);
 document.getElementById('dirMail').addEventListener('input',window.saveMails);
 document.getElementById('b_open_prev').addEventListener('click',window.openPrev);
-document.getElementById('indC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;document.querySelectorAll('#indC .chip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');ind=c.textContent.trim();});
+document.getElementById('indC').addEventListener('click',function(e){
+  var c=e.target.closest('.chip');if(!c)return;
+  document.querySelectorAll('#indC .chip').forEach(function(x){x.classList.remove('on');});
+  c.classList.add('on');
+  var val=c.textContent.trim();
+  if(val==='その他'){
+    document.getElementById('indOtherWrap').style.display='block';
+    document.getElementById('indOther').focus();
+    ind=document.getElementById('indOther').value.trim()||'その他';
+  } else {
+    document.getElementById('indOtherWrap').style.display='none';
+    ind=val;
+  }
+});
+document.getElementById('indOther').addEventListener('input',function(){
+  ind=this.value.trim()||'その他';
+});
 document.getElementById('conC').addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;c.classList.toggle('on');var v=c.textContent.trim();if(c.classList.contains('on')){if(!cons.includes(v))cons.push(v);}else{cons=cons.filter(function(x){return x!==v;});}});
 document.addEventListener('click',function(e){if(!e.target.closest('.gwrap'))window.closeS();});
 window.loadMails();
