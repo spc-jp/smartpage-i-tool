@@ -427,13 +427,13 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <div class="prevdot" style="background:#D0A900;"></div>
     <div class="prevdot" style="background:#22c55e;"></div>
     <span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span>
-    <button id="b_open_prev" style="margin-left:auto;padding:6px 16px;background:rgba(1,121,232,0.25);border:1px solid rgba(1,121,232,0.5);border-radius:100px;color:#fff;font-size:12px;cursor:pointer;transition:all 0.2s;">🔍 プレビューを表示する</button>
   </div>
-  <div id="prev_placeholder" style="width:100%;min-height:220px;background:#1a1a2e;border-radius:0 0 14px 14px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;">
+  <div style="width:100%;min-height:180px;background:#1a1a2e;border-radius:0 0 14px 14px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:32px;">
     <div style="font-size:48px;">✨</div>
-    <div style="font-size:15px;color:rgba(255,255,255,0.5);">上の「🔍 プレビューを表示する」を押してください</div>
+    <div style="font-size:16px;font-weight:700;color:#fff;">ホームページが完成しました！</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.7;">別タブが自動で開きます。<br>開かない場合は下の「別タブで開く」ボタンを押してください。</div>
+    <button id="b_open_prev" style="padding:12px 28px;background:linear-gradient(135deg,var(--a1),var(--a2));border:none;border-radius:100px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;">🚀 別タブで開く</button>
   </div>
-  <iframe id="prevFrame" style="width:100%;height:620px;border:none;border-radius:0 0 14px 14px;display:none;"></iframe>
   
   <!-- ヒアリングシート -->
   <div class="hs-wrap" id="s_hearing">
@@ -791,6 +791,8 @@ window.genHP = function(){
     setTimeout(function(){
       window.S('s_pv');window.GO('s_pv');
       window.initHearing(pages,TC,TS,TA);
+      // 完成後に自動で別タブを開く
+      window.openPrev();
     },1800);
   },3200);
 }
@@ -944,14 +946,10 @@ window.sendHsMail = function(){
 
 window.openPrev = function() {
   if(!html){window.toast('⚠️ まずホームページを生成してください');return;}
-  var ph=document.getElementById('prev_placeholder');
-  var fr=document.getElementById('prevFrame');
-  ph.style.display='none';
-  fr.style.display='block';
-  var doc=fr.contentDocument||fr.contentWindow.document;
-  doc.open();doc.write(html);doc.close();
-  document.getElementById('b_open_prev').textContent='🔄 再表示する';
-  window.toast('✅ プレビューを表示しました');
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  window.open(url,'_blank');
+  setTimeout(function(){URL.revokeObjectURL(url);},10000);
 }
 
 window.dlHP = function(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
