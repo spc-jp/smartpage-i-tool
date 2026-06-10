@@ -636,10 +636,22 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     </button>
 
     <!-- 送信完了メッセージ（送信後のみ表示） -->
-    <div id="hs_done" style="display:none;margin-top:16px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.4);border-radius:14px;padding:20px;text-align:center;">
-      <div style="font-size:32px;margin-bottom:10px;">✅</div>
-      <div style="font-size:16px;font-weight:800;color:#22c55e;margin-bottom:6px;">送信完了しました！</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">ヒアリングシートをディレクション担当者に送信しました。</div>
+    <div id="hs_done" style="display:none;margin-top:16px;background:rgba(34,197,94,0.08);border:2px solid rgba(34,197,94,0.4);border-radius:16px;padding:24px;">
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:36px;margin-bottom:8px;">✅</div>
+        <div style="font-size:17px;font-weight:800;color:#22c55e;margin-bottom:6px;">送信完了しました！</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);">ヒアリングシートをディレクション担当者に送信しました。</div>
+      </div>
+      <div style="height:1px;background:rgba(255,255,255,0.1);margin-bottom:20px;"></div>
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.8);margin-bottom:12px;">📎 次のステップ</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.9;margin-bottom:16px;">
+        メール本文は送信済みです。<br>
+        下のボタンでHTMLファイルをダウンロードして、<br>
+        同じメールに<strong style="color:#fff;">添付して再送</strong>するか、<strong style="color:#fff;">別メール</strong>で送ってください。
+      </div>
+      <button id="b_dl_done" style="width:100%;padding:16px;background:linear-gradient(135deg,#D0A900,#f0c800);border:none;border-radius:14px;color:#000;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+        💾 HTMLをダウンロードして添付する
+      </button>
     </div>
 
   </div><!-- /hs-wrap -->
@@ -1368,6 +1380,9 @@ function afterSend(){
   done.style.display='block';
   setTimeout(function(){done.scrollIntoView({behavior:'smooth'});},300);
   window.toast('📧 送信しました！');
+  // b_dl_doneにイベント登録（送信後に表示されるため）
+  var dlDone=document.getElementById('b_dl_done');
+  if(dlDone){dlDone.onclick=window.dlHP;}
 }
 document.getElementById('b_dl').addEventListener('click',window.dlHP);
 document.getElementById('b_rst').addEventListener('click',window.resetAll);
