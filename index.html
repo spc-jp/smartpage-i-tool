@@ -433,8 +433,8 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <div class="p-msg">
       <div class="p-icon">✨</div>
       <div class="p-title">ハイクオリティな提案サイトが完成しました！</div>
-      <div class="p-desc">下のボタンをクリックして、別タブでフル画面のプレビューをご確認ください。</div>
-      <button class="btn-open" id="b_open_prev">🚀 別タブでプレビューを開く</button>
+      <div class="p-desc">下のボタンでHTMLをダウンロードして、ブラウザで開くとフル画面でプレビューできます。</div>
+      <button class="btn-open" id="b_open_prev">💾 HTMLをダウンロードしてプレビュー</button>
     </div>
   </div>
   
@@ -650,6 +650,7 @@ window.startDiag = function(){
       ]
     };
     
+    window._diagData = data;
     document.getElementById('r_sc').textContent=data.score;document.getElementById('r_su').textContent=data.summary;
     var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_bf').innerHTML=bf;
     var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_af').innerHTML=af;
@@ -705,81 +706,96 @@ window.genHP = function(){
   if(!cp){alert('コピーを選んでください');return;}
   window.H('s_gb');window.S('s_hl');window.GO('s_hl');
   var pb=document.getElementById('pgBar');
-  pb.style.animation='none';
-  void pb.offsetWidth;
-  pb.style.animation='prog 3s linear forwards';
-  
-  setTimeout(function() {
-    var comp = document.getElementById('com').value || '御社';
-    var regValue = document.getElementById('reg').value || '地域';
-    var strValue = document.getElementById('str').value || 'お客様一人ひとりに寄り添ったサービスを提供いたします。';
-    
-    var themeColor = '#2563eb';
-    var bgUrl = 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1600'; 
-    var voiceImg1 = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&h=150&q=80';
-    var voiceImg2 = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&h=150&q=80';
-    
-    if (ind === '美容・サロン') {
-      themeColor = '#e11d48';
-      bgUrl = 'https://images.unsplash.com/photo-1521590832167-7bfc620c0849?auto=format&fit=crop&q=80&w=1600';
-      voiceImg1 = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80';
-    } else if (ind === '飲食業') {
-      themeColor = '#ea580c';
-      bgUrl = 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=1600';
-      voiceImg1 = 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&h=150&q=80';
-    } else if (ind === '医療・歯科') {
-      themeColor = '#0d9488';
-      bgUrl = 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=1600';
-    } else if (ind === '建設・工務店' || ind === '不動産') {
-      themeColor = '#334155';
-      bgUrl = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600';
+  pb.style.animation='none';void pb.offsetWidth;pb.style.animation='prog 3s linear forwards';
+
+  setTimeout(function(){
+    var comp=document.getElementById('com').value||'御社';
+    var reg=document.getElementById('reg').value||'地域';
+    var str=document.getElementById('str').value||'お客様一人ひとりに寄り添ったサービスを提供いたします。';
+
+    var TC='#1e40af',TS='#3b82f6',TA='#f59e0b',TDK='#1e3a8a',TLT='#eff6ff';
+    var voices=[
+      {n:'田中 様',r:'個人のお客様',t:'丁寧な対応と高い技術力に大変満足しています。また相談させていただきたいと思います。'},
+      {n:'鈴木 様',r:'法人のお客様',t:'スピーディな対応で助かりました。プロの仕事ぶりに感動しました。'},
+      {n:'山田 様',r:'リピートのお客様',t:'何度もお世話になっています。いつも期待以上の結果を出してくださいます。'}
+    ];
+    var services=['ご相談・お問い合わせ','現地調査・ヒアリング','ご提案・お見積り','サービス提供','アフターサポート'];
+
+    if(ind==='美容・サロン'){TC='#9d174d';TS='#ec4899';TA='#fda4af';TDK='#831843';TLT='#fdf2f8';
+      voices=[{n:'A.S 様',r:'30代 女性',t:'丁寧なカウンセリングで理想のスタイルに仕上げていただきました。また来ます！'},{n:'M.T 様',r:'40代 女性',t:'いつも落ち着いた雰囲気でリラックスできます。スタッフの皆さんも優しくて大好きです。'},{n:'K.N 様',r:'20代 女性',t:'仕上がりに毎回感動しています。友人にも紹介したいと思います。'}];
+      services=['カット','カラー','パーマ','トリートメント','ヘッドスパ'];
+    }else if(ind==='飲食業'){TC='#9a3412';TS='#f97316';TA='#fcd34d';TDK='#7c2d12';TLT='#fff7ed';
+      voices=[{n:'佐藤 様',r:'ご家族でご来店',t:'食材の質の高さと丁寧な調理に感動しました。家族全員大満足です。'},{n:'高橋 様',r:'接待でご利用',t:'大切なお客様との接待に利用しました。料理も雰囲気も最高でした。'},{n:'伊藤 様',r:'常連のお客様',t:'毎月来ています。季節ごとのメニューが楽しみで仕方ありません。'}];
+      services=['ランチコース','ディナーコース','テイクアウト','宴会・コース料理','ケータリング'];
+    }else if(ind==='建設・工務店'){TC='#1c1917';TS='#f59e0b';TA='#fcd34d';TDK='#0c0a09';TLT='#fafaf9';
+      voices=[{n:'M.Y 様',r:'新築をご依頼',t:'細部まで丁寧に仕上げていただき、夢のマイホームが実現しました。'},{n:'K.O 様',r:'リフォームをご依頼',t:'提案力が高く、予算内で想像以上の仕上がりになりました。'},{n:'S.H 様',r:'外構工事をご依頼',t:'近所の方にも褒められる素敵な外観になりました。ありがとうございます。'}];
+      services=['新築工事','リフォーム','増改築','外構工事','アフターメンテナンス'];
+    }else if(ind==='不動産'){TC='#14532d';TS='#22c55e';TA='#86efac';TDK='#052e16';TLT='#f0fdf4';
+      voices=[{n:'N.K 様',r:'マンション購入',t:'希望条件を丁寧にヒアリングしてもらい理想の物件に出会えました。'},{n:'R.T 様',r:'賃貸契約',t:'初めての一人暮らしで不安でしたが親切に案内してもらいました。'},{n:'H.A 様',r:'売却依頼',t:'スピーディに売却できて大変助かりました。また相談します。'}];
+      services=['売買仲介','賃貸仲介','物件管理','不動産相談','資産活用提案'];
+    }else if(ind==='士業・コンサル'){TC='#1e3a5f';TS='#3b82f6';TA='#f59e0b';TDK='#0f2040';TLT='#eff6ff';
+      voices=[{n:'株式会社〇〇 様',r:'中小企業 代表',t:'毎月の報告が丁寧で経営状況がよく把握できるようになりました。'},{n:'個人事業主 B様',r:'フリーランス',t:'確定申告の不安がなくなりました。安心して本業に集中できています。'},{n:'C会社 経理担当',r:'法人のお客様',t:'税務調査の際もしっかりサポートいただき助かりました。'}];
+      services=['初回無料相談','現状分析・診断','ご提案・プランニング','実行サポート','フォローアップ'];
+    }else if(ind==='製造業'){TC='#1e3a8a';TS='#3b82f6';TA='#f59e0b';TDK='#172554';TLT='#eff6ff';
+      services=['製品企画・設計','試作・開発','量産製造','品質検査','納品・アフターサポート'];
+    }else if(ind==='小売・販売'){TC='#7e22ce';TS='#a855f7';TA='#f59e0b';TDK='#581c87';TLT='#faf5ff';
+      services=['商品のご案内','オーダー・カスタマイズ','ご購入手続き','梱包・発送','アフターサービス'];
+    }else if(ind==='サービス業'){TC='#0f766e';TS='#14b8a6';TA='#f59e0b';TDK='#134e4a';TLT='#f0fdfa';
+      services=['初回ご相談','ヒアリング・提案','サービス提供','フォローアップ','継続サポート'];
     }
 
-    var selectedCons = cons.length > 0 ? cons : ['集客の方向性がわからない', '競合との差別化が難しい', '新規の問い合わせが少ない'];
-    var consHtml = selectedCons.map(function(c){
-      return `<li class="flex items-center gap-3 text-gray-700 font-bold mb-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100"><i class="fa-solid fa-circle-xmark text-red-400 text-xl"></i> ${c}</li>`;
-    }).join('');
+    var diagData=window._diagData||null;
+    var pages=diagData&&diagData.sitemapAfter?diagData.sitemapAfter:[
+      {page:'トップページ',point:'ファーストビューで強みをアピール'},
+      {page:'当社の強み',point:'実績と信頼感を示すコンテンツ'},
+      {page:'サービス内容',point:'分かりやすいサービス一覧'},
+      {page:'お客様の声',point:'口コミで信頼性アップ'},
+      {page:'SNS・最新情報',point:'Instagram・LINE連携'},
+      {page:'お問い合わせ',point:'スマホから1タップで連絡'}
+    ];
 
-    var mockHtml = `<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${comp} | ご提案ホームページ</title>
-<script src="https://cdn.tailwindcss.com"><\/script>
-<script>
-  tailwind.config = { theme: { extend: { colors: { primary: '${themeColor}' } } } }
-<\/script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"><\/script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
-  body { font-family: 'Noto Sans JP', sans-serif; }
-  .hero-bg { background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${bgUrl}'); background-size: cover; background-position: center; }
-</style>
-</head>
-<body class="bg-gray-50">
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="#" class="font-black text-xl text-primary tracking-wider">${comp}</a>
-    </div>
-  </header>
-  <section class="hero-bg text-white py-32 px-4 text-center">
-    <h1 class="text-4xl font-black mb-6">${cp.catch}</h1>
-    <p class="text-lg opacity-90">${cp.sub}</p>
-  </section>
-  <script>AOS.init({ duration: 800, once: true });<\/script>
-</body>
-</html>`;
-    
-    html = mockHtml;
+    var nav=pages.map(function(p,i){return '<a href="#sp'+i+'" style="color:'+TC+';font-weight:700;font-size:14px;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:border-color 0.2s;" onmouseover="this.style.borderBottomColor=\''+TC+'\'" onmouseout="this.style.borderBottomColor=\'transparent\'">'+p.page+'</a>';}).join('');
+
+    var secs='';
+    pages.forEach(function(p,i){
+      if(i===0)return;
+      var pg=p.page,pt=p.point;
+      if(pg.indexOf('強み')>-1||pg.indexOf('特徴')>-1||pg.indexOf('選ばれる')>-1){
+        secs+='<section id="sp'+i+'" style="padding:80px 20px;background:#fff;"><div style="max-width:1000px;margin:0 auto;"><div style="text-align:center;margin-bottom:52px;"><p style="font-size:12px;letter-spacing:4px;color:'+TC+';font-weight:700;margin-bottom:10px;">WHY CHOOSE US</p><h2 style="font-size:clamp(26px,4vw,38px);font-weight:900;color:#111;margin-bottom:14px;">'+pg+'</h2><p style="font-size:15px;color:#666;">'+pt+'</p><div style="width:60px;height:4px;background:linear-gradient(90deg,'+TC+','+TS+');border-radius:2px;margin:18px auto 0;"></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;"><div style="background:'+TLT+';border-radius:20px;padding:32px 24px;border-left:5px solid '+TC+';"><div style="font-size:40px;margin-bottom:16px;">🏆</div><h3 style="font-size:18px;font-weight:800;color:#111;margin-bottom:10px;">確かな実績・技術力</h3><p style="font-size:14px;color:#555;line-height:1.8;">'+str.substring(0,60)+'…</p></div><div style="background:'+TLT+';border-radius:20px;padding:32px 24px;border-left:5px solid '+TS+';"><div style="font-size:40px;margin-bottom:16px;">❤️</div><h3 style="font-size:18px;font-weight:800;color:#111;margin-bottom:10px;">'+reg+'地域密着サービス</h3><p style="font-size:14px;color:#555;line-height:1.8;">地域のお客様のお困りごとに、いつでも迅速・丁寧に対応いたします。</p></div><div style="background:'+TLT+';border-radius:20px;padding:32px 24px;border-left:5px solid #10b981;"><div style="font-size:40px;margin-bottom:16px;">🛡️</div><h3 style="font-size:18px;font-weight:800;color:#111;margin-bottom:10px;">安心のアフターサポート</h3><p style="font-size:14px;color:#555;line-height:1.8;">サービス提供後も継続的にサポート。長期的なお付き合いを大切にしています。</p></div></div></div></section>';
+      }else if(pg.indexOf('サービス')>-1||pg.indexOf('メニュー')>-1||pg.indexOf('料金')>-1){
+        var svcCards=services.map(function(s,si){var em=['⭐','✅','💎','⚡','👑'];return '<div style="background:#fff;border-radius:16px;padding:26px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.08);border-top:4px solid '+(si%2===0?TC:TS)+';"><div style="font-size:32px;margin-bottom:12px;">'+em[si%5]+'</div><h3 style="font-size:17px;font-weight:800;color:#111;margin-bottom:8px;">'+s+'</h3><p style="font-size:13px;color:#777;line-height:1.7;">お客様のご要望に合わせた最適なプランをご提案いたします。</p></div>';}).join('');
+        secs+='<section id="sp'+i+'" style="padding:80px 20px;background:'+TLT+';"><div style="max-width:1000px;margin:0 auto;"><div style="text-align:center;margin-bottom:52px;"><p style="font-size:12px;letter-spacing:4px;color:'+TC+';font-weight:700;margin-bottom:10px;">OUR SERVICES</p><h2 style="font-size:clamp(26px,4vw,38px);font-weight:900;color:#111;margin-bottom:14px;">'+pg+'</h2><p style="font-size:15px;color:#666;">'+pt+'</p><div style="width:60px;height:4px;background:linear-gradient(90deg,'+TC+','+TS+');border-radius:2px;margin:18px auto 0;"></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;">'+svcCards+'</div></div></section>';
+      }else if(pg.indexOf('声')>-1||pg.indexOf('口コミ')>-1||pg.indexOf('実績')>-1||pg.indexOf('事例')>-1){
+        var vCards=voices.map(function(v){return '<div style="background:#fff;border-radius:20px;padding:28px;box-shadow:0 8px 28px rgba(0,0,0,0.08);border-top:4px solid '+TC+';"><div style="font-size:48px;color:'+TLT+';line-height:0.8;margin-bottom:12px;font-family:Georgia,serif;">"</div><p style="font-size:15px;color:#333;line-height:1.9;margin-bottom:20px;">'+v.t+'</p><div style="height:1px;background:linear-gradient(90deg,'+TC+',transparent);margin-bottom:18px;"></div><div style="display:flex;align-items:center;gap:14px;"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,'+TC+','+TS+');display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:17px;">'+v.n.charAt(0)+'</div><div><div style="font-weight:800;font-size:15px;color:#111;">'+v.n+'</div><div style="font-size:12px;color:#999;">'+v.r+'</div><div style="color:#f59e0b;font-size:13px;margin-top:2px;">★★★★★</div></div></div></div>';}).join('');
+        secs+='<section id="sp'+i+'" style="padding:80px 20px;background:#fff;"><div style="max-width:1000px;margin:0 auto;"><div style="text-align:center;margin-bottom:52px;"><p style="font-size:12px;letter-spacing:4px;color:'+TC+';font-weight:700;margin-bottom:10px;">CUSTOMER VOICE</p><h2 style="font-size:clamp(26px,4vw,38px);font-weight:900;color:#111;margin-bottom:14px;">'+pg+'</h2><p style="font-size:15px;color:#666;">'+pt+'</p><div style="width:60px;height:4px;background:linear-gradient(90deg,'+TC+','+TS+');border-radius:2px;margin:18px auto 0;"></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">'+vCards+'</div></div></section>';
+      }else if(pg.indexOf('SNS')>-1||pg.indexOf('情報')>-1||pg.indexOf('Instagram')>-1||pg.indexOf('LINE')>-1){
+        secs+='<section id="sp'+i+'" style="padding:80px 20px;background:linear-gradient(135deg,'+TDK+','+TC+');"><div style="max-width:760px;margin:0 auto;text-align:center;"><p style="font-size:12px;letter-spacing:4px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:10px;">FOLLOW US</p><h2 style="font-size:clamp(24px,4vw,36px);font-weight:900;color:#fff;margin-bottom:14px;">'+pg+'</h2><p style="font-size:15px;color:rgba(255,255,255,0.8);margin-bottom:36px;">'+pt+'</p><div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;"><a href="#" style="display:flex;align-items:center;gap:10px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:14px 26px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;">📷 Instagram</a><a href="#" style="display:flex;align-items:center;gap:10px;background:#06c755;color:#fff;padding:14px 26px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;">💬 LINE公式</a><a href="#" style="display:flex;align-items:center;gap:10px;background:#1877f2;color:#fff;padding:14px 26px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;">👍 Facebook</a><a href="#" style="display:flex;align-items:center;gap:10px;background:#000;color:#fff;padding:14px 26px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;">𝕏 X（Twitter）</a></div></div></section>';
+      }else if(pg.indexOf('問い合わせ')>-1||pg.indexOf('相談')>-1||pg.indexOf('予約')>-1){
+        secs+='<section id="sp'+i+'" id="contact" style="padding:80px 20px;background:'+TLT+';"><div style="max-width:760px;margin:0 auto;"><div style="text-align:center;margin-bottom:44px;"><p style="font-size:12px;letter-spacing:4px;color:'+TC+';font-weight:700;margin-bottom:10px;">CONTACT</p><h2 style="font-size:clamp(26px,4vw,38px);font-weight:900;color:#111;margin-bottom:14px;">'+pg+'</h2><p style="font-size:15px;color:#666;">'+pt+'</p><div style="width:60px;height:4px;background:linear-gradient(90deg,'+TC+','+TS+');border-radius:2px;margin:18px auto 0;"></div></div><div style="background:#fff;border-radius:22px;padding:36px;box-shadow:0 8px 36px rgba(0,0,0,0.08);"><div style="display:flex;flex-direction:column;gap:18px;"><div><label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:7px;">お名前 <span style="color:'+TC+';font-size:11px;">必須</span></label><input type="text" placeholder="山田 太郎" style="width:100%;padding:13px 15px;border:2px solid #e5e7eb;border-radius:11px;font-size:15px;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor=\''+TC+'\'" onblur="this.style.borderColor=\'#e5e7eb\'"></div><div><label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:7px;">メールアドレス <span style="color:'+TC+';font-size:11px;">必須</span></label><input type="email" placeholder="example@email.com" style="width:100%;padding:13px 15px;border:2px solid #e5e7eb;border-radius:11px;font-size:15px;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor=\''+TC+'\'" onblur="this.style.borderColor=\'#e5e7eb\'"></div><div><label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:7px;">お電話番号</label><input type="tel" placeholder="000-0000-0000" style="width:100%;padding:13px 15px;border:2px solid #e5e7eb;border-radius:11px;font-size:15px;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor=\''+TC+'\'" onblur="this.style.borderColor=\'#e5e7eb\'"></div><div><label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:7px;">お問い合わせ内容 <span style="color:'+TC+';font-size:11px;">必須</span></label><textarea placeholder="お問い合わせ内容をご記入ください…" rows="5" style="width:100%;padding:13px 15px;border:2px solid #e5e7eb;border-radius:11px;font-size:15px;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor=\''+TC+'\'" onblur="this.style.borderColor=\'#e5e7eb\'"></textarea></div><button onclick="alert(\'デモ版のため送信できません\')" style="width:100%;padding:17px;background:linear-gradient(135deg,'+TC+','+TS+');border:none;border-radius:13px;color:#fff;font-size:17px;font-weight:800;cursor:pointer;letter-spacing:1px;">送信する →</button></div></div></div></section>';
+      }else{
+        secs+='<section id="sp'+i+'" style="padding:80px 20px;background:'+(i%2===0?'#fff':TLT)+';"><div style="max-width:900px;margin:0 auto;text-align:center;"><p style="font-size:12px;letter-spacing:4px;color:'+TC+';font-weight:700;margin-bottom:10px;">INFO</p><h2 style="font-size:clamp(26px,4vw,38px);font-weight:900;color:#111;margin-bottom:14px;">'+pg+'</h2><p style="font-size:15px;color:#666;max-width:580px;margin:0 auto;">'+pt+'</p><div style="width:60px;height:4px;background:linear-gradient(90deg,'+TC+','+TS+');border-radius:2px;margin:18px auto 0;"></div><div style="background:#fff;border-radius:18px;padding:36px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-top:36px;"><p style="font-size:16px;color:#555;line-height:1.9;">'+comp+'の'+pg+'についての詳細情報をご確認いただけます。ご不明な点はお気軽にお問い合わせください。</p><a href="#" onclick="return false;" style="display:inline-block;margin-top:22px;padding:13px 34px;background:'+TC+';color:#fff;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;">詳しく見る</a></div></div></section>';
+      }
+    });
+
+    var stats='<section style="padding:56px 20px;background:linear-gradient(135deg,'+TDK+','+TC+');"><div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:28px;text-align:center;"><div><div style="font-size:48px;font-weight:900;color:#fff;line-height:1;">98<span style="font-size:24px;">%</span></div><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:6px;">お客様満足度</div></div><div><div style="font-size:48px;font-weight:900;color:#fff;line-height:1;">500<span style="font-size:24px;">+</span></div><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:6px;">累計対応件数</div></div><div><div style="font-size:48px;font-weight:900;color:#fff;line-height:1;">15<span style="font-size:24px;">年</span></div><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:6px;">の実績</div></div><div><div style="font-size:48px;font-weight:900;color:#fff;line-height:1;">24<span style="font-size:24px;">h</span></div><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:6px;">受付対応</div></div></div></section>';
+
+    var fnav=pages.map(function(p,i){return '<div style="margin-bottom:9px;"><a href="#sp'+i+'" style="color:#ccc;text-decoration:none;font-size:14px;" onmouseover="this.style.color=\''+TS+'\'" onmouseout="this.style.color=\'#ccc\'">'+p.page+'</a></div>';}).join('');
+
+    var mockHtml='<!DOCTYPE html>\n<html lang="ja">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>'+comp+' | '+reg+'の'+ind+'</title>\n<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">\n<style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:\'Helvetica Neue\',\'Noto Sans JP\',Arial,sans-serif;color:#111;background:#fff;}html{scroll-behavior:smooth;}@media(max-width:768px){nav{display:none!important;}.hbtns{flex-direction:column!important;}}</style>\n</head>\n<body>'
+      +'<header style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid #f0f0f0;padding:0 20px;"><div style="max-width:1100px;margin:0 auto;height:66px;display:flex;align-items:center;justify-content:space-between;"><a href="#" style="font-size:20px;font-weight:900;color:'+TC+';text-decoration:none;">'+comp+'</a><nav style="display:flex;gap:24px;">'+nav+'</nav><a href="#contact" style="background:linear-gradient(135deg,'+TC+','+TS+');color:#fff;padding:10px 22px;border-radius:100px;font-weight:700;font-size:14px;text-decoration:none;">お問い合わせ</a></div></header>'
+      +'<section id="sp0" style="min-height:88vh;background:linear-gradient(135deg,'+TDK+' 0%,'+TC+' 60%,'+TS+' 100%);display:flex;align-items:center;padding:60px 20px;position:relative;overflow:hidden;"><div style="position:absolute;top:-80px;right:-80px;width:440px;height:440px;border-radius:50%;background:rgba(255,255,255,0.05);"></div><div style="position:absolute;bottom:-60px;left:-60px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,0.04);"></div><div style="max-width:880px;margin:0 auto;position:relative;z-index:1;"><div style="display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:6px 20px;font-size:13px;color:rgba(255,255,255,0.9);font-weight:700;letter-spacing:2px;margin-bottom:26px;">'+reg+' の '+ind+'</div><h1 style="font-size:clamp(30px,5vw,58px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:22px;">'+cp.catch+'</h1><p style="font-size:clamp(15px,2vw,19px);color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:36px;max-width:580px;">'+cp.sub+'</p><div class="hbtns" style="display:flex;gap:14px;flex-wrap:wrap;"><a href="#contact" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:'+TC+';padding:17px 34px;border-radius:100px;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 8px 28px rgba(0,0,0,0.2);">📧 まずは無料相談</a><a href="#sp1" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);color:#fff;padding:17px 34px;border-radius:100px;font-weight:700;font-size:16px;text-decoration:none;">▼ サービスを見る</a></div></div></section>'
+      +stats+secs
+      +'<footer style="background:#111;color:#fff;padding:56px 20px 28px;"><div style="max-width:980px;margin:0 auto;"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px;margin-bottom:44px;"><div><div style="font-size:20px;font-weight:900;color:'+TS+';margin-bottom:14px;">'+comp+'</div><p style="font-size:13px;color:#999;line-height:1.8;">'+reg+'を中心に、地域のお客様に寄り添ったサービスを提供しています。</p></div><div><div style="font-size:12px;font-weight:700;letter-spacing:2px;color:#666;margin-bottom:14px;">MENU</div>'+fnav+'</div><div><div style="font-size:12px;font-weight:700;letter-spacing:2px;color:#666;margin-bottom:14px;">CONTACT</div><div style="font-size:13px;color:#ccc;line-height:2;"><div>📍 '+reg+'</div><div>🕐 営業時間：9:00〜18:00</div><div>📅 定休日：日曜・祝日</div></div></div></div><div style="border-top:1px solid #333;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;"><div style="font-size:12px;color:#666;">© 2025 '+comp+'. All rights reserved.</div><div style="font-size:11px;color:#555;font-style:italic;">Powered by Smartpage-i | 監修：前田経営研究所</div></div></div></footer>'
+      +'</body></html>';
+
+    html=mockHtml;
+    window._diagData=window._diagData||null;
     window.H('s_hl');window.S('s_bu');window.fireworks();
     setTimeout(function(){
       window.S('s_pv');window.GO('s_pv');
       window.initHearing(pages,TC,TS,TA);
-    }, 1800);
-  }, 3200);
+    },1800);
+  },3200);
 }
 
 /* ===== ヒアリングシート ===== */
@@ -931,17 +947,14 @@ window.sendHsMail = function(){
 
 window.openPrev = function() {
   if(!html){window.toast('⚠️ まずホームページを生成してください');return;}
-  // Blob URL方式でポップアップブロックを回避
-  var blob = new Blob([html], {type:'text/html'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
+  var blob=new Blob([html],{type:'text/html'});
+  var u=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=u;a.download='smartpage-preview.html';
+  document.body.appendChild(a);a.click();
   document.body.removeChild(a);
-  setTimeout(function(){URL.revokeObjectURL(url);}, 3000);
+  setTimeout(function(){URL.revokeObjectURL(u);},3000);
+  window.toast('💾 ダウンロードしました！ブラウザで開いてご確認ください');
 }
 
 window.dlHP = function(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
