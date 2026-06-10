@@ -124,6 +124,16 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .ie{font-size:12px;color:var(--gold);margin-top:4px;}
 .divider{height:1px;background:rgba(255,255,255,0.08);margin:24px 0;}
 
+/* プレビューモーダル */
+.pv-modal{position:fixed;inset:0;z-index:9999;background:#000;display:none;flex-direction:column;}
+.pv-modal.open{display:flex;}
+.pv-bar{height:50px;background:#1a1a2e;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;}
+.pv-dot{width:12px;height:12px;border-radius:50%;}
+.pv-title{font-size:13px;color:rgba(255,255,255,0.5);flex:1;text-align:center;}
+.pv-close{padding:7px 18px;background:rgba(224,85,85,0.2);border:1px solid rgba(224,85,85,0.5);border-radius:100px;color:#e05555;font-size:13px;font-weight:700;cursor:pointer;}
+.pv-close:hover{background:rgba(224,85,85,0.4);}
+.pv-frame{flex:1;border:none;width:100%;background:#fff;}
+
 .cpcard{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 24px;margin-bottom:14px;cursor:pointer;transition:all 0.25s;}
 .cpcard:hover{border-color:var(--a1);background:rgba(1,121,232,0.08);transform:translateY(-2px);}
 .cpcard.on{border-color:var(--a1);background:rgba(1,121,232,0.15);box-shadow:0 0 0 3px rgba(1,121,232,0.2);}
@@ -235,6 +245,18 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 </head>
 <body>
 <div class="fwc" id="fwc"></div>
+
+<!-- 全画面プレビューモーダル -->
+<div class="pv-modal" id="pvModal">
+  <div class="pv-bar">
+    <div class="pv-dot" style="background:#e05555;"></div>
+    <div class="pv-dot" style="background:#D0A900;"></div>
+    <div class="pv-dot" style="background:#22c55e;"></div>
+    <div class="pv-title" id="pvTitle">プレビュー</div>
+    <button class="pv-close" id="pvClose">✕ 閉じる</button>
+  </div>
+  <iframe class="pv-frame" id="pvFrame"></iframe>
+</div>
 
 <div class="top-header">
   <span class="hlogo" id="logoBtn">Smartpage-i</span>
@@ -428,11 +450,11 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     <div class="prevdot" style="background:#22c55e;"></div>
     <span style="font-size:12px;color:rgba(255,255,255,0.4);margin-left:8px;">プレビュー</span>
   </div>
-  <div style="width:100%;min-height:180px;background:#1a1a2e;border-radius:0 0 14px 14px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:32px;">
-    <div style="font-size:48px;">✨</div>
-    <div style="font-size:16px;font-weight:700;color:#fff;">ホームページが完成しました！</div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;line-height:1.7;">別タブが自動で開きます。<br>開かない場合は下の「別タブで開く」ボタンを押してください。</div>
-    <button id="b_open_prev" style="padding:12px 28px;background:linear-gradient(135deg,var(--a1),var(--a2));border:none;border-radius:100px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;">🚀 別タブで開く</button>
+  <div style="background:rgba(1,121,232,0.1);border:1px solid rgba(1,121,232,0.3);border-radius:16px;padding:24px;text-align:center;">
+    <div style="font-size:40px;margin-bottom:12px;">🌐</div>
+    <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">ホームページが完成しました！</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;">下のボタンでプレビューを確認してください</div>
+    <button id="b_open_prev" style="padding:14px 36px;background:linear-gradient(135deg,var(--a1),var(--a2));border:none;border-radius:100px;color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(1,121,232,0.4);">🚀 プレビューを全画面で見る</button>
   </div>
   
   <!-- ヒアリングシート -->
@@ -791,8 +813,6 @@ window.genHP = function(){
     setTimeout(function(){
       window.S('s_pv');window.GO('s_pv');
       window.initHearing(pages,TC,TS,TA);
-      // 完成後に自動で別タブを開く
-      window.openPrev();
     },1800);
   },3200);
 }
@@ -946,11 +966,20 @@ window.sendHsMail = function(){
 
 window.openPrev = function() {
   if(!html){window.toast('⚠️ まずホームページを生成してください');return;}
-  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  window.open(url,'_blank');
-  setTimeout(function(){URL.revokeObjectURL(url);},10000);
+  var modal=document.getElementById('pvModal');
+  var frame=document.getElementById('pvFrame');
+  var comp=document.getElementById('com').value||'御社';
+  document.getElementById('pvTitle').textContent=comp+' | プレビュー';
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+  var doc=frame.contentDocument||frame.contentWindow.document;
+  doc.open();doc.write(html);doc.close();
 }
+
+document.getElementById('pvClose').addEventListener('click',function(){
+  document.getElementById('pvModal').classList.remove('open');
+  document.body.style.overflow='';
+});
 
 window.dlHP = function(){if(!html)return;var b=new Blob([html],{type:'text/html'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='smartpage-proposal.html';a.click();URL.revokeObjectURL(u);}
 
