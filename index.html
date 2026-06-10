@@ -176,6 +176,38 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 .prevdot{width:10px;height:10px;border-radius:50%;}
 
 .prevframe{width:100%;background:#f8f9fa;border-radius:0 0 14px 14px;padding:40px 20px;}
+
+/* STEP4 カスタマイズパネル */
+.s4wrap{background:rgba(1,121,232,0.05);border:1px solid rgba(1,121,232,0.2);border-radius:20px;padding:28px;margin-top:24px;}
+.s4title{font-size:11px;font-weight:700;color:var(--a1);letter-spacing:3px;margin-bottom:6px;}
+.s4head{font-size:20px;font-weight:800;margin-bottom:4px;}
+.s4sub{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:24px;}
+.s4block{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;margin-bottom:16px;}
+.s4blk-title{font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.color-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.color-label{font-size:13px;color:rgba(255,255,255,0.6);width:100px;flex-shrink:0;}
+.color-picker{width:44px;height:44px;border-radius:10px;border:2px solid rgba(255,255,255,0.15);cursor:pointer;padding:2px;background:none;}
+.color-code{flex:1;padding:10px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:13px;font-family:monospace;outline:none;}
+.color-code:focus{border-color:var(--a1);}
+.page-row{border:1px solid rgba(255,255,255,0.08);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.page-row-hdr{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;background:rgba(255,255,255,0.04);transition:background 0.2s;}
+.page-row-hdr:hover{background:rgba(255,255,255,0.08);}
+.page-chk{width:18px;height:18px;accent-color:var(--a1);cursor:pointer;flex-shrink:0;}
+.page-name{font-size:14px;font-weight:700;color:#fff;flex:1;}
+.page-toggle{font-size:11px;color:rgba(255,255,255,0.3);}
+.page-fields{padding:14px 16px 16px;border-top:1px solid rgba(255,255,255,0.08);display:none;}
+.page-fields.open{display:block;}
+.pf-label{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:6px;margin-top:10px;}
+.pf-label:first-child{margin-top:0;}
+.pf-inp{width:100%;padding:10px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;}
+.pf-inp:focus{border-color:var(--a1);}
+textarea.pf-inp{resize:vertical;min-height:70px;line-height:1.7;}
+.font-btns{display:flex;gap:8px;}
+.font-btn{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);font-size:13px;cursor:pointer;transition:all 0.2s;text-align:center;}
+.font-btn.on{background:var(--a1);border-color:var(--a1);color:#fff;font-weight:700;}
+.s5wrap{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;margin-top:8px;}
+.s5title{font-size:11px;font-weight:700;color:var(--a1);letter-spacing:3px;margin-bottom:8px;}
+.s5head{font-size:18px;font-weight:700;margin-bottom:16px;}
 .p-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 .p-icon{font-size:48px;margin-bottom:16px;}
 .p-title{font-size:20px;font-weight:800;color:#333;margin-bottom:12px;}
@@ -264,7 +296,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 <div class="wrap">
 
 <div class="card" id="s1">
-  <div class="clb2">STEP 01｜基本情報の入力 〜 AI診断</div>
+  <div class="clb2">STEP 01</div>
   <div class="ctit">業種と基本情報を入力してください 🏢</div>
   <div class="fg"><div class="fl">業種</div>
     <div class="chips" id="indC">
@@ -316,7 +348,7 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 </div>
 
 <div class="card H" id="s2">
-  <div class="clb2">STEP 02｜キャッチコピーライター</div>
+  <div class="clb2">STEP 02</div>
   <div class="ctit">強み・想いからキャッチコピーを作ります ✍️</div>
   <div class="fg"><div class="fl">経営者の強み・こだわり・想い</div><textarea class="inp" id="str" placeholder="例：創業30年。地元の職人が一棟一棟丁寧に建てる。アフターフォローが自慢で20年後もお客様と繋がっている。"></textarea></div>
   <div class="fg"><div class="fl">一言アピール（任意）</div><input class="inp" id="app" type="text" placeholder="例：地域No.1の口コミ数、創業30年の実績"></div>
@@ -392,27 +424,70 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
     </div>
   </div>
   
-  <!-- STEP4：修正指示エリア -->
-  <div style="margin-top:24px;background:rgba(1,121,232,0.06);border:1px solid rgba(1,121,232,0.2);border-radius:16px;padding:24px;">
-    <div style="font-size:11px;font-weight:700;color:var(--a1);letter-spacing:3px;margin-bottom:8px;">STEP 04｜プレビュー確認・修正</div>
-    <div style="font-size:18px;font-weight:700;margin-bottom:8px;">✏️ 修正したい箇所を入力してください</div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;">例：「キャッチコピーをもっと力強くしてください」「色をグリーン系に変えてください」「お客様の声を3件に増やしてください」</div>
-    <textarea class="inp" id="fix_req" style="min-height:90px;" placeholder="ここに修正指示を入力してください…"></textarea>
-    <button class="btn-blue" id="b_fix" style="margin-top:16px;">🔄 この指示で再生成する</button>
+  <!-- STEP4 カスタマイズパネル -->
+  <div class="s4wrap">
+    <div class="s4title">STEP 04｜プレビュー確認・カスタマイズ</div>
+    <div class="s4head">✏️ ホームページをカスタマイズ</div>
+    <div class="s4sub">色・文字・ページ内容をその場で変更して再生成できます</div>
+
+    <!-- 🎨 カラー -->
+    <div class="s4block">
+      <div class="s4blk-title">🎨 カラーカスタマイズ</div>
+      <div class="color-row">
+        <span class="color-label">メインカラー</span>
+        <input type="color" class="color-picker" id="c_main" value="#1e40af">
+        <input type="text" class="color-code" id="ct_main" value="#1e40af" maxlength="7" placeholder="#1e40af">
+      </div>
+      <div class="color-row">
+        <span class="color-label">サブカラー</span>
+        <input type="color" class="color-picker" id="c_sub" value="#3b82f6">
+        <input type="text" class="color-code" id="ct_sub" value="#3b82f6" maxlength="7" placeholder="#3b82f6">
+      </div>
+      <div class="color-row">
+        <span class="color-label">アクセント</span>
+        <input type="color" class="color-picker" id="c_acc" value="#f59e0b">
+        <input type="text" class="color-code" id="ct_acc" value="#f59e0b" maxlength="7" placeholder="#f59e0b">
+      </div>
+    </div>
+
+    <!-- 🔤 フォント・社名 -->
+    <div class="s4block">
+      <div class="s4blk-title">🔤 表示設定</div>
+      <div class="pf-label">ヘッダー社名・店舗名</div>
+      <input type="text" class="pf-inp" id="c_compname" placeholder="会社名・店舗名">
+      <div class="pf-label" style="margin-top:14px;">文字サイズ</div>
+      <div class="font-btns">
+        <div class="font-btn on" id="fs_normal">標準</div>
+        <div class="font-btn" id="fs_large">大きめ（高齢者向け）</div>
+      </div>
+    </div>
+
+    <!-- 📄 ページ内容 -->
+    <div class="s4block">
+      <div class="s4blk-title">📄 ページ内容の修正</div>
+      <div id="pageEditors">
+        <!-- JSで動的生成 -->
+      </div>
+    </div>
+
+    <button class="btn-gold" id="b_reGen" style="width:100%;margin-top:8px;">🔄 この内容で再生成する</button>
   </div>
 
-  <div class="H" id="s_fixload" style="text-align:center;padding:32px;margin-top:16px;">
+  <!-- 再生成ローディング -->
+  <div class="H" id="s_reLoad" style="text-align:center;padding:32px;margin-top:16px;">
     <div class="radar sm"><div class="rc"></div><div class="rsw"></div><div class="rdot"></div></div>
-    <div class="lt sm">修正中です…</div>
-    <div class="ls">AIが修正を反映しています</div>
+    <div class="lt sm">カスタマイズを反映中…</div>
+    <div class="ls">AIが修正内容を適用しています</div>
   </div>
 
-  <!-- STEP5：ディレクションへ -->
-  <div style="height:1px;background:rgba(255,255,255,0.08);margin:24px 0;"></div>
-  <div style="font-size:11px;font-weight:700;color:var(--a1);letter-spacing:3px;margin-bottom:12px;">STEP 05｜8割完成HPをディレクションへ</div>
-  <button class="btn-blue" id="b_dl" style="margin-top:0;">💾 HTMLをダウンロード</button>
-  <button class="btn-green" id="b_mail">📧 ディレクション担当者にメールで送る</button>
-  <button class="btn-ghost" id="b_rst">🔄 最初からやり直す</button>
+  <!-- STEP5 -->
+  <div class="s5wrap">
+    <div class="s5title">STEP 05｜8割完成HPをディレクションへ</div>
+    <div class="s5head">📤 完成データを送る</div>
+    <button class="btn-blue" id="b_dl" style="margin-top:0;">💾 HTMLをダウンロード</button>
+    <button class="btn-green" id="b_mail">📧 ディレクション担当者にメールで送る</button>
+    <button class="btn-ghost" id="b_rst">🔄 最初からやり直す</button>
+  </div>
 </div>
 
 </div>
@@ -534,7 +609,6 @@ window.startDiag = function(){
       ]
     };
     
-    window._diagData = data;
     document.getElementById('r_sc').textContent=data.score;document.getElementById('r_su').textContent=data.summary;
     var bf='';(data.sitemapBefore||[]).forEach(function(x){bf+='<div class="smitem"><div class="pn">📄 '+x.page+'</div><div class="pno">⚠️ '+x.issue+'</div></div>';});document.getElementById('r_bf').innerHTML=bf;
     var af='';(data.sitemapAfter||[]).forEach(function(x){af+='<div class="smitem"><div class="pn">✅ '+x.page+'</div><div class="pno">💡 '+x.point+'</div></div>';});document.getElementById('r_af').innerHTML=af;
@@ -593,372 +667,280 @@ window.genHP = function(){
   pb.style.animation='none';
   void pb.offsetWidth;
   pb.style.animation='prog 3s linear forwards';
-
+  
   setTimeout(function() {
-    var comp  = document.getElementById('com').value  || '御社';
-    var reg   = document.getElementById('reg').value  || '地域';
-    var str   = document.getElementById('str').value  || 'お客様一人ひとりに寄り添ったサービスを提供いたします。';
-
-    /* ── 業種別テーマ ── */
-    var theme = {
-      color:'#1e40af', dark:'#1e3a8a', light:'#eff6ff', accent:'#3b82f6',
-      bg:'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80',
-      icon:'fa-briefcase',
-      services:['ご相談・お問い合わせ','現地調査・ヒアリング','ご提案・お見積り','サービス提供','アフターサポート'],
-      voices:[
-        {name:'田中 様',role:'個人のお客様',star:5,text:'丁寧な対応と高い技術力に大変満足しています。また相談させていただきたいと思います。'},
-        {name:'鈴木 様',role:'法人のお客様',star:5,text:'スピーディな対応で助かりました。プロの仕事ぶりに感動しました。'},
-        {name:'山田 様',role:'リピートのお客様',star:5,text:'何度もお世話になっています。いつも期待以上の結果を出してくださいます。'}
-      ]
-    };
-    if(ind==='美容・サロン'){
-      theme={color:'#9d174d',dark:'#831843',light:'#fdf2f8',accent:'#ec4899',
-        bg:'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80',
-        icon:'fa-scissors',
-        services:['カット','カラー','パーマ','トリートメント','ヘッドスパ'],
-        voices:[
-          {name:'A.S 様',role:'30代 女性',star:5,text:'丁寧なカウンセリングで理想のスタイルに仕上げていただきました。また来ます！'},
-          {name:'M.T 様',role:'40代 女性',star:5,text:'いつも落ち着いた雰囲気でリラックスできます。スタッフの皆さんも優しくて大好きです。'},
-          {name:'K.N 様',role:'20代 女性',star:5,text:'仕上がりに毎回感動しています。友人にも紹介したいと思います。'}
-        ]};
-    } else if(ind==='飲食業'){
-      theme={color:'#9a3412',dark:'#7c2d12',light:'#fff7ed',accent:'#f97316',
-        bg:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80',
-        icon:'fa-utensils',
-        services:['ランチコース','ディナーコース','テイクアウト','宴会・コース料理','ケータリング'],
-        voices:[
-          {name:'佐藤 様',role:'ご家族でご来店',star:5,text:'食材の質の高さと丁寧な調理に感動しました。家族全員大満足です。'},
-          {name:'高橋 様',role:'接待でご利用',star:5,text:'大切なお客様との接待に利用しました。料理も雰囲気も最高でした。'},
-          {name:'伊藤 様',role:'常連のお客様',star:5,text:'毎月来ています。季節ごとのメニューが楽しみで仕方ありません。'}
-        ]};
-    } else if(ind==='医療・歯科'){
-      theme={color:'#065f46',dark:'#064e3b',light:'#ecfdf5',accent:'#10b981',
-        bg:'https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?auto=format&fit=crop&w=1600&q=80',
-        icon:'fa-tooth',
-        services:['一般歯科','小児歯科','矯正歯科','インプラント','ホワイトニング'],
-        voices:[
-          {name:'W.K 様',role:'40代 男性',star:5,text:'痛みへの配慮が細やかで安心して治療を受けられました。'},
-          {name:'Y.S 様',role:'お子様連れの母',star:5,text:'子どもが怖がらずに通えるよう工夫してくださり助かります。'},
-          {name:'T.M 様',role:'定期検診のお客様',star:5,text:'丁寧な説明のおかげで口腔ケアの大切さがよく分かりました。'}
-        ]};
-    } else if(ind==='建設・工務店'){
-      theme={color:'#1c1917',dark:'#0c0a09',light:'#fafaf9',accent:'#f59e0b',
-        bg:'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=80',
-        icon:'fa-hammer',
-        services:['新築工事','リフォーム','増改築','外構工事','アフターメンテナンス'],
-        voices:[
-          {name:'M.Y 様',role:'新築をご依頼',star:5,text:'細部まで丁寧に仕上げていただき、夢のマイホームが実現しました。'},
-          {name:'K.O 様',role:'リフォームをご依頼',star:5,text:'提案力が高く、予算内で想像以上の仕上がりになりました。'},
-          {name:'S.H 様',role:'外構工事をご依頼',star:5,text:'近所の方にも褒められる素敵な外観になりました。ありがとうございます。'}
-        ]};
-    } else if(ind==='不動産'){
-      theme={color:'#14532d',dark:'#052e16',light:'#f0fdf4',accent:'#22c55e',
-        bg:'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=80',
-        icon:'fa-building',
-        services:['売買仲介','賃貸仲介','物件管理','不動産相談','資産活用提案'],
-        voices:[
-          {name:'N.K 様',role:'マンション購入',star:5,text:'希望条件を丁寧にヒアリングしてもらい理想の物件に出会えました。'},
-          {name:'R.T 様',role:'賃貸契約',star:5,text:'初めての一人暮らしで不安でしたが親切に案内してもらいました。'},
-          {name:'H.A 様',role:'売却依頼',star:5,text:'スピーディに売却できて大変助かりました。また相談します。'}
-        ]};
-    } else if(ind==='税理士・会計'){
-      theme={color:'#1e3a5f',dark:'#152a47',light:'#eff6ff',accent:'#3b82f6',
-        bg:'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1600&q=80',
-        icon:'fa-calculator',
-        services:['記帳代行','決算申告','税務調査対応','経営コンサルティング','相続税対策'],
-        voices:[
-          {name:'株式会社〇〇 様',role:'中小企業 代表',star:5,text:'毎月の報告が丁寧で経営状況がよく把握できるようになりました。'},
-          {name:'個人事業主 B様',role:'フリーランス',star:5,text:'確定申告の不安がなくなりました。安心して本業に集中できています。'},
-          {name:'C会社 経理担当',role:'法人のお客様',star:5,text:'税務調査の際もしっかりサポートいただき助かりました。'}
-        ]};
+    var comp = document.getElementById('com').value || '御社';
+    var regValue = document.getElementById('reg').value || '地域';
+    var strValue = document.getElementById('str').value || 'お客様一人ひとりに寄り添ったサービスを提供いたします。';
+    
+    var themeColor = '#2563eb';
+    var bgUrl = 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1600'; 
+    var voiceImg1 = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&h=150&q=80';
+    var voiceImg2 = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&h=150&q=80';
+    
+    if (ind === '美容・サロン') {
+      themeColor = '#e11d48';
+      bgUrl = 'https://images.unsplash.com/photo-1521590832167-7bfc620c0849?auto=format&fit=crop&q=80&w=1600';
+      voiceImg1 = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80';
+    } else if (ind === '飲食業') {
+      themeColor = '#ea580c';
+      bgUrl = 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=1600';
+      voiceImg1 = 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&h=150&q=80';
+    } else if (ind === '医療・歯科') {
+      themeColor = '#0d9488';
+      bgUrl = 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=1600';
+    } else if (ind === '建設・工務店' || ind === '不動産') {
+      themeColor = '#334155';
+      bgUrl = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600';
     }
 
-    /* ── 診断で生成したsitemapAfterをページ構成として使用 ── */
-    var diagData = window._diagData || null;
-    var sitemapAfter = diagData && diagData.sitemapAfter ? diagData.sitemapAfter : [
-      {page:'トップページ',     point:'ファーストビューで独自の強みをアピール'},
-      {page:'当社の強み',       point:'実績と信頼感を示すコンテンツ'},
-      {page:'サービス内容',     point:'分かりやすいサービス一覧'},
-      {page:'お客様の声',       point:'実績・口コミで信頼性アップ'},
-      {page:'SNS・最新情報',   point:'Instagram・LINE連携'},
-      {page:'お問い合わせ',     point:'スマホから1タップで連絡'}
-    ];
-
-    /* ── ナビゲーション生成 ── */
-    var navItems = sitemapAfter.map(function(p,i){
-      return '<a href="#sec'+i+'" style="color:'+theme.color+';font-weight:700;font-size:14px;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:border-color 0.2s;" onmouseover="this.style.borderBottomColor=\''+theme.color+'\'" onmouseout="this.style.borderBottomColor=\'transparent\'">'+p.page+'</a>';
+    var selectedCons = cons.length > 0 ? cons : ['集客の方向性がわからない', '競合との差別化が難しい', '新規の問い合わせが少ない'];
+    var consHtml = selectedCons.map(function(c){
+      return `<li class="flex items-center gap-3 text-gray-700 font-bold mb-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100"><i class="fa-solid fa-circle-xmark text-red-400 text-xl"></i> ${c}</li>`;
     }).join('');
 
-    /* ── 各ページセクション生成 ── */
-    var sections = '';
-    sitemapAfter.forEach(function(p, i){
-      var pg = p.page;
-      var pt = p.point;
-
-      /* トップ・ヒーローは別途生成するのでスキップ */
-      if(i===0) return;
-
-      /* ── 強み セクション ── */
-      if(pg.indexOf('強み')>-1 || pg.indexOf('特徴')>-1 || pg.indexOf('選ばれる')>-1){
-        sections += `
-<section id="sec${i}" style="padding:80px 20px;background:#fff;">
-  <div style="max-width:1000px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:56px;">
-      <p style="font-size:12px;letter-spacing:4px;color:${theme.color};font-weight:700;margin-bottom:12px;">WHY CHOOSE US</p>
-      <h2 style="font-size:clamp(28px,4vw,40px);font-weight:900;color:#111;margin-bottom:16px;">${pg}</h2>
-      <p style="font-size:15px;color:#666;max-width:500px;margin:0 auto;">${pt}</p>
-      <div style="width:60px;height:4px;background:linear-gradient(90deg,${theme.color},${theme.accent});border-radius:2px;margin:20px auto 0;"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
-      <div style="background:${theme.light};border-radius:20px;padding:36px 28px;border-left:5px solid ${theme.color};">
-        <div style="width:56px;height:56px;border-radius:50%;background:${theme.color};display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-          <i class="fas fa-award" style="color:#fff;font-size:22px;"></i>
-        </div>
-        <h3 style="font-size:20px;font-weight:800;color:#111;margin-bottom:12px;">確かな実績・技術力</h3>
-        <p style="font-size:14px;color:#555;line-height:1.8;">${str.substring(0,60)}…</p>
-      </div>
-      <div style="background:${theme.light};border-radius:20px;padding:36px 28px;border-left:5px solid ${theme.accent};">
-        <div style="width:56px;height:56px;border-radius:50%;background:${theme.accent};display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-          <i class="fas fa-heart" style="color:#fff;font-size:22px;"></i>
-        </div>
-        <h3 style="font-size:20px;font-weight:800;color:#111;margin-bottom:12px;">${reg}地域密着のサービス</h3>
-        <p style="font-size:14px;color:#555;line-height:1.8;">地域のお客様のお困りごとに、いつでも迅速・丁寧に対応いたします。</p>
-      </div>
-      <div style="background:${theme.light};border-radius:20px;padding:36px 28px;border-left:5px solid #10b981;">
-        <div style="width:56px;height:56px;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-          <i class="fas fa-shield-halved" style="color:#fff;font-size:22px;"></i>
-        </div>
-        <h3 style="font-size:20px;font-weight:800;color:#111;margin-bottom:12px;">安心のアフターサポート</h3>
-        <p style="font-size:14px;color:#555;line-height:1.8;">サービス提供後も継続的にサポート。長期的なお付き合いを大切にしています。</p>
-      </div>
-    </div>
-  </div>
-</section>`;
-
-      /* ── サービス セクション ── */
-      } else if(pg.indexOf('サービス')>-1 || pg.indexOf('メニュー')>-1 || pg.indexOf('料金')>-1){
-        var svcHtml = theme.services.map(function(s,si){
-          var icons=['fa-star','fa-check-circle','fa-gem','fa-bolt','fa-crown'];
-          return `<div style="background:#fff;border-radius:16px;padding:28px 24px;box-shadow:0 4px 24px rgba(0,0,0,0.08);border-top:4px solid ${si%2===0?theme.color:theme.accent};transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-  <div style="width:44px;height:44px;border-radius:12px;background:${si%2===0?theme.color:theme.accent};display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
-    <i class="fas ${icons[si%5]}" style="color:#fff;font-size:18px;"></i>
-  </div>
-  <h3 style="font-size:18px;font-weight:800;color:#111;margin-bottom:8px;">${s}</h3>
-  <p style="font-size:13px;color:#777;line-height:1.7;">お客様のご要望に合わせた最適なプランをご提案いたします。</p>
-  <div style="margin-top:16px;"><a href="#contact" style="font-size:13px;color:${theme.color};font-weight:700;text-decoration:none;">詳しく見る →</a></div>
-</div>`;
-        }).join('');
-        sections += `
-<section id="sec${i}" style="padding:80px 20px;background:${theme.light};">
-  <div style="max-width:1000px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:56px;">
-      <p style="font-size:12px;letter-spacing:4px;color:${theme.color};font-weight:700;margin-bottom:12px;">OUR SERVICES</p>
-      <h2 style="font-size:clamp(28px,4vw,40px);font-weight:900;color:#111;margin-bottom:16px;">${pg}</h2>
-      <p style="font-size:15px;color:#666;">${pt}</p>
-      <div style="width:60px;height:4px;background:linear-gradient(90deg,${theme.color},${theme.accent});border-radius:2px;margin:20px auto 0;"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;">${svcHtml}</div>
-  </div>
-</section>`;
-
-      /* ── お客様の声 セクション ── */
-      } else if(pg.indexOf('声')>-1 || pg.indexOf('口コミ')>-1 || pg.indexOf('実績')>-1 || pg.indexOf('事例')>-1){
-        var voiceHtml = theme.voices.map(function(v){
-          var stars = '★★★★★'.substring(0,v.star);
-          return `<div style="background:#fff;border-radius:20px;padding:32px 28px;box-shadow:0 8px 32px rgba(0,0,0,0.08);position:relative;border-top:4px solid ${theme.color};">
-  <div style="font-size:64px;color:${theme.light};line-height:0.6;margin-bottom:16px;font-family:Georgia,serif;">"</div>
-  <p style="font-size:15px;color:#333;line-height:1.9;margin-bottom:24px;font-weight:500;">${v.text}</p>
-  <div style="height:1px;background:linear-gradient(90deg,${theme.color},transparent);margin-bottom:20px;"></div>
-  <div style="display:flex;align-items:center;gap:16px;">
-    <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,${theme.color},${theme.accent});display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:18px;">${v.name.charAt(0)}</div>
-    <div>
-      <div style="font-weight:800;font-size:16px;color:#111;">${v.name}</div>
-      <div style="font-size:12px;color:#999;">${v.role}</div>
-      <div style="color:#f59e0b;font-size:14px;margin-top:2px;">${stars}</div>
-    </div>
-  </div>
-</div>`;
-        }).join('');
-        sections += `
-<section id="sec${i}" style="padding:80px 20px;background:#fff;">
-  <div style="max-width:1000px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:56px;">
-      <p style="font-size:12px;letter-spacing:4px;color:${theme.color};font-weight:700;margin-bottom:12px;">CUSTOMER VOICE</p>
-      <h2 style="font-size:clamp(28px,4vw,40px);font-weight:900;color:#111;margin-bottom:16px;">${pg}</h2>
-      <p style="font-size:15px;color:#666;">${pt}</p>
-      <div style="width:60px;height:4px;background:linear-gradient(90deg,${theme.color},${theme.accent});border-radius:2px;margin:20px auto 0;"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;">${voiceHtml}</div>
-  </div>
-</section>`;
-
-      /* ── SNS セクション ── */
-      } else if(pg.indexOf('SNS')>-1 || pg.indexOf('Instagram')>-1 || pg.indexOf('LINE')>-1 || pg.indexOf('情報')>-1){
-        sections += `
-<section id="sec${i}" style="padding:80px 20px;background:linear-gradient(135deg,${theme.dark},${theme.color});">
-  <div style="max-width:800px;margin:0 auto;text-align:center;">
-    <p style="font-size:12px;letter-spacing:4px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:12px;">FOLLOW US</p>
-    <h2 style="font-size:clamp(24px,4vw,36px);font-weight:900;color:#fff;margin-bottom:16px;">${pg}</h2>
-    <p style="font-size:15px;color:rgba(255,255,255,0.8);margin-bottom:40px;">${pt}</p>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;">
-      <a href="#" style="display:flex;align-items:center;gap:10px;background:#000;color:#fff;padding:14px 28px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-x-twitter" style="font-size:18px;"></i> X（Twitter）</a>
-      <a href="#" style="display:flex;align-items:center;gap:10px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:14px 28px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-instagram" style="font-size:18px;"></i> Instagram</a>
-      <a href="#" style="display:flex;align-items:center;gap:10px;background:#1877f2;color:#fff;padding:14px 28px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-facebook" style="font-size:18px;"></i> Facebook</a>
-      <a href="#" style="display:flex;align-items:center;gap:10px;background:#06c755;color:#fff;padding:14px 28px;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><i class="fab fa-line" style="font-size:18px;"></i> LINE</a>
-    </div>
-  </div>
-</section>`;
-
-      /* ── お問い合わせ セクション ── */
-      } else if(pg.indexOf('問い合わせ')>-1 || pg.indexOf('相談')>-1 || pg.indexOf('予約')>-1 || pg.indexOf('連絡')>-1){
-        sections += `
-<section id="sec${i}" id="contact" style="padding:80px 20px;background:${theme.light};">
-  <div style="max-width:800px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:48px;">
-      <p style="font-size:12px;letter-spacing:4px;color:${theme.color};font-weight:700;margin-bottom:12px;">CONTACT</p>
-      <h2 style="font-size:clamp(28px,4vw,40px);font-weight:900;color:#111;margin-bottom:16px;">${pg}</h2>
-      <p style="font-size:15px;color:#666;">${pt}</p>
-      <div style="width:60px;height:4px;background:linear-gradient(90deg,${theme.color},${theme.accent});border-radius:2px;margin:20px auto 0;"></div>
-    </div>
-    <div style="background:#fff;border-radius:24px;padding:40px;box-shadow:0 8px 40px rgba(0,0,0,0.08);">
-      <div style="display:flex;flex-direction:column;gap:20px;">
-        <div>
-          <label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:8px;">お名前 <span style="color:${theme.color};font-size:11px;">必須</span></label>
-          <input type="text" placeholder="山田 太郎" style="width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:12px;font-size:15px;outline:none;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='${theme.color}'" onblur="this.style.borderColor='#e5e7eb'">
-        </div>
-        <div>
-          <label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:8px;">メールアドレス <span style="color:${theme.color};font-size:11px;">必須</span></label>
-          <input type="email" placeholder="example@email.com" style="width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:12px;font-size:15px;outline:none;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='${theme.color}'" onblur="this.style.borderColor='#e5e7eb'">
-        </div>
-        <div>
-          <label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:8px;">お電話番号</label>
-          <input type="tel" placeholder="000-0000-0000" style="width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:12px;font-size:15px;outline:none;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='${theme.color}'" onblur="this.style.borderColor='#e5e7eb'">
-        </div>
-        <div>
-          <label style="font-size:13px;font-weight:700;color:#333;display:block;margin-bottom:8px;">お問い合わせ内容 <span style="color:${theme.color};font-size:11px;">必須</span></label>
-          <textarea placeholder="お問い合わせ内容をご記入ください…" rows="5" style="width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:12px;font-size:15px;outline:none;resize:vertical;box-sizing:border-box;transition:border-color 0.2s;" onfocus="this.style.borderColor='${theme.color}'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
-        </div>
-        <button onclick="alert('デモ版のため送信できません')" style="width:100%;padding:18px;background:linear-gradient(135deg,${theme.color},${theme.accent});border:none;border-radius:14px;color:#fff;font-size:17px;font-weight:800;cursor:pointer;letter-spacing:1px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">送信する →</button>
-      </div>
-    </div>
-  </div>
-</section>`;
-
-      /* ── その他ページ（汎用） ── */
-      } else {
-        sections += `
-<section id="sec${i}" style="padding:80px 20px;background:${i%2===0?'#fff':theme.light};">
-  <div style="max-width:900px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:48px;">
-      <p style="font-size:12px;letter-spacing:4px;color:${theme.color};font-weight:700;margin-bottom:12px;">INFO</p>
-      <h2 style="font-size:clamp(28px,4vw,40px);font-weight:900;color:#111;margin-bottom:16px;">${pg}</h2>
-      <p style="font-size:15px;color:#666;max-width:600px;margin:0 auto;">${pt}</p>
-      <div style="width:60px;height:4px;background:linear-gradient(90deg,${theme.color},${theme.accent});border-radius:2px;margin:20px auto 0;"></div>
-    </div>
-    <div style="background:#fff;border-radius:20px;padding:40px;box-shadow:0 4px 24px rgba(0,0,0,0.06);text-align:center;">
-      <p style="font-size:16px;color:#555;line-height:1.9;">${comp}の${pg}についての詳細情報をご確認いただけます。<br>ご不明な点はお気軽にお問い合わせください。</p>
-      <a href="#" onclick="return false;" style="display:inline-block;margin-top:24px;padding:14px 36px;background:${theme.color};color:#fff;border-radius:100px;font-weight:700;font-size:15px;text-decoration:none;">詳しく見る</a>
-    </div>
-  </div>
-</section>`;
-      }
-    });
-
-    /* ── 数字実績バナー ── */
-    var statsBanner = `
-<section style="padding:60px 20px;background:linear-gradient(135deg,${theme.dark},${theme.color});">
-  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;text-align:center;">
-    <div><div style="font-size:52px;font-weight:900;color:#fff;line-height:1;">98<span style="font-size:28px;">%</span></div><div style="font-size:14px;color:rgba(255,255,255,0.7);margin-top:8px;">お客様満足度</div></div>
-    <div><div style="font-size:52px;font-weight:900;color:#fff;line-height:1;">500<span style="font-size:28px;">+</span></div><div style="font-size:14px;color:rgba(255,255,255,0.7);margin-top:8px;">累計対応件数</div></div>
-    <div><div style="font-size:52px;font-weight:900;color:#fff;line-height:1;">15<span style="font-size:28px;">年</span></div><div style="font-size:14px;color:rgba(255,255,255,0.7);margin-top:8px;">の実績</div></div>
-    <div><div style="font-size:52px;font-weight:900;color:#fff;line-height:1;">24<span style="font-size:28px;">h</span></div><div style="font-size:14px;color:rgba(255,255,255,0.7);margin-top:8px;">お問い合わせ受付</div></div>
-  </div>
-</section>`;
-
-    /* ── 完成HTML ── */
     var mockHtml = `<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${comp} | ${reg}の${ind}</title>
+<title>${comp} | ご提案ホームページ</title>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<script>
+  tailwind.config = { theme: { extend: { colors: { primary: '${themeColor}' } } } }
+<\/script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"><\/script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Helvetica Neue','Noto Sans JP',Arial,sans-serif;color:#111;background:#fff;}
-html{scroll-behavior:smooth;}
-@media(max-width:768px){
-  nav{display:none!important;}
-  .hero-btns{flex-direction:column!important;}
-}
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+  body { font-family: 'Noto Sans JP', sans-serif; }
+  .hero-bg { background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${bgUrl}'); background-size: cover; background-position: center; }
 </style>
 </head>
-<body>
-
-<!-- ヘッダー -->
-<header style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid #f0f0f0;padding:0 20px;">
-  <div style="max-width:1100px;margin:0 auto;height:68px;display:flex;align-items:center;justify-content:space-between;">
-    <a href="#" style="font-size:20px;font-weight:900;color:${theme.color};text-decoration:none;letter-spacing:-0.5px;">${comp}</a>
-    <nav style="display:flex;gap:28px;">${navItems}</nav>
-    <a href="#contact" style="background:linear-gradient(135deg,${theme.color},${theme.accent});color:#fff;padding:10px 24px;border-radius:100px;font-weight:700;font-size:14px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">お問い合わせ</a>
-  </div>
-</header>
-
-<!-- ヒーロー -->
-<section id="sec0" style="min-height:90vh;background:linear-gradient(135deg,${theme.dark} 0%,${theme.color} 60%,${theme.accent} 100%);display:flex;align-items:center;padding:60px 20px;position:relative;overflow:hidden;">
-  <div style="position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,0.05);"></div>
-  <div style="position:absolute;bottom:-80px;left:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);"></div>
-  <div style="max-width:900px;margin:0 auto;position:relative;z-index:1;">
-    <div style="display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:6px 20px;font-size:13px;color:rgba(255,255,255,0.9);font-weight:700;letter-spacing:2px;margin-bottom:28px;">${reg} の ${ind}</div>
-    <h1 style="font-size:clamp(32px,5vw,62px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:24px;letter-spacing:-1px;">${cp.catch}</h1>
-    <p style="font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:40px;max-width:600px;">${cp.sub}</p>
-    <div class="hero-btns" style="display:flex;gap:16px;flex-wrap:wrap;">
-      <a href="#contact" style="display:inline-flex;align-items:center;gap:10px;background:#fff;color:${theme.color};padding:18px 36px;border-radius:100px;font-weight:800;font-size:16px;text-decoration:none;transition:all 0.2s;box-shadow:0 8px 32px rgba(0,0,0,0.2);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'"><i class="fas fa-envelope"></i> まずは無料相談</a>
-      <a href="#sec1" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);color:#fff;padding:18px 36px;border-radius:100px;font-weight:700;font-size:16px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'"><i class="fas fa-arrow-down"></i> サービスを見る</a>
+<body class="bg-gray-50">
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#" class="font-black text-xl text-primary tracking-wider">${comp}</a>
     </div>
-  </div>
-</section>
-
-${statsBanner}
-${sections}
-
-<!-- フッター -->
-<footer style="background:#111;color:#fff;padding:60px 20px 32px;">
-  <div style="max-width:1000px;margin:0 auto;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:48px;">
-      <div>
-        <div style="font-size:22px;font-weight:900;color:${theme.accent};margin-bottom:16px;">${comp}</div>
-        <p style="font-size:14px;color:#999;line-height:1.8;">${reg}を中心に、地域のお客様に寄り添ったサービスを提供しています。</p>
-      </div>
-      <div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:2px;color:#666;margin-bottom:16px;">MENU</div>
-        ${sitemapAfter.map(function(p,i){return '<div style="margin-bottom:10px;"><a href="#sec'+i+'" style="color:#ccc;text-decoration:none;font-size:14px;transition:color 0.2s;" onmouseover="this.style.color=\''+theme.accent+'\'" onmouseout="this.style.color=\'#ccc\'">'+p.page+'</a></div>';}).join('')}
-      </div>
-      <div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:2px;color:#666;margin-bottom:16px;">CONTACT</div>
-        <div style="font-size:14px;color:#ccc;line-height:2;">
-          <div><i class="fas fa-map-marker-alt" style="color:${theme.accent};width:20px;"></i> ${reg}</div>
-          <div style="margin-top:8px;"><i class="fas fa-clock" style="color:${theme.accent};width:20px;"></i> 営業時間：9:00〜18:00</div>
-          <div style="margin-top:8px;"><i class="fas fa-calendar-xmark" style="color:${theme.accent};width:20px;"></i> 定休日：日曜・祝日</div>
-        </div>
-      </div>
-    </div>
-    <div style="border-top:1px solid #333;padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-      <div style="font-size:13px;color:#666;">© 2025 ${comp}. All rights reserved.</div>
-      <div style="font-size:11px;color:#555;font-style:italic;">Powered by Smartpage-i | 監修：前田経営研究所</div>
-    </div>
-  </div>
-</footer>
-
+  </header>
+  <section class="hero-bg text-white py-32 px-4 text-center">
+    <h1 class="text-4xl font-black mb-6">${cp.catch}</h1>
+    <p class="text-lg opacity-90">${cp.sub}</p>
+  </section>
+  <script>AOS.init({ duration: 800, once: true });<\/script>
 </body>
 </html>`;
-
+    
     html = mockHtml;
+    // STEP4パネルにカラーとページ情報を初期化
+    document.getElementById('ct_main').value=themeColor;
+    document.getElementById('c_main').value=themeColor;
+    document.getElementById('ct_sub').value=themeColor;
+    document.getElementById('c_sub').value=themeColor;
+    document.getElementById('ct_acc').value='#f59e0b';
+    document.getElementById('c_acc').value='#f59e0b';
+    document.getElementById('c_compname').value=comp;
+    if(cp){document.getElementById('pf_catch')&&(document.getElementById('pf_catch').value=cp.catch);document.getElementById('pf_sub')&&(document.getElementById('pf_sub').value=cp.sub);}
+    window.buildPageEditors();
     window.H('s_hl');window.S('s_bu');window.fireworks();
     setTimeout(function(){
       window.S('s_pv');window.GO('s_pv');
     }, 1800);
   }, 3200);
+}
+
+/* ===== STEP4 カスタマイズパネル ===== */
+
+// カラーピッカー ↔ テキスト入力の同期
+function syncColor(pickerId, textId){
+  var picker=document.getElementById(pickerId);
+  var text=document.getElementById(textId);
+  picker.addEventListener('input',function(){text.value=picker.value;});
+  text.addEventListener('input',function(){
+    if(/^#[0-9a-fA-F]{6}$/.test(text.value))picker.value=text.value;
+  });
+}
+syncColor('c_main','ct_main');
+syncColor('c_sub','ct_sub');
+syncColor('c_acc','ct_acc');
+
+// フォントサイズ切替
+document.getElementById('fs_normal').addEventListener('click',function(){
+  document.getElementById('fs_normal').classList.add('on');
+  document.getElementById('fs_large').classList.remove('on');
+});
+document.getElementById('fs_large').addEventListener('click',function(){
+  document.getElementById('fs_large').classList.add('on');
+  document.getElementById('fs_normal').classList.remove('on');
+});
+
+// ページエディタを診断結果から動的生成
+window.buildPageEditors = function(){
+  var diagData=window._diagData||null;
+  var pages=diagData&&diagData.sitemapAfter?diagData.sitemapAfter:[
+    {page:'トップページ',point:'ファーストビュー'},
+    {page:'当社の強み',point:'実績と信頼感'},
+    {page:'サービス内容',point:'サービス一覧'},
+    {page:'お客様の声',point:'口コミ・実績'},
+    {page:'お問い合わせ',point:'連絡先'}
+  ];
+
+  var container=document.getElementById('pageEditors');
+  container.innerHTML='';
+
+  pages.forEach(function(p,i){
+    var pg=p.page;
+    var isTop=(i===0);
+
+    // 各ページの入力フィールドを決定
+    var fields='';
+    if(isTop){
+      fields=`
+<div class="pf-label">キャッチコピー（メイン）</div>
+<input type="text" class="pf-inp" id="pf_catch" placeholder="${cp?cp.catch:'キャッチコピーを入力'}">
+<div class="pf-label">サブコピー</div>
+<input type="text" class="pf-inp" id="pf_sub" placeholder="${cp?cp.sub:'サブコピーを入力'}">`;
+    } else if(pg.indexOf('強み')>-1||pg.indexOf('特徴')>-1||pg.indexOf('選ばれる')>-1){
+      fields=`
+<div class="pf-label">強み①</div><input type="text" class="pf-inp" id="pf_str1" placeholder="例：創業15年の実績と信頼">
+<div class="pf-label">強み②</div><input type="text" class="pf-inp" id="pf_str2" placeholder="例：地域密着のきめ細かなサポート">
+<div class="pf-label">強み③</div><input type="text" class="pf-inp" id="pf_str3" placeholder="例：安心のアフターサポート">`;
+    } else if(pg.indexOf('声')>-1||pg.indexOf('口コミ')>-1||pg.indexOf('実績')>-1){
+      fields=`
+<div class="pf-label">お客様の声①</div><textarea class="pf-inp" id="pf_v1" placeholder="例：丁寧な対応に感動しました。また利用したいと思います。"></textarea>
+<div class="pf-label">お客様の声②</div><textarea class="pf-inp" id="pf_v2" placeholder="例：期待以上の仕上がりで大満足です。"></textarea>
+<div class="pf-label">お客様の声③</div><textarea class="pf-inp" id="pf_v3" placeholder="例：プロの技術と温かい対応に感謝しています。"></textarea>`;
+    } else if(pg.indexOf('問い合わせ')>-1||pg.indexOf('相談')>-1||pg.indexOf('予約')>-1){
+      fields=`
+<div class="pf-label">電話番号</div><input type="text" class="pf-inp" id="pf_tel" placeholder="例：048-000-0000">
+<div class="pf-label">営業時間</div><input type="text" class="pf-inp" id="pf_hours" placeholder="例：9:00〜18:00">
+<div class="pf-label">定休日</div><input type="text" class="pf-inp" id="pf_holiday" placeholder="例：日曜・祝日">`;
+    } else {
+      fields=`
+<div class="pf-label">セクションの説明文</div>
+<textarea class="pf-inp" id="pf_sec_${i}" placeholder="${p.point}についての内容を入力してください"></textarea>`;
+    }
+
+    var row=document.createElement('div');
+    row.className='page-row';
+    row.innerHTML=`
+<div class="page-row-hdr" onclick="togglePage(${i})">
+  <input type="checkbox" class="page-chk" id="pchk_${i}" checked onclick="event.stopPropagation()">
+  <span class="page-name">${pg}</span>
+  <span class="page-toggle" id="ptgl_${i}">▼ 編集する</span>
+</div>
+<div class="page-fields" id="pfields_${i}">${fields}</div>`;
+    container.appendChild(row);
+  });
+}
+
+window.togglePage = function(i){
+  var f=document.getElementById('pfields_'+i);
+  var t=document.getElementById('ptgl_'+i);
+  if(f.classList.contains('open')){
+    f.classList.remove('open');t.textContent='▼ 編集する';
+  } else {
+    f.classList.add('open');t.textContent='▲ 閉じる';
+  }
+}
+
+// 再生成処理
+window.reGenHP = function(){
+  if(!html){alert('先にホームページを生成してください');return;}
+
+  // カスタマイズ値を収集
+  var cMain=document.getElementById('ct_main').value||'#1e40af';
+  var cSub=document.getElementById('ct_sub').value||'#3b82f6';
+  var cAcc=document.getElementById('ct_acc').value||'#f59e0b';
+  var compName=document.getElementById('c_compname').value||document.getElementById('com').value||'御社';
+  var fontSize=document.getElementById('fs_large').classList.contains('on')?'18px':'15px';
+
+  // ページ内容を収集
+  var catchTxt=document.getElementById('pf_catch')?document.getElementById('pf_catch').value:'';
+  var subTxt=document.getElementById('pf_sub')?document.getElementById('pf_sub').value:'';
+  var str1=document.getElementById('pf_str1')?document.getElementById('pf_str1').value:'';
+  var str2=document.getElementById('pf_str2')?document.getElementById('pf_str2').value:'';
+  var str3=document.getElementById('pf_str3')?document.getElementById('pf_str3').value:'';
+  var v1=document.getElementById('pf_v1')?document.getElementById('pf_v1').value:'';
+  var v2=document.getElementById('pf_v2')?document.getElementById('pf_v2').value:'';
+  var v3=document.getElementById('pf_v3')?document.getElementById('pf_v3').value:'';
+  var tel=document.getElementById('pf_tel')?document.getElementById('pf_tel').value:'';
+  var hours=document.getElementById('pf_hours')?document.getElementById('pf_hours').value:'';
+  var holiday=document.getElementById('pf_holiday')?document.getElementById('pf_holiday').value:'';
+
+  // 非表示ページを収集
+  var hiddenPages=[];
+  document.querySelectorAll('.page-chk').forEach(function(chk,i){
+    if(!chk.checked)hiddenPages.push(i);
+  });
+
+  window.H('s_pv');
+  window.S('s_reLoad');
+  window.GO('s_reLoad');
+
+  setTimeout(function(){
+    // HTMLにカスタマイズを反映
+    var newHtml=html;
+
+    // カラー置換
+    newHtml=newHtml.replace(/color:#1e40af/g,'color:'+cMain)
+                   .replace(/background:#1e40af/g,'background:'+cMain)
+                   .replace(/background:linear-gradient\(135deg,#1e3a8a,#1e40af\)/g,'background:linear-gradient(135deg,'+cSub+','+cMain+')')
+                   .replace(/#3b82f6/g,cSub)
+                   .replace(/#f59e0b/g,cAcc);
+
+    // 社名置換
+    if(compName&&compName!==document.getElementById('com').value){
+      newHtml=newHtml.replace(new RegExp(document.getElementById('com').value||'御社','g'),compName);
+    }
+
+    // フォントサイズ
+    if(fontSize==='18px'){
+      newHtml=newHtml.replace(/font-size:15px/g,'font-size:18px').replace(/font-size:14px/g,'font-size:17px').replace(/font-size:13px/g,'font-size:16px');
+    }
+
+    // キャッチコピー置換
+    if(catchTxt&&cp){
+      newHtml=newHtml.replace(new RegExp(cp.catch.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'),catchTxt);
+    }
+    if(subTxt&&cp){
+      newHtml=newHtml.replace(new RegExp(cp.sub.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'),subTxt);
+    }
+
+    // 強み置換
+    if(str1)newHtml=newHtml.replace('確かな実績・技術力',str1);
+    if(str2)newHtml=newHtml.replace(document.getElementById('reg').value+'地域密着のサービス',str2);
+    if(str3)newHtml=newHtml.replace('安心のアフターサポート',str3);
+
+    // お客様の声置換
+    if(v1)newHtml=newHtml.replace('丁寧な対応と高い技術力に大変満足しています。また相談させていただきたいと思います。',v1);
+    if(v2)newHtml=newHtml.replace('スピーディな対応で助かりました。プロの仕事ぶりに感動しました。',v2);
+    if(v3)newHtml=newHtml.replace('何度もお世話になっています。いつも期待以上の結果を出してくださいます。',v3);
+
+    // 電話・営業時間・定休日
+    if(tel)newHtml=newHtml.replace(/営業時間：9:00〜18:00/,tel?'電話：'+tel+' ／ 営業時間：'+(hours||'9:00〜18:00'):'営業時間：'+(hours||'9:00〜18:00'));
+    if(hours)newHtml=newHtml.replace('9:00〜18:00',hours);
+    if(holiday)newHtml=newHtml.replace('日曜・祝日',holiday);
+
+    // 非表示ページのセクションをコメントアウト（簡易対応）
+    hiddenPages.forEach(function(i){
+      var re=new RegExp('<section id="sec'+i+'"[\\s\\S]*?</section>','g');
+      newHtml=newHtml.replace(re,'<!-- ページ非表示 -->');
+    });
+
+    html=newHtml;
+    window.H('s_reLoad');
+    window.S('s_bu');
+    document.querySelector('.burst-t').textContent='カスタマイズ完了！';
+    document.querySelector('.burst-s').textContent='プレビューを確認してください';
+    window.fireworks();
+    setTimeout(function(){
+      window.S('s_pv');
+      window.GO('s_pv');
+      window.toast('✅ カスタマイズを反映しました！');
+    },1800);
+  },2000);
 }
 
 window.openPrev = function() {
@@ -983,30 +965,14 @@ window.sendMail = function(){
   window.location.href='mailto:'+de+'?subject='+sub+'&body='+body;window.toast('📧 メーラーが起動しました');
 }
 
-window.fixHP = function(){
-  var req=document.getElementById('fix_req').value;
-  if(!req){alert('修正指示を入力してください');return;}
-  if(!html){alert('先にホームページを生成してください');return;}
-  window.H('s_pv');window.S('s_hl');window.GO('s_hl');
-  var pb=document.getElementById('pgBar');pb.style.animation='none';void pb.offsetWidth;pb.style.animation='prog 3s linear forwards';
-  // 修正指示をコメントとして埋め込み再生成
-  setTimeout(function(){
-    html='<!-- 修正指示：'+req+' -->\n'+html;
-    document.getElementById('fix_req').value='';
-    window.H('s_hl');window.S('s_bu');
-    document.querySelector('.burst-t').textContent='修正が完了しました！';
-    document.querySelector('.burst-s').textContent='プレビューを確認してください';
-    window.fireworks();
-    setTimeout(function(){window.S('s_pv');window.GO('s_pv');window.toast('✅ 修正を反映しました！');},1800);
-  },2800);
-}
-
 window.resetAll = function(){
-  ind="";cons=[];html="";cp=null;pats=[];
+  ind="";cons=[];html="";cp=null;pats=[];window._diagData=null;
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
   ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('pgBar').style.animation='none';
-  window.S('s1');['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv'].forEach(window.H);
+  document.getElementById('pageEditors').innerHTML='';
+  document.getElementById('c_compname').value='';
+  window.S('s1');['s_dl','s_res','s2','s_cl','s_cp','s_gb','s_hl','s_bu','s_pv','s_reLoad'].forEach(window.H);
   ['ls1','ls2','ls3','ls4','ls5'].forEach(function(id){document.getElementById(id).classList.remove('done');});
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1025,7 +991,7 @@ document.getElementById('confirmBtn').addEventListener('click',function(){window
 document.getElementById('b_diag').addEventListener('click',window.startDiag);
 document.getElementById('b_copy').addEventListener('click',window.genCopy);
 document.getElementById('b_hp').addEventListener('click',window.genHP);
-document.getElementById('b_fix').addEventListener('click',window.fixHP);
+document.getElementById('b_reGen').addEventListener('click',window.reGenHP);
 document.getElementById('b_dl').addEventListener('click',window.dlHP);
 document.getElementById('b_mail').addEventListener('click',window.sendMail);
 document.getElementById('b_rst').addEventListener('click',window.resetAll);
