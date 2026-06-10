@@ -577,24 +577,31 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
       </div>
     </div>
 
-    <!-- ⑤保存＆送信 -->
-    <button class="btn-blue" id="b_hs_save" style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;">
-      💾 ヒアリングシートを保存する
-    </button>
+    </div>
+
+    <!-- ⑤送信 -->
     <button class="btn-hs-mail" id="b_hs_mail" style="margin-top:8px;">
       📧 ヒアリング内容をディレクションにメールで送る
     </button>
 
-    <!-- 送信完了メッセージ -->
+    <!-- 送信完了メッセージ（送信後のみ表示） -->
     <div id="hs_done" style="display:none;margin-top:16px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.4);border-radius:14px;padding:20px;text-align:center;">
       <div style="font-size:32px;margin-bottom:10px;">✅</div>
       <div style="font-size:16px;font-weight:800;color:#22c55e;margin-bottom:6px;">送信完了しました！</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">ヒアリングシートをディレクション担当者に送信しました。<br>内容はlocalStorageに保存されています。</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">ヒアリングシートをディレクション担当者に送信しました。</div>
     </div>
   </div>
 
-  <button class="btn-blue" id="b_dl" style="margin-top:16px;">💾 HTMLをダウンロード</button>
-  <button class="btn-ghost" id="b_rst">🔄 最初からやり直す</button>
+  <!-- STEP5 -->
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin-top:16px;">
+    <div style="font-size:11px;font-weight:700;color:var(--a1);letter-spacing:3px;margin-bottom:8px;">STEP 05｜8割完成HPをディレクションへ</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:16px;">
+      ① 上の「ヒアリング内容をメールで送る」でヒアリングシートを送信<br>
+      ② 下のボタンでHTMLをダウンロード → メールに添付して送信
+    </div>
+    <button class="btn-blue" id="b_dl" style="margin-top:0;">💾 HTMLをダウンロード</button>
+    <button class="btn-ghost" id="b_rst" style="margin-top:12px;">🔄 最初からやり直す</button>
+  </div>
 </div>
 
 </div>
@@ -1120,7 +1127,6 @@ document.getElementById('confirmBtn').addEventListener('click',function(){window
 document.getElementById('b_diag').addEventListener('click',window.startDiag);
 document.getElementById('b_copy').addEventListener('click',window.genCopy);
 document.getElementById('b_hp').addEventListener('click',window.genHP);
-document.getElementById('b_hs_save').addEventListener('click',window.saveHearing);
 document.getElementById('b_hs_mail').addEventListener('click',window.sendHsMail);
 document.getElementById('closeSend').addEventListener('click',function(){window.closeM('mSend');});
 
