@@ -944,41 +944,77 @@ window.genCopy = function(){
 }
 
 function showCopyPats(data){
-  pats=data.patterns||[];
+  // グローバルpatsに確実にセット
+  pats=[];
+  var patterns=data.patterns||data||[];
+  if(!Array.isArray(patterns))patterns=[];
+
   for(var i=0;i<3;i++){
-    var p=pats[i];
+    var p=patterns[i];
     if(p){
-      document.getElementById('cpn'+i).textContent='パターン'+p.id+'：'+p.concept;
-      document.getElementById('cpc'+i).textContent=p.catch;
-      document.getElementById('cps'+i).textContent=p.sub;
-      document.getElementById('cp'+i).classList.remove('H');
-    } else {
-      document.getElementById('cp'+i).classList.add('H');
+      pats[i]={id:p.id||i+1,catch:p.catch||p['catch']||'',sub:p.sub||'',concept:p.concept||''};
+      document.getElementById('cpn'+i).textContent='パターン'+(i+1)+'：'+(p.concept||'');
+      document.getElementById('cpc'+i).textContent=p.catch||p['catch']||'';
+      document.getElementById('cps'+i).textContent=p.sub||'';
     }
   }
+
   // ヒアリングシートにも反映
   for(var j=0;j<3;j++){
     if(pats[j]){
       var hn=document.getElementById('hs_cpn'+j);
       var hc=document.getElementById('hs_cpc'+j);
-      var hs=document.getElementById('hs_cps'+j);
-      if(hn)hn.textContent='パターン'+(j+1)+'：'+pats[j].concept;
-      if(hc)hc.textContent=pats[j].catch;
-      if(hs)hs.textContent=pats[j].sub;
+      var hs2=document.getElementById('hs_cps'+j);
+      if(hn)hn.textContent='パターン'+(j+1)+'：'+(pats[j].concept||'');
+      if(hc)hc.textContent=pats[j].catch||'';
+      if(hs2)hs2.textContent=pats[j].sub||'';
     }
   }
-  window.H('s_cl');window.S('s_cp');window.GO('s_cp');
+
+  window.H('s_cl');
+  window.S('s_cp');
+  window.GO('s_cp');
+
+  console.log('pats set:', pats);
 }
 
-window.selCP = function(i){
-  if(!pats[i])return;
-  document.getElementById('cp0').classList.remove('on');
-  document.getElementById('cp1').classList.remove('on');
-  document.getElementById('cp2').classList.remove('on');
-  document.getElementById('cp'+i).classList.add('on');
-  cp={id:pats[i].id,catch:pats[i].catch,sub:pats[i].sub,concept:pats[i].concept,appealPoints:[],serviceDescriptions:[]};
-  window.toast('✅ パターン'+(i+1)+'を選択！');
-  window.S('s_gb');window.GO('s_gb');
+window.selCP = function(idx){
+  console.log('selCP called:', idx, 'pats:', pats);
+  // patsが空でもカードのテキストから直接取得する
+  var catchTxt=document.getElementById('cpc'+idx).textContent;
+  var subTxt=document.getElementById('cps'+idx).textContent;
+  var conceptTxt=document.getElementById('cpn'+idx).textContent;
+
+  if(!catchTxt||catchTxt==='-'){
+    window.toast('⚠️ コピーが生成されていません');
+    return;
+  }
+
+  // 選択状態を更新
+  for(var k=0;k<3;k++){
+    document.getElementById('cp'+k).classList.remove('on');
+  }
+  document.getElementById('cp'+idx).classList.add('on');
+
+  // cpグローバルにセット
+  cp={
+    id:idx+1,
+    catch:catchTxt,
+    sub:subTxt,
+    concept:conceptTxt,
+    appealPoints:[],
+    serviceDescriptions:[]
+  };
+
+  // patsも確実に更新
+  if(!pats[idx]){
+    pats[idx]={id:idx+1,catch:catchTxt,sub:subTxt,concept:conceptTxt};
+  }
+
+  window.toast('✅ パターン'+(idx+1)+'を選択！');
+  window.S('s_gb');
+  window.GO('s_gb');
+  console.log('cp set:', cp);
 }
 
 window.genHP = function(){
