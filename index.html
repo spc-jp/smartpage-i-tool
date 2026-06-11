@@ -444,24 +444,29 @@ textarea.inp{resize:vertical;min-height:110px;line-height:1.7;}
 
 <div class="card H" id="s_cp">
   <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:16px;">💡 オーナーと一緒に選んでください。どれが一番「刺さりますか？」</div>
-  <div class="cpcard" id="cp0" onclick="window.selCP(0)">
+  <div class="cpcard" id="cp0">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn0">パターン1：</div>
     <div class="cp-catch" id="cpc0">-</div>
     <div class="cp-sub" id="cps0">-</div>
   </div>
-  <div class="cpcard" id="cp1" onclick="window.selCP(1)">
+  <div class="cpcard" id="cp1">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn1">パターン2：</div>
     <div class="cp-catch" id="cpc1">-</div>
     <div class="cp-sub" id="cps1">-</div>
   </div>
-  <div class="cpcard" id="cp2" onclick="window.selCP(2)">
+  <div class="cpcard" id="cp2">
     <span class="cp-badge">✓ 選択中</span>
     <div class="cp-num" id="cpn2">パターン3：</div>
     <div class="cp-catch" id="cpc2">-</div>
     <div class="cp-sub" id="cps2">-</div>
   </div>
+  <!-- 一括コピーボタン -->
+  <button id="b_copyAll" style="width:100%;margin-top:16px;padding:13px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.2);border-radius:12px;color:rgba(255,255,255,0.7);font-size:14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;">
+    📋 3パターンをまとめてコピー
+  </button>
+  <div id="copyAllMsg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#22c55e;">✅ コピーしました！</div>
 </div>
 
 <div class="card-gold H" id="s_gb">
@@ -1537,6 +1542,35 @@ document.getElementById('clearDemoBtn').addEventListener('click',function(){wind
 document.getElementById('confirmBtn').addEventListener('click',function(){window.openConfirm();window.closeS();});
 document.getElementById('b_diag').addEventListener('click',window.startDiag);
 document.getElementById('b_copy').addEventListener('click',window.genCopy);
+// コピーカード選択（イベント委任方式）
+document.addEventListener('click',function(e){
+  var card=e.target.closest('.cpcard');
+  if(!card)return;
+  var id=card.id;
+  if(id==='cp0')window.selCP(0);
+  else if(id==='cp1')window.selCP(1);
+  else if(id==='cp2')window.selCP(2);
+});
+document.getElementById('b_copyAll').addEventListener('click',function(){
+  var txt='';
+  for(var i=0;i<3;i++){
+    var ct=document.getElementById('cpc'+i).textContent;
+    var st=document.getElementById('cps'+i).textContent;
+    var nt=document.getElementById('cpn'+i).textContent;
+    if(ct&&ct!=='-')txt+='【'+nt+'】\nメイン：'+ct+'\nサブ：'+st+'\n\n';
+  }
+  if(!txt){window.toast('⚠️ まずコピーを生成してください');return;}
+  navigator.clipboard.writeText(txt.trim()).then(function(){
+    var m=document.getElementById('copyAllMsg');m.style.display='block';
+    setTimeout(function(){m.style.display='none';},2500);
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=txt.trim();
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+    var m=document.getElementById('copyAllMsg');m.style.display='block';
+    setTimeout(function(){m.style.display='none';},2500);
+  });
+});
 document.getElementById('b_hp').addEventListener('click',window.genHP);
 document.getElementById('b_hs_mail').addEventListener('click',window.sendHsMail);
 document.getElementById('closeSend').addEventListener('click',function(){window.closeM('mSend');});
