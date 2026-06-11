@@ -634,6 +634,8 @@ window.loadDemo = function(){
   document.getElementById('reg').value=DEMO.reg;document.getElementById('com').value=DEMO.com;
   document.getElementById('str').value=DEMO.str;document.getElementById('app').value=DEMO.app;
   cons=[];
+  document.getElementById('conOtherWrap').style.display='none';
+  document.getElementById('conOther').value='';
   document.querySelectorAll('#conC .chip').forEach(function(c){c.classList.remove('on');if(DEMO.cons.includes(c.textContent.trim())){c.classList.add('on');cons.push(c.textContent.trim());}});
   window.toast('🎯 デモデータを入力しました');
 }
@@ -642,6 +644,8 @@ window.clearDemo = function(){
   ind="";cons=[];document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
   document.getElementById('indOtherWrap').style.display='none';
   document.getElementById('indOther').value='';
+  document.getElementById('conOtherWrap').style.display='none';
+  document.getElementById('conOther').value='';
   ['reg','com','str','app'].forEach(function(id){document.getElementById(id).value='';});window.toast('🗑️ クリアしました');
 }
 
@@ -1179,7 +1183,12 @@ document.getElementById('conOther').addEventListener('input',function(){
   });
   if(v&&!cons.includes(v))cons.push(v);
 });
-document.addEventListener('click',function(e){if(!e.target.closest('.gwrap'))window.closeS();});
+document.addEventListener('click',function(e){
+  if(e.target.closest('.gwrap'))return;
+  if(e.target.closest('.chip'))return;
+  if(e.target.closest('.mo'))return;
+  window.closeS();
+});
 window.loadMails();
 </script>
 </body>
